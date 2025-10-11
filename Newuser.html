@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripcions KÄRŸ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <?!= include('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min'); ?>
+
+    <?!= include('CSS'); ?>
+</head>
+<body class="page-newuser">
+    <canvas id="particle-canvas"></canvas>
+    <div class="logo-container">
+        <img src="https://i.imgur.com/Sk2UbcA.png" alt="Logo de l'Aplicació" class="header-logo" crossorigin="anonymous">
+    </div>
+    <div class="container">
+        <div id="initial-view">
+            <div class="initial-buttons">
+                <a href="https://script.google.com/macros/s/AKfycby_yOAJdzuH8N2TsIfWPnKTLbfuy9_8qfNTxviJnYUhBMc0f1pHe1C_ug5k3Ao7rx2Y/exec" target="_blank" id="btnAcceder">Accedeix a KÄRŸ</a>
+                <button id="btnMostrarFormulari">Noves Inscripcions</button><button id="btnMostrarContacte">Contactar</button>
+            </div></div>
+        <form id="registrationForm" style="display: none;">
+            <h2>Formulari d'Inscripció</h2>
+
+            <div class="email-note"><strong>Important:</strong> Has d'utilitzar un compte de Google (ex: @gmail.com).</div>
+
+            <div class="form-sections-grid">
+                <fieldset>
+                    <legend>Dades Personals</legend>
+                    <div class="form-grid">
+                        <div><label for="email">Email de Google:</label><input type="email" id="email" name="email" required></div>
+                        <div><label for="nom">Nom:</label><input type="text" id="nom" name="nom" required></div>
+                        <div><label for="cognoms">Cognoms:</label><input type="text" id="cognoms" name="cognoms" required></div>
+                        <div><label for="dni">DNI:</label><input type="text" id="dni" name="dni" required></div>
+                        <div><label for="telèfon">Telèfon:</label><input type="tel" id="telèfon" name="telèfon" required></div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Dades de Contacte</legend>
+                    <div class="form-grid">
+                        <div><label for="adreca">Adreça:</label><input type="text" id="adreca" name="adreca" required></div>
+                        <div><label for="poblacio">Població:</label><input type="text" id="poblacio" name="poblacio" required></div>
+                        <div><label for="codiPostal">Codi Postal:</label><input type="text" id="codiPostal" name="codiPostal" required></div>
+                        <div><label for="pais">País:</label><input type="text" id="pais" name="pais" required></div>
+                    </div>
+                </fieldset>
+                <fieldset class="full-width-section">
+                    <legend>Comentaris</legend>
+                    <div>
+                        <label for="comentaris">Comentaris per als administradors (opcional):</label>
+                        <textarea id="comentaris" name="comentaris" rows="3"></textarea>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="button-group">
+                <button type="submit" id="btnSubmit">Envia la Inscripció</button>
+            </div>
+        </form>
+        <div id="output"></div>
+    </div>
+    <div class="slogan">
+        MENYS RUTINA - MÉS PROJECTE
+    </div>
+
+    <!-- Modal de Contacte -->
+    <div id="contact-modal" class="modal-contact">
+        <div class="modal-contact-content">
+            <span class="close-contact-modal">&times;</span>
+            <h2>Formulari de Contacte</h2>
+            <form id="contactForm">
+                <label for="contact-name">El teu Nom:</label>
+                <input type="text" id="contact-name" name="name" required>
+                <label for="contact-email">El teu Email:</label>
+                <input type="email" id="contact-email" name="email" required>
+                <label for="contact-message">Missatge:</label>
+                <textarea id="contact-message" name="message" rows="5" required></textarea>
+                <button type="submit" id="btnSendContact" class="button-group" style="font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 300; color: #ffffff; padding: 10px 22px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; background-color: var(--submit-btn-bg); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; text-transform: uppercase;">Enviar Consulta</button>
+            </form>
+            <div id="contact-output"></div>
+        </div>
+    </div>
+<?!= include('BACKGROUND'); ?>
+
+    <script>
+      const URL_API_SCRIPT = '<?!= getScriptUrl() ?>';
+    </script>
+    
+    <?!= include('SCRIPT'); ?>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panell d'Administració KÄRŸ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <?!= include('CSS'); ?>
+</head>
+<body class="page-admin">
+    <canvas id="particle-canvas"></canvas>
+    <div id="spinner-overlay" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
+    <div class="container">
+        <div class="user-list-section">
+            <h2>Nous Usuaris Pendents - KÄRŸ</h2>
+            <div class="list-header">
+                <input type="text" id="searchInput" placeholder="Cerca per nom o cognom..." style="margin-bottom: 0;">
+                <button type="button" id="btnResum">Veure Informe</button>
+            </div>
+            <div class="user-list-container">
+                <ul id="userList" class="user-list"></ul>
+            </div>
+             <a href="<?= getScriptUrl() ?>?page=Dashboard" style="text-align: center; margin-top: 15px; display: block;">Tornar al Dashboard</a>
+        </div>
+        <div class="form-section">
+            <form id="adminForm">
+                <div class="header-actions">
+                    <h2>Detalls de l'Usuari</h2>
+                </div>
+                <input type="hidden" id="id">
+                <input type="hidden" id="fila">
+                <fieldset id="dadesSollicitud">
+                    <legend>Dades de la Sol·licitud</legend>
+                    <div class="form-grid">
+                        <div><label for="email">Email:</label><input type="email" id="email" readonly></div>
+                        <div><label for="nom">Nom:</label><input type="text" id="nom"></div>
+                        <div><label for="cognoms">Cognoms:</label><input type="text" id="cognoms"></div>
+                        <div><label for="dni">DNI:</label><input type="text" id="dni"></div>
+                        <div><label for="telèfon">Telèfon:</label><input type="tel" id="telèfon"></div>
+                        <div><label for="adreca">Adreça:</label><input type="text" id="adreca"></div>
+                        <div><label for="poblacio">Població:</label><input type="text" id="poblacio"></div>
+                        <div><label for="pais">País:</label><input type="text" id="pais"></div>
+                        <div><label for="codiPostal">Codi Postal:</label><input type="text" id="codiPostal"></div>
+                        <div><label for="dataSolicitud">Data Sol·licitud:</label><input type="text" id="dataSolicitud" readonly></div>
+                    </div>
+                </fieldset>
+                <fieldset id="dadesRegistre" disabled>
+                    <legend>Dades de Registre i Pagament</legend>
+                    <div class="form-grid">
+                        <div><label for="dataCobrament">Data de Cobrament:</label><input type="date" id="dataCobrament" required></div>
+                        <div><label for="quantitatPagada">Quantitat Pagada (€):</label><input type="text" id="quantitatPagada" placeholder="Ex: 50" required></div>
+                        <div>
+                            <label for="metodeCobrament">Mètode de Pagament:</label>
+                            <select id="metodeCobrament" required>
+                                <option value="">Selecciona un mètode</option>
+                                <option value="Bizum">Bizum</option>
+                                <option value="Transferència">Transferència</option>
+                                <option value="Efectiu">Efectiu</option>
+                                <option value="Altres">Altres</option>
+                            </select>
+                        </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="cobratCheckbox">
+                            <label for="cobratCheckbox">Marcar com a Cobrat</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="button-group">
+                    <button type="button" id="btnNetejar" onclick="resetForm()">Netejar</button>
+                    <button type="button" id="btnModificar" disabled>Guardar Canvis</button>
+                    <button type="button" id="btnRegistrar" disabled>Registrar Usuari</button>
+                </div>
+            </form>
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Informe d'Usuaris Pendents</h2>
+            <div id="reportContent"></div>
+        </div>
+    </div>
+
+    <?!= include('BACKGROUND'); ?>
+    
+    <script>
+      const URL_API_SCRIPT = '<?!= getScriptUrl() ?>';
+    </script>
+    
+    <?!= include('SCRIPT'); ?>
+</body>
+</html>
