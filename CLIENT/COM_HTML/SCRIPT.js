@@ -299,4 +299,3 @@ function showNotification(message, type = 'success') {
         setTimeout(() => document.body.removeChild(notification), 300);
     }, 5000);
 }
-</script>

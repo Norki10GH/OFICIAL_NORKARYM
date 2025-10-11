@@ -1,4 +1,3 @@
-<script>
 // --- LÒGICA DE L'ANIMACIÓ DE PARTÍCULES (BACKGROUND.html) ---
     const canvas = document.getElementById('particle-canvas');
     if (canvas) {
@@ -62,4 +61,3 @@
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; init(); });
         init(); animate();
     }
-</script>

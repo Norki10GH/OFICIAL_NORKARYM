@@ -11,7 +11,7 @@
     
     <?!= include('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min'); ?>
 
-    <?!= include('CSS'); ?>
+    <link rel="stylesheet" href="CSS.css">
 </head>
 <body class="page-newuser">
     <canvas id="particle-canvas"></canvas>
@@ -84,12 +84,12 @@
             <div id="contact-output"></div>
         </div>
     </div>
-<?!= include('BACKGROUND'); ?>
+<script src="BACKGROUND.js"></script>
 
     <script>
       const URL_API_SCRIPT = '<?!= getScriptUrl() ?>';
     </script>
     
-    <?!= include('SCRIPT'); ?>
+    <script src="SCRIPT.js"></script>
 </body>
 </html>
