@@ -1,4 +1,6 @@
-// Fitxer: KOF_KARY/ASERV/COM_GS/Code.js (Versió Segura)
+// Fitxer: KOF_KARY/ASERV/COM_GS/Code.js (Versió Segura) 
+
+//allioli!
 
 /**
  * Funció principal que actua com a 'router'. Decideix quina pàgina mostrar.
