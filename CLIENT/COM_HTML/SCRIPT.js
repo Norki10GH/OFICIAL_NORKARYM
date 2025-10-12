@@ -372,4 +372,3 @@ function showNotification(message, type = 'success') {
     }, 5000);
 }
 
-});
