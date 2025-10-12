@@ -1,12 +1,44 @@
-      <!DOCTYPE html>
-      <html lang="ca">
-      <head>
-          <meta charset="UTF-8">
-          <title>Redirigint...</title>
-          <script>
-              window.location.href = './Login.html';
-          </script>
-      </head>
-      <body>
-      </body>
-      </html>
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sessió - NORKÄRŸM</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./COM_HTML/CSS.css">
+</head>
+<body class="page-login">
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="container">
+    
+    <div id="app-content" class="hidden">
+      <h2>Benvingut/da!</h2>
+      <p>Has iniciat sessió correctament.</p>
+    </div>
+
+    <div id="login-form">
+      <h2>Iniciar Sessió</h2>
+      
+      <form id="email-form">
+        <input type="email" id="email" placeholder="El teu correu electrònic" required>
+        <button type="submit">Continuar</button>
+      </form>
+      
+      <form id="password-form" class="hidden">
+        <input type="password" id="password" placeholder="Contrasenya" required>
+        <button type="submit" id="password-button">Iniciar Sessió</button>
+      </form>
+      
+      <div id="status-message"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./COM_HTML/SCRIPT.js"></script>
+
+</body>
+</html>
