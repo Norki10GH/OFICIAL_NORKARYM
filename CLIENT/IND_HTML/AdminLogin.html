@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accés a Administració</title>
-    <link rel="stylesheet" href="CSS.css">
+    <link rel="stylesheet" href="../COM_HTML/CSS.css">
 </head>
 <body class="page-login">
     <canvas id="particle-canvas"></canvas>
@@ -25,32 +25,20 @@
             e.preventDefault();
             const code = document.getElementById('admin-code').value;
             const statusDiv = document.getElementById('status-message');
-            statusDiv.innerHTML = 'Verificant...';
-            statusDiv.className = '';
-
-            google.script.run
-                .withSuccessHandler(onVerificationSuccess)
-                .withFailureHandler(onFailure)
-                .verifyAdminCode(code);
-        });
-
-        function onVerificationSuccess(response) {
-            if (response.status === 'ok') {
-                // Redirigeix al panell d'admin si el codi és correcte
-                window.location.href = '<?= getScriptUrl() ?>?page=Admin';
+            
+            // Aquesta lògica s'hauria de moure a SCRIPT.js i gestionar-se
+            // a través de funcions que interactuïn amb un backend real si fos necessari.
+            // De moment, simulem una comprovació simple.
+            if (code === "1234") { // Codi de prova, canviar per una lògica segura
+                statusDiv.className = 'success';
+                statusDiv.textContent = 'Accés concedit. Redirigint...';
+                window.location.href = './Admin.html';
             } else {
-                const statusDiv = document.getElementById('status-message');
                 statusDiv.className = 'error';
-                statusDiv.textContent = response.message || 'Codi incorrecte.';
+                statusDiv.textContent = 'Codi incorrecte.';
             }
-        }
-
-        function onFailure(error) {
-            const statusDiv = document.getElementById('status-message');
-            statusDiv.className = 'error';
-            statusDiv.textContent = 'Error: ' + error.message;
-        }
+        });
     </script>
-    <script src="BACKGROUND.js"></script>
+    <script type="module" src="../COM_HTML/SCRIPT.js"></script>
 </body>
 </html>
