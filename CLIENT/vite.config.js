@@ -19,8 +19,7 @@ export default defineConfig({
         afGallina: resolve(__dirname, 'IND_HTML/AF_GALLINA.html'),
         gestioEmpresaMare: resolve(__dirname, 'IND_HTML/GestioEmpresaMare.html'),
         newuser: resolve(__dirname, 'IND_HTML/Newuser.html'),
-        pagIndef: resolve(__dirname, 'IND_HTML/PAG_INDEF.html'),
-        loginnou: resolve(__dirname, 'IND_HTML/loginnou.html') // Afegeixo aquesta també per si de cas
+        pagIndef: resolve(__dirname, 'IND_HTML/PAG_INDEF.html'),// Afegeixo aquesta també per si de cas
       }
     }
   }

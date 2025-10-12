@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pàgina no trobada</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="CSS.css">
+</head>
+<body class="page-indef">
+    
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="form-container">
+        <h2>Pàgina no trobada</h2>
+        <!-- 
+            CORRECCIÓ: L'enllaç ara utilitza getScriptUrl() per tornar al Dashboard de l'aplicació,
+            en lloc de redirigir a un lloc extern.
+        -->
+        <a href="<?= getScriptUrl() ?>?page=Dashboard" class="btn-home">Tornar a l'inici</a>
+    </div>
+
+    <script src="BACKGROUND.js"></script>
+
+</body>
+</html>
