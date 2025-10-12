@@ -3,28 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvingut a NORKÄRŸM</title>
-    <!-- El CSS es carregarà dinàmicament a través de main.js -->
+    <title>Inici - NORKÄRŸM</title>
+    <link rel="stylesheet" href="/css/base/global.css">
+    <link rel="stylesheet" href="/css/pages/inici.css">
 </head>
 <body class="page-inici">
-
     <canvas id="particle-canvas"></canvas>
-
-    <main class="main-container">
-        <div class="logo-container">
-            <img src="/src/assets/logo-norkarym.svg" alt="Logo de NORKÄRŸM" class="logo">
-        </div>
-        
-        <h1 class="main-title">NORKÄRŸM</h1>
-        <p class="subtitle">La teva plataforma de gestió centralitzada</p>
-        
-        <div class="button-group">
-            <a href="/src/pages/login.html" class="button button-primary">ACCEDIR</a>
-            <a href="/src/pages/newuser.html" class="button button-secondary">REGISTRAR-SE</a>
-        </div>
-    </main>
-    
-    <script type="module" src="/src/js/main.js"></script>
-
+    <div class="inici-container">
+        <img src="/logo.png" alt="NORKÄRŸM Logo" class="logo">
+        <p class="inici-frase">El teu soci per créixer.</p>
+    </div>
+    <script type="module" src="/js/main.js"></script>
 </body>
 </html>
