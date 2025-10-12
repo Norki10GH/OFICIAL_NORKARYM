@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accés a Administració</title>
+    <link rel="stylesheet" href="../COM_HTML/CSS.css">
+</head>
+<body class="page-login">
+    <canvas id="particle-canvas"></canvas>
+    <div class="container">
+        <div id="login-form">
+            <h2>Accés d'Administrador</h2>
+            <form id="admin-code-form">
+                <input type="password" id="admin-code" placeholder="Codi d'accés" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <div id="status-message"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('admin-code-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('admin-code').value;
+            const statusDiv = document.getElementById('status-message');
+            
+            // Aquesta lògica s'hauria de moure a SCRIPT.js i gestionar-se
+            // a través de funcions que interactuïn amb un backend real si fos necessari.
+            // De moment, simulem una comprovació simple.
+            if (code === "1234") { // Codi de prova, canviar per una lògica segura
+                statusDiv.className = 'success';
+                statusDiv.textContent = 'Accés concedit. Redirigint...';
+                window.location.href = './Admin.html';
+            } else {
+                statusDiv.className = 'error';
+                statusDiv.textContent = 'Codi incorrecte.';
+            }
+        });
+    </script>
+    <script type="module" src="../COM_HTML/SCRIPT.js"></script>
+</body>
+</html>

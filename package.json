@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "firebase": "^12.4.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --prefix CLIENT"
   }
 }
