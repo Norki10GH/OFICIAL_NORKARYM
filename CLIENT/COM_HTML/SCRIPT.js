@@ -1,3 +1,20 @@
+// CLIENT/COM_HTML/SCRIPT.js
+
+// Importa els mòduls que necessitis al principi de tot
+import { auth } from './firebase-init.js';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import './BACKGROUND.js'; // Importem el fons animat perquè s'executi
+
+// La resta del teu codi va dins de l'event listener
+document.addEventListener('DOMContentLoaded', () => {
+    // ... aquí anirà la lògica de cada pàgina, com ja tenies ...
+    // Per exemple, el codi per a la pàgina de login:
+    if (document.body.classList.contains('page-login')) {
+        // El teu codi de login amb `signInWithEmailAndPassword` aniria aquí
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÒGICA DEL FORMULARI ADMIN (Admin.html) ---
