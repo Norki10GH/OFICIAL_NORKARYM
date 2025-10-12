@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // NOTA: La URL del script s'ha de passar d'alguna manera. Assumim que és la base.
                 // En un entorn real, la URL del Dashboard seria fixa.
                 const baseUrl = window.location.href.split('?')[0];
-                window.location.href = baseUrl + '?page=Dashboard';
+                window.location.href = './IND_HTML/Dashboard.html';
 
             } catch (error) {
                 statusDiv.className = 'error';
