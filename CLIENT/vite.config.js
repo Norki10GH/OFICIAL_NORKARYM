@@ -11,10 +11,7 @@ export default defineConfig({
       input: {
         // Pàgina principal a l'arrel de CLIENT
         main: resolve(__dirname, 'index.html'),
-
-        // Pàgines reals dins de la subcarpeta IND_HTML
-
-        pagIndef: resolve(__dirname, 'IND_HTML/pagindef.html')
+        // Pàgines reals dins de la subcarpeta 
       }
     }
   }
