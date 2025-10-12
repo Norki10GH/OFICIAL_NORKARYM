@@ -17,17 +17,11 @@
     
     <div class="main-content-wrapper">
         <h1>Gestió de Clients</h1>
-...
 
-        <!-- Navegació (opcional, però recomanada) -->
+        <!-- Navegació -->
         <nav class="main-nav">
-            <!--
-                Generem les URLs dinàmicament.
-                '<?!= getScriptUrl() ?>' obté la URL base de l'app.
-                Li afegim el paràmetre '?page=' amb el nom de la pàgina.
-            -->
-            <a href="<?!= getScriptUrl() ?>?page=inici" class="nav-link">Inici</a>
-            <a href="<?!= getScriptUrl() ?>?page=clients" class="nav-link">Clients</a>
+            <a href="./Dashboard.html" class="nav-link">Inici</a>
+            <a href="./AF_CLIENTS.html" class="nav-link">Clients</a>
             <a href="#" class="nav-link">Factures (Properament)</a>
         </nav>
 
@@ -95,9 +89,6 @@
         </div>
     </div>
 
-
-    <script src="../COM_HTML/SCRIPT.js"></script>
-    <script type="module" src="../COM_HTML/BACKGROUND.js"></script>
-
+    <script type="module" src="../COM_HTML/SCRIPT.js"></script>
 </body>
 </html>
