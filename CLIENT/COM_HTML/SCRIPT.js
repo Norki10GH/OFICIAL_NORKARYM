@@ -2,7 +2,7 @@
 
 // Importa els mòduls que necessitis al principi de tot
 import { getAuth, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
-import './BACKGROUND.js'; // Importem el fons animat perquè s'executi
+import '../src/js/components/particle-animation.js'; // Importem el fons animat perquè s'executi
 
 // La resta del teu codi va dins de l'event listener
 document.addEventListener('DOMContentLoaded', () => {
