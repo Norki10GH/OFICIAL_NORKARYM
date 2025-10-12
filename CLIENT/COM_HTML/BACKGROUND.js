@@ -1,4 +1,4 @@
-// --- LÒGICA DE L'ANIMACIÓ DE PARTÍCULES (BACKGROUND.html) ---
+// --- LÒGICA DE L'ANIMACIÓ DE PARTÍCULES (BACKGROUND.html) --- pa pipas
     const canvas = document.getElementById('particle-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
