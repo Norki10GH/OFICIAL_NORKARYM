@@ -3,190 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pàgina d'Inici</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- ESTILS GLOBALS I FONDO ANIMADO --- */
-        :root {
-            --bg-color: #121212;
-            --particle-color: #777777;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            margin: 0;
-            min-height: 100vh; /* MODIFICAT: Assegura que el body ocupi almenys tota l'alçada, però pot créixer */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Lato', sans-serif;
-            overflow-x: hidden; /* Evitem el scroll horitzontal no desitjat */
-        }
-
-        #particle-canvas {
-            position: fixed; /* MODIFICAT: Fixem el canvas al fons de la finestra */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; 
-        }
-
-        /* Contenidor principal per centrar el nou contingut */
-        .main-content-wrapper {
-            /* MODIFICAT: Eliminem position:absolute per a que flueixi normalment */
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px; /* Afegim una mica més de padding vertical */
-            box-sizing: border-box;
-            text-align: center;
-            z-index: 10;
-        }
-
-        /* --- Estils pel logo i text --- */
-        .welcome-logo {
-            max-width: 280px;
-            height: auto;
-            margin-bottom: 30px;
-            opacity: 0.85;
-            transition: all 0.3s ease;
-        }
-
-        .welcome-logo:hover {
-            opacity: 1;
-            transform: scale(1.03);
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-        }
-
-        .main-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2em;
-            font-weight: 300;
-            color: #ffffff;
-            letter-spacing: 1px;
-            margin: 0 0 15px 0;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-family: 'Lato', sans-serif;
-            font-size: 1.4em;
-            font-weight: 300;
-            color: #c0c0c0;
-            line-height: 1.6;
-            margin: 0;
-            white-space: nowrap;
-        }
-
-        /* --- ESTILS PER A MÒBILS (DISSENY RESPONSIVE) --- */
-        @media (max-width: 768px) {
-            .welcome-logo {
-                max-width: 220px;
-                margin-bottom: 25px;
-            }
-
-            .main-title {
-                font-size: 1.8em;
-            }
-
-            .subtitle {
-                font-size: 1.1em;
-                white-space: normal;
-                max-width: 90%;
-            }
-        }
-    </style>
+    <title>Benvingut a NORKÄRŸM</title>
+    <!-- El CSS es carregarà dinàmicament a través de main.js -->
 </head>
-<body>
-    
+<body class="page-inici">
+
     <canvas id="particle-canvas"></canvas>
 
-    <div class="main-content-wrapper">
+    <main class="main-container">
+        <div class="logo-container">
+            <img src="/src/assets/logo-norkarym.svg" alt="Logo de NORKÄRŸM" class="logo">
+        </div>
         
-        <img src="https://i.imgur.com/Sk2UbcA.png" alt="Logo de l'Aplicació" class="welcome-logo">
+        <h1 class="main-title">NORKÄRŸM</h1>
+        <p class="subtitle">La teva plataforma de gestió centralitzada</p>
         
-        <h1 class="main-title">EL FUTUR DE LA GESTIÓ COMENÇA AQUÍ</h1>
-        
-        <p class="subtitle">Estem finalitzant l'eina per impulsar l'èxit del teu negoci</p>
-
-    </div>
-
-<script>
-    // La lògica de l'animació no necessita cap canvi.
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let isMouseMoving = false;
-    let mouseMoveTimer;
-    const vibrantColors = ['#cccccc', '#aaaaaa', '#888888', '#dddddd', '#bbbbbb'];
-    let particlesArray;
-    const particleCount = 120;
-    const maxDistance = 120;
-
-    class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
-            this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size;
-            this.originalColor = color; this.vibrantColor = vibrantColors[Math.floor(Math.random() * vibrantColors.length)]; this.color = this.originalColor;
-        }
-        draw() {
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-            this.color = isMouseMoving ? this.vibrantColor : this.originalColor;
-            ctx.fillStyle = this.color; ctx.fill();
-        }
-        update() {
-            if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
-            if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
-            this.x += this.directionX;
-            this.y += this.directionY;
-            this.draw();
-        }
-    }
-    function init() {
-        particlesArray = [];
-        for (let i = 0; i < particleCount; i++) {
-            let size = Math.random() * 2 + 1;
-            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-            let directionX = (Math.random() * .4) - .2; let directionY = (Math.random() * .4) - .2;
-            let color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
-            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-        }
-    }
-    function connect() {
-        let opacityValue = 1;
-        for (let a = 0; a < particlesArray.length; a++) {
-            for (let b = a; b < particlesArray.length; b++) {
-                let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
-                if (distance < (maxDistance ** 2)) {
-                    opacityValue = 1 - (distance / (maxDistance ** 2));
-                    ctx.strokeStyle = `rgba(150, 150, 150, ${opacityValue})`; 
-                    ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
-                }
-            }
-        }
-    }
-    function animate() {
-        requestAnimationFrame(animate); ctx.clearRect(0, 0, innerWidth, innerHeight);
-        for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
-        connect();
-    }
-    window.addEventListener('mousemove', () => {
-        isMouseMoving = true; clearTimeout(mouseMoveTimer);
-        mouseMoveTimer = setTimeout(() => { isMouseMoving = false; }, 100);
-    });
-    // Aquesta funció de resize ara només afecta el canvas, el contingut s'ajusta sol
-    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; init(); });
-    init(); animate();
-</script>
+        <div class="button-group">
+            <a href="/src/pages/login.html" class="button button-primary">ACCEDIR</a>
+            <a href="/src/pages/newuser.html" class="button button-secondary">REGISTRAR-SE</a>
+        </div>
+    </main>
+    
+    <script type="module" src="/src/js/main.js"></script>
 
 </body>
 </html>

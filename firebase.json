@@ -8,6 +8,30 @@
     ],
     "rewrites": [
       {
+        "source": "/api/getNewUsers",
+        "function": "getNewUsers"
+      },
+      {
+        "source": "/api/updateNewUser",
+        "function": "updateNewUser"
+      },
+      {
+        "source": "/api/registerNewUser",
+        "function": "registerNewUser"
+      },
+      {
+        "source": "/api/getUsersSummary",
+        "function": "getUsersSummary"
+      },
+      {
+        "source": "/api/processNewUser",
+        "function": "processNewUser"
+      },
+      {
+        "source": "/api/sendContactEmail",
+        "function": "sendContactEmail"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

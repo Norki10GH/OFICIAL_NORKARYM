@@ -1,0 +1,41 @@
+/* Estils per a la pàgina d'inici */
+.page-inici .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    z-index: 2; /* Per assegurar que el contingut estigui per sobre del canvas */
+}
+
+.page-inici .logo-container {
+    margin-bottom: 2rem;
+}
+
+.page-inici .logo {
+    max-width: 150px;
+    height: auto;
+}
+
+.page-inici .main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-primary-text);
+    margin-bottom: 0.5rem;
+}
+
+.page-inici .subtitle {
+    font-size: 1.25rem;
+    color: var(--color-secondary-text);
+    margin-bottom: 3rem;
+}
+
+.page-inici .button-group {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Es poden utilitzar estils de botons globals de components/buttons.css */

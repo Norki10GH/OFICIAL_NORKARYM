@@ -1,32 +1,59 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
+// Importa l'SDK d'Admin de Firebase per interactuar amb els serveis de Firebase
+import admin from "firebase-admin";
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+// Inicialitza l'SDK d'Admin. Aquesta crida única configura l'entorn
+// perquè les funcions puguin autenticar-se i realitzar accions amb privilegis.
+admin.initializeApp();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+// Per configurar les variables d'entorn, executa les següents comandes a la
+// terminal:
+// firebase functions:config:set norkarym.admin_code="EL_TEU_CODI"
+// firebase functions:config:set norkarym.spreadsheet_id="L_ID_DEL_TEU_SPREADSHEET"
+// firebase functions:config:set norkarym.template_id="L_ID_DE_LA_TEVA_PLANTILLA"
+// firebase functions:config:set norkarym.admin_emails="email1@admin.com"
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+import functions from "firebase-functions";
+import cors from "cors";
+import * as adminController from "./src/controllers/adminController.js";
+import * as userController from "./src/controllers/userController.js";
+
+const corsHandler = cors({origin: true});
+
+// Admin functions
+export const getNewUsers = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => {
+    adminController.getNewUsers(req, res);
+  });
+});
+
+export const updateUser = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => {
+    adminController.updateNewUser(req, res);
+  });
+});
+
+export const registerNewUser = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => {
+    adminController.registerNewUser(req, res);
+  });
+});
+
+export const getUsersSummary = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => {
+    adminController.getUsersSummary(req, res);
+  });
+});
+
+// User functions
+export const processNewUser = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => {
+    userController.processNewUser(req, res);
+  });
+});
+
+export const sendContactEmail = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => {
+    userController.sendContactEmail(req, res);
+  });
+});
