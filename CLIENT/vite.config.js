@@ -12,7 +12,6 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
 
         // La resta de pàgines de la teva aplicació
-        dashboard: resolve(__dirname, 'IND_HTML/Dashboard.html'),
         admin: resolve(__dirname, 'IND_HTML/Admin.html'),
         adminLogin: resolve(__dirname, 'IND_HTML/AdminLogin.html'),
         afClients: resolve(__dirname, 'IND_HTML/AF_CLIENTS.html'),
