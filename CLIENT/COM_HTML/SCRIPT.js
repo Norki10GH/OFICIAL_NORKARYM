@@ -1,21 +1,76 @@
 // CLIENT/COM_HTML/SCRIPT.js
 
 // Importa els mòduls que necessitis al principi de tot
-import { auth } from './firebase-init.js';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
 import './BACKGROUND.js'; // Importem el fons animat perquè s'executi
 
 // La resta del teu codi va dins de l'event listener
 document.addEventListener('DOMContentLoaded', () => {
-    // ... aquí anirà la lògica de cada pàgina, com ja tenies ...
-    // Per exemple, el codi per a la pàgina de login:
+
+    // --- LÒGICA DE LA PÀGINA DE LOGIN (Login.html) ---
     if (document.body.classList.contains('page-login')) {
-        // El teu codi de login amb `signInWithEmailAndPassword` aniria aquí
+        const auth = getAuth();
+        const emailForm = document.getElementById('email-form');
+        const passwordForm = document.getElementById('password-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const statusDiv = document.getElementById('status-message');
+
+        // Gestionar el formulari de l'email
+        emailForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            statusDiv.innerHTML = 'Verificant...';
+            statusDiv.className = '';
+
+            try {
+                // Amb Firebase, primer comprovem si l'usuari existeix
+                const methods = await fetchSignInMethodsForEmail(auth, email);
+                
+                if (methods.length > 0) {
+                    // L'usuari existeix, mostrem el camp de contrasenya
+                    emailForm.classList.add('hidden');
+                    passwordForm.classList.remove('hidden');
+                    emailInput.disabled = true;
+                    passwordInput.focus();
+                } else {
+                    // L'usuari no existeix a Firebase
+                    statusDiv.className = 'error';
+                    statusDiv.textContent = 'Email no trobat. Contacta amb l\'administrador.';
+                }
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = 'Error: ' + error.message;
+            }
+        });
+
+        // Gestionar el formulari de la contrasenya
+        passwordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            statusDiv.innerHTML = 'Processant...';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                // En cas d'èxit, Firebase gestionarà la sessió.
+                // La redirecció es pot fer aquí o configurar un 'observer' d'estat d'autenticació.
+                // Per simplicitat, redirigim directament.
+                // NOTA: La URL del script s'ha de passar d'alguna manera. Assumim que és la base.
+                // En un entorn real, la URL del Dashboard seria fixa.
+                const baseUrl = window.location.href.split('?')[0];
+                window.location.href = baseUrl + '?page=Dashboard';
+
+            } catch (error) {
+                statusDiv.className = 'error';
+                if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    statusDiv.textContent = 'La contrasenya és incorrecta.';
+                } else {
+                    statusDiv.textContent = 'Error: ' + error.message;
+                }
+            }
+        });
     }
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÒGICA DEL FORMULARI ADMIN (Admin.html) ---
     if (document.body.classList.contains('page-admin')) {
@@ -316,3 +371,5 @@ function showNotification(message, type = 'success') {
         setTimeout(() => document.body.removeChild(notification), 300);
     }, 5000);
 }
+
+});
