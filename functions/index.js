@@ -5,12 +5,12 @@ import cors from "cors";
 import admin from "firebase-admin";
 
 // Importem les funcions que volem exposar des dels nostres controladors
-import { registerNewUser } from "./src/controllers/adminController.js";
+import {registerNewUser} from "./src/controllers/adminController.js";
 // import { altres funcions... } from "./src/controllers/userController.js";
 
 admin.initializeApp();
 
-const corsHandler = cors({ origin: true });
+const corsHandler = cors({origin: true});
 
 // --- DEFINICIÓ DELS ENDPOINTS DE L'API ---
 

@@ -4,13 +4,14 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "22"
+    "node": "20"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "firebase-admin": "^12.1.1",
     "firebase-functions": "^5.0.1",
+    "oficial_norkarym": "file:..",
     "pg": "^8.12.0"
   },
   "devDependencies": {

@@ -1,9 +1,9 @@
 // functions/src/services/database.js
-import db from '../config/db.js';
+import db from "../config/db.js";
 /**
  * Insereix un nou usuari a la base de dades amb estat 'PENDENT VALIDACIO'.
  * @param {object} dadesUsuari Dades de l'usuari a registrar.
- * @returns {Promise<object>} L'usuari inserit.
+ * @return {Promise<object>} L'usuari inserit.
  */
 export const dbRegisterUser = async (dadesUsuari) => {
   const {
@@ -20,9 +20,12 @@ export const dbRegisterUser = async (dadesUsuari) => {
   } = dadesUsuari;
 
   const nomComplet = `${nom} ${cognoms}`;
-  
+
   // Busquem l'ID de l'estat 'PENDENT VALIDACIO'
-  const estatResult = await db.query("SELECT id_estat_nk FROM taula_estats_nk WHERE nom_estat_nk = 'PENDENT VALIDACIO'");
+  const estatResult = await db.query(
+      "SELECT id_estat_nk FROM taula_estats_nk " +
+      "WHERE nom_estat_nk = 'PENDENT VALIDACIO'",
+  );
   if (estatResult.rows.length === 0) {
     // Si no trobem l'estat, és un error de configuració de la BD. Parem aquí.
     throw new Error("Estat inicial 'PENDENT VALIDACIO' no trobat a la base de dades.");
@@ -41,10 +44,10 @@ export const dbRegisterUser = async (dadesUsuari) => {
   const values = [
     nomComplet, email, dni, telefon,
     adreca, poblacio, codiPostal, pais,
-    comentaris, idEstatInicial
+    comentaris, idEstatInicial,
   ];
-  
-  const { rows } = await db.query(query, values);
+
+  const {rows} = await db.query(query, values);
   return rows[0];
 };
 
