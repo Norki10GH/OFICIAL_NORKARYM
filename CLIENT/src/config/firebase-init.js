@@ -1,15 +1,16 @@
-// CLIENT/COM_HTML/firebase-init.js
+// CLIENT/src/config/firebase-init.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+// Les claus ara es llegeixen de forma segura des de les variables d'entorn de Vite.
 const firebaseConfig = {
-    apiKey: "AIzaSyADSzKjUNDow4RqhZ6bA14jwVB_FfsEo0Y",
-    authDomain: "norkarym.firebaseapp.com",
-    projectId: "norkarym",
-    storageBucket: "norkarym.appspot.com",
-    messagingSenderId: "389577112007",
-    appId: "1:389577112007:web:3318d353b260bb1ff081e2",
-    measurementId: "G-JWTZP12DK3"
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
+    measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
