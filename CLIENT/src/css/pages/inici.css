@@ -51,3 +51,18 @@
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
+
+.welcome-logo {
+    max-width: 280px;
+    height: auto;
+    margin-bottom: 30px;
+    opacity: 0.85;
+    /* Afegim una transició per suavitzar l'efecte */
+    transition: all 0.3s ease;
+}
+
+/* Aquesta és la nova regla que afegeix l'efecte de brillantor */
+.welcome-logo:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
+}
