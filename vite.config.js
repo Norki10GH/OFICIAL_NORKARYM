@@ -10,9 +10,13 @@ export default defineConfig({
   build: {
     // La carpeta on es generarà la versió final es dirà 'dist' i estarà a l'arrel del projecte.
     outDir: resolve(__dirname, 'dist'),
+    
+    // --> AFEGEIX AQUESTA LÍNIA <--
+    // Permet a Vite netejar la carpeta 'dist' encara que estigui fora del 'root'.
+    emptyOutDir: true, 
+
     rollupOptions: {
       // Definim explícitament cada pàgina HTML de la nostra aplicació.
-      // Això és més robust que buscar fitxers automàticament.
       input: {
         main: resolve(__dirname, 'CLIENT/index.html'),
         // Quan creeu més pàgines, les afegireu aquí. Per exemple:
