@@ -1,6 +1,6 @@
 // functions/index.js
 
-import functions from "firebase-functions";
+import * as functions from "firebase-functions";
 import cors from "cors";
 import admin from "firebase-admin";
 
