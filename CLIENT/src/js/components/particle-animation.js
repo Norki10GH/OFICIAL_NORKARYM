@@ -1,4 +1,4 @@
-// CLIENT/src/js/components/particle-animation.js
+// CLIENT/src/js/components/particle-animation.js /// canvi gitlens lila
 export function initParticleAnimation() {
     const canvas = document.getElementById('particle-canvas');
     if (canvas) {
