@@ -15,11 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./pages/inici.js').then(module => {
       module.iniciPage();
     });
-  } else if (page === 'page-inscripcio') {
-    // Si és la pàgina d'inscripció, importem i executem la seva
-    import('./pages/inscripcio.js').then(module => {
-      module.inscripcioPage();
-    });
   }
   // Podríem afegir més 'else if' per a altres pàgines (login, admin, etc.)
 });

@@ -15,9 +15,7 @@ export default defineConfig({
       // Això és més robust que buscar fitxers automàticament.
       input: {
         main: resolve(__dirname, 'CLIENT/index.html'),
-        inscripcio: resolve(__dirname, 'CLIENT/src/pages/inscripcio.html'),
-        // Quan tinguis més pàgines, les afegiràs aquí:
-        // admin: resolve(__dirname, 'CLIENT/src/pages/admin.html'),
+        // Quan creeu més pàgines, les afegireu aquí. Per exemple:
         // login: resolve(__dirname, 'CLIENT/src/pages/login.html'),
       },
     },
