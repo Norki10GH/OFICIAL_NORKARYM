@@ -27,7 +27,7 @@ const corsHandler = cors({origin: true});
  * Endpoint de l'API per registrar un nou usuari.
  * Aquest endpoint actua com a porta d'entrada. La lògica de negoci
  * es delega als controladors corresponents per mantenir el codi net i modular.
- */
+ 
 export const apiRegisterNewUser = onRequest(async (req, res) => {
   // Envolviquem la nostra lògica amb el gestor de CORS.
   corsHandler(req, res, async () => {
@@ -57,3 +57,4 @@ export const apiRegisterNewUser = onRequest(async (req, res) => {
     }
   });
 });
+*/
