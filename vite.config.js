@@ -1,4 +1,4 @@
-// OFICIAL_NORKARYM/vite.config.js
+// OFICIAL_NORKARYM/vite.config.js (Versió Final)
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
@@ -9,11 +9,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'CLIENT/index.html'),
-        // Afegeix la pàgina d'inscripció aquí
         inscripcio: resolve(__dirname, 'CLIENT/src/pages/inscripcio.html'),
+        // NOU: Afegim la pàgina d'administradors
+        administradors: resolve(__dirname, 'CLIENT/src/pages/administradors.html'),
       },
     },
   },
-  // La secció 'server' que tenies abans és opcional per ara,
-  // però la necessitarem quan connectem amb el backend.
 });

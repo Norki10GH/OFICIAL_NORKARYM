@@ -1,26 +1,57 @@
-/* Estils específics per a la pàgina d'inscripció */
+/* CLIENT/src/css/pages/inscripcio.css (Versió Corregida i Millorada) */
 
-.logo-container {
-    margin-bottom: 40px;
-    z-index: 10;
+/* Fa que el body ocupi tota l'alçada i organitzi el contingut */
+body.page-inscripcio {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.header-logo {
-    max-width: 320px;
-    height: auto;
-    opacity: 0.8;
-    transition: all 0.3s ease;
+/* Header superior: ara no és absolut, forma part del flux normal */
+.inscripcio-header {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 20;
+    flex-shrink: 0; /* Evita que l'header s'encongeixi */
 }
 
-.header-logo:hover {
+/* Contenidor per agrupar els botons de l'header */
+.header-buttons {
+    display: flex;
+    gap: 15px; /* Espai entre els botons */
+}
+
+/* Estil per al logo petit a la cantonada */
+.header-logo-corner {
+    height: 45px;
+    width: auto;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.header-logo-corner:hover {
     opacity: 1;
-    transform: scale(1.03);
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
+/* Estils per als botons de l'header */
+.button-inici, .button-admin {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+/* Contenidor principal: l'hem fet flexible per ocupar l'espai restant i centrar */
 .container {
     width: 95%;
     max-width: 900px;
+    margin: auto; /* Centra el contenidor verticalment i horitzontalment */
     padding: 40px 30px;
     background-color: rgba(20, 20, 20, 0.7);
     border: 1px solid var(--border-color-dark);
@@ -30,97 +61,31 @@
     text-align: center;
 }
 
-#initial-view {
-    padding-top: 20px;
-}
-
-h2 {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text-color-light);
-    font-size: 1.8em;
-    font-weight: 400;
-    letter-spacing: 1px;
-    border-bottom: 1px solid var(--border-color-dark);
-    padding-bottom: 15px;
-    margin-top: 0;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-}
-
-.form-sections-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    align-items: start;
-}
-
-.full-width-section {
-    grid-column: 1 / -1;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-}
-
-.button-group {
-    margin-top: 25px;
+/* Contenidor dels 3 botons principals */
+.initial-buttons {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-.email-note {
-    background-color: rgba(52, 152, 219, 0.15);
-    border: 1px solid rgba(52, 152, 219, 0.4);
-    color: #aed6f1;
-    border-radius: 6px;
-    padding: 10px;
-    margin-bottom: 25px;
-    font-size: 0.9em;
-    text-align: center;
-}
+/* La resta de regles es mantenen igual... */
+#initial-view { padding-top: 20px; }
+h2 { font-family: 'Montserrat', sans-serif; color: var(--text-color-light); font-size: 1.8em; font-weight: 400; letter-spacing: 1px; border-bottom: 1px solid var(--border-color-dark); padding-bottom: 15px; margin-top: 0; margin-bottom: 25px; text-transform: uppercase; }
+.form-sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.full-width-section { grid-column: 1 / -1; }
+.form-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+.button-group { margin-top: 25px; display: flex; justify-content: flex-end; width: 100%; }
+.email-note { background-color: rgba(52, 152, 219, 0.15); border: 1px solid rgba(52, 152, 219, 0.4); color: #aed6f1; border-radius: 6px; padding: 10px; margin-bottom: 25px; font-size: 0.9em; text-align: center; }
+#output { margin-top: 20px; padding: 12px; border-radius: 4px; font-weight: bold; text-align: center; font-size: 1em; border: 1px solid transparent; display: none; }
+.success { display: block; background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+.error { display: block; background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+.slogan { color: var(--text-color-soft); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.3em; text-transform: uppercase; letter-spacing: 3px; margin-top: auto; /* Empeny l'eslògan cap avall */ padding: 40px 0; z-index: 10; }
 
-#output {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    text-align: center;
-    font-size: 1em;
-    border: 1px solid transparent;
-    display: none;
-}
-
-.success {
-    display: block;
-    background-color: #d4edda;
-    color: #155724;
-    border-color: #c3e6cb;
-}
-
-.error {
-    display: block;
-    background-color: #f8d7da;
-    color: #721c24;
-    border-color: #f5c6cb;
-}
-
-.slogan {
-    color: var(--text-color-soft);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 1.3em;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 40px;
-    z-index: 10;
-}
-
-/* Disseny responsive */
 @media (max-width: 768px) {
-    .header-logo { max-width: 250px; }
+    .inscripcio-header { padding: 15px 20px; flex-direction: column; gap: 15px; }
     h2 { font-size: 1.5em; }
     .container { padding: 30px 20px; }
     .slogan { font-size: 1em; }
