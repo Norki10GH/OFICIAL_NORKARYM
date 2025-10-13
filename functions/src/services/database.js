@@ -1,5 +1,5 @@
 // functions/src/services/database.js
-import db from '../../../../db.js'; // Pugem 4 nivells per arribar a l'arrel i trobar db.js
+import db from '../../../db.js'; // Pugem 3 nivells per arribar a l'arrel i trobar db.js
 
 /**
  * Insereix un nou usuari a la base de dades amb estat 'PENDENT VALIDACIO'.
@@ -31,7 +31,7 @@ export const dbRegisterUser = async (dadesUsuari) => {
   const idEstatInicial = estatResult.rows[0].id_estat_nk;
 
   const query = `
-    INSERT INTO tauia_users_ky(
+    INSERT INTO taula_users_ky(
       nom_complet_k_reg, email_k_reg, dni_cif_k_reg, telefon_k_reg, 
       domicili_k_reg, poblacio_k_reg, cp_k_reg, pais_k_reg, 
       notes_k_reg, id_estat_k_reg, data_solicitud_k_reg

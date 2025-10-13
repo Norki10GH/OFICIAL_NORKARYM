@@ -15,10 +15,15 @@ const corsHandler = cors({ origin: true });
 // --- DEFINICIÓ DELS ENDPOINTS DE L'API ---
 
 // Endpoint per registrar un nou usuari
-export const apiRegisterNewUser = functions.https.onRequest((req, res) => {
+export const apiRegisterNewUser = functions.region("europe-west1").https.onRequest(async (req, res) => {
   // Envoltem la nostra funció de controlador amb el gestor de CORS
-  corsHandler(req, res, () => {
-    registerNewUser(req, res);
+  corsHandler(req, res, async () => {
+    try {
+      await registerNewUser(req, res);
+    } catch (error) {
+      console.error("Error no controlat a l'endpoint apiRegisterNewUser:", error);
+      res.status(500).send("Error intern del servidor.");
+    }
   });
 });
 
