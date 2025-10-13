@@ -1,4 +1,4 @@
-// OFICIAL_NORKARYM/db.js (Versió amb inicialització mandrosa/pèrdua d'inicialització) --actualitzacio Arym--
+// OFICIAL_NORKARYM/db.js (Versió amb inicialització mandrosa/pèrdua d'inicialització) --actualitzacio Arym-- kaka de vaka
 /**
  * Database pool helper (lazy-initialized).
  * This module exports query/getPool/close wrappers and avoids creating
