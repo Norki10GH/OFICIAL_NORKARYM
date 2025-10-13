@@ -1,4 +1,4 @@
-// OFICIAL_NORKARYM/vite.config.js (Versió Actualitzada)
+// OFICIAL_NORKARYM/vite.config.js
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
@@ -8,13 +8,12 @@ export default defineConfig({
     outDir: resolve(__dirname, 'dist'),
     rollupOptions: {
       input: {
-        // Pàgina principal (la que ja teníem)
         main: resolve(__dirname, 'CLIENT/index.html'),
-
-        // Afegim la nova pàgina d'inscripció.
-        // L'arxiu físic ha d'estar a CLIENT/src/pages/inscripcio.html
+        // Afegeix la pàgina d'inscripció aquí
         inscripcio: resolve(__dirname, 'CLIENT/src/pages/inscripcio.html'),
       },
     },
   },
+  // La secció 'server' que tenies abans és opcional per ara,
+  // però la necessitarem quan connectem amb el backend.
 });

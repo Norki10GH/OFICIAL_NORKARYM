@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripcions KÄRŸ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/src/css/base/global.css">
+    <link rel="stylesheet" href="/src/css/components/buttons.css">
+    <link rel="stylesheet" href="/src/css/components/forms.css">
+    <link rel="stylesheet" href="/src/css/pages/inscripcio.css">
+</head>
+<body class="page-inscripcio">
+    <canvas id="particle-canvas"></canvas>
+
+    <header class="inscripcio-header">
+        <img src="https://i.imgur.com/Sk2UbcA.png" alt="Logo de NORKÄRŸM" class="header-logo-corner">
+        <a href="/" class="main-button button-inici">Anar a l'Inici</a>
+    </header>
+
+    <div class="container">
+        <div id="initial-view">
+            <div class="initial-buttons">
+                <a href="#">Accedeix a KÄRŸ</a>
+                <button id="btnMostrarFormulari">Inscriure's a KÄRŸ</button>
+                <button id="btnMostrarContacte">Contactar</button>
+            </div>
+        </div>
+
+        <form id="registrationForm" style="display: none;">
+            <h2>Formulari d'Inscripció</h2>
+            <div class="email-note"><strong>Important:</strong> Has d'utilitzar un compte de Google (ex: @gmail.com).</div>
+            <div class="form-sections-grid">
+                <fieldset>
+                    <legend>Dades Personals</legend>
+                    <div class="form-grid">
+                        <div><label for="email">Email de Google:</label><input type="email" id="email" name="email" required></div>
+                        <div><label for="nom">Nom:</label><input type="text" id="nom" name="nom" required></div>
+                        <div><label for="cognoms">Cognoms:</label><input type="text" id="cognoms" name="cognoms" required></div>
+                        <div><label for="dni">DNI:</label><input type="text" id="dni" name="dni" required></div>
+                        <div><label for="telefon">Telèfon:</label><input type="tel" id="telefon" name="telefon" required></div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Dades de Contacte</legend>
+                    <div class="form-grid">
+                        <div><label for="adreca">Adreça:</label><input type="text" id="adreca" name="adreca" required></div>
+                        <div><label for="poblacio">Població:</label><input type="text" id="poblacio" name="poblacio" required></div>
+                        <div><label for="codiPostal">Codi Postal:</label><input type="text" id="codiPostal" name="codiPostal" required></div>
+                        <div><label for="pais">País:</label><input type="text" id="pais" name="pais" required></div>
+                    </div>
+                </fieldset>
+                <fieldset class="full-width-section">
+                    <legend>Comentaris</legend>
+                    <div>
+                        <label for="comentaris">Comentaris per als administradors (opcional):</label>
+                        <textarea id="comentaris" name="comentaris" rows="3"></textarea>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="button-group">
+                <button type="submit" id="btnSubmit">Envia la Inscripció</button>
+            </div>
+        </form>
+        <div id="output"></div>
+    </div>
+
+    <div class="slogan">
+        MENYS RUTINA - MÉS PROJECTE
+    </div>
+
+    <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
