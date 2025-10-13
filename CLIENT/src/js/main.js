@@ -1,4 +1,4 @@
-// CLIENT/src/js/main.js
+// CLIENT/src/js/main.js///peix bullit
 
 import { initParticleAnimation } from './components/particle-animation.js';
 
