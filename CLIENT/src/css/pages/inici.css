@@ -1,19 +1,53 @@
 /* CLIENT/src/css/pages/inici.css */
-.inici-container {
+.main-content-wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
     text-align: center;
+    z-index: 10;
 }
-
-.logo {
+.welcome-logo {
+    max-width: 280px;
+    height: auto;
+    margin-bottom: 30px;
+    opacity: 0.85;
+}
+.main-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2em;
+    font-weight: 300;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+}
+.subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4em;
+    font-weight: 300;
+    color: #c0c0c0;
+    line-height: 1.6;
+    margin: 0 0 40px 0; /* Espai per al botó */
+}
+.main-button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 400;
     cursor: pointer;
-    width: 200px; /* Ajusta la mida segons sigui necessari */
+    color: white;
+    text-transform: uppercase;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
-
-.inici-frase {
-    margin-top: 20px;
-    font-size: 1.2rem;
+.main-button:hover {
+    transform: translateY(-3px);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
