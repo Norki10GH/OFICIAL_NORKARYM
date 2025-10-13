@@ -1,20 +1,24 @@
-// CLIENT/src/js/main.js // carn al punt
+// CLIENT/src/js/main.js
 
 import { initParticleAnimation } from './components/particle-animation.js';
 
-// Aquesta funció s'executa quan el DOM està completament carregat
 document.addEventListener('DOMContentLoaded', () => {
-  // Sempre inicialitzem l'animació de partícules
   initParticleAnimation();
 
-  // Mirem quina pàgina s'ha carregat a través de la classe del body
   const page = document.body.className;
 
   if (page === 'page-inici') {
-    // Si és la pàgina d'inici, importem i executem la seva lògica
     import('./pages/inici.js').then(module => {
       module.iniciPage();
     });
+  } else if (page === 'page-inscripcio') {
+    import('./pages/inscripcio.js').then(module => {
+      module.inscripcioPage();
+    });
+  } else if (page === 'page-admin') {
+    // NOU: Càrrega de la lògica per a la pàgina d'administradors
+    import('./pages/administradors.js').then(module => {
+      module.administradorsPage();
+    });
   }
-  // Podríem afegir més 'else if' per a altres pàgines (login, admin, etc.)
 });

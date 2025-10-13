@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist", 
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -9,7 +9,11 @@
     "rewrites": [
       {
         "source": "/api/registerNewUser",
-        "function": "apiRegisterNewUser" 
+        "function": "apiRegisterNewUser"
+      },
+      {
+        "source": "/api/addAdmin",
+        "function": "apiAddAdmin"
       },
       {
         "source": "**",
@@ -28,7 +32,6 @@
         "firebase-debug.*.log",
         "*.local"
       ]
-
     }
   ]
 }
