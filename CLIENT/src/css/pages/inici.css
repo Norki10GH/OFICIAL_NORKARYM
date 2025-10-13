@@ -39,7 +39,7 @@
     font-size: 18px;
     font-weight: 400;
     cursor: pointer;
-    color: white;
+    color: rgb(255, 255, 255);
     text-transform: uppercase;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -50,4 +50,19 @@
     transform: translateY(-3px);
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.welcome-logo {
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 30px;
+    opacity: 0.85;
+    /* Afegim una transició per suavitzar l'efecte */
+    transition: all 0.3s ease;
+}
+
+/* Aquesta és la nova regla que afegeix l'efecte de brillantor */
+.welcome-logo:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgb(238, 50, 255));
 }

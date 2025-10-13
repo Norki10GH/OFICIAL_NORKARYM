@@ -1,0 +1,36 @@
+/* CLIENT/src/css/pages/admin.css */
+
+/* Contenidor principal per a la pàgina d'administració */
+.admin-container {
+    width: 95%;
+    max-width: 600px; /* Una mica més estret per a un menú */
+    padding: 40px 30px;
+    background-color: rgba(20, 20, 20, 0.7);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    text-align: center;
+}
+
+/* Títol de la secció */
+.admin-container h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    font-weight: 400;
+    color: var(--text-color-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-color-dark);
+    padding-bottom: 15px;
+}
+
+/* Menú que contindrà els botons */
+.admin-menu {
+    display: flex;
+    flex-direction: column; /* Apilem els botons en vertical */
+    gap: 20px; /* Espai entre els botons */
+    width: 100%;
+}
