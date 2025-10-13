@@ -1,4 +1,5 @@
-// functions/src/controllers/adminController.js
+// functions/src/controllers/adminController.js // de color marro com la caaca d' arym
+
 import * as database from "../services/database.js";
 
 export const registerNewUser = async (req, res) => {
