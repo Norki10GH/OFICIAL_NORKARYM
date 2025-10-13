@@ -1,4 +1,4 @@
-// CLIENT/src/js/main.js
+// CLIENT/src/js/main.js // carn al punt
 
 import { initParticleAnimation } from './components/particle-animation.js';
 
