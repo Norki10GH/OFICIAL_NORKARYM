@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
       module.iniciPage();
     });
   } else if (page === 'page-inscripcio') {
+    // Aquesta línia ara funcionarà perquè l'arxiu existeix
     import('./pages/inscripcio.js').then(module => {
       module.inscripcioPage();
     });
   } else if (page === 'page-admin') {
-    // NOU: Càrrega de la lògica per a la pàgina d'administradors
     import('./pages/administradors.js').then(module => {
       module.administradorsPage();
     });
