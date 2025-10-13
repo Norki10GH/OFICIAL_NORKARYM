@@ -1,26 +1,30 @@
-// OFICIAL_NORKARYM/vite.config.js (Versió Definitiva i Correcta)
+// OFICIAL_NORKARYM/vite.config.js
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // 1. Definim on es troba el codi font del nostre frontend.
   root: resolve(__dirname, 'CLIENT'),
 
-  // 2. Configurem el procés de 'build' per a producció.
-  build: {
-    // La carpeta on es generarà la versió final es dirà 'dist' i estarà a l'arrel del projecte.
-    outDir: resolve(__dirname, 'dist'),
-    
-    // --> AFEGEIX AQUESTA LÍNIA <--
-    // Permet a Vite netejar la carpeta 'dist' encara que estigui fora del 'root'.
-    emptyOutDir: true, 
+  // --> AFEGEIX AQUESTA NOVA SECCIÓ <--
+  server: {
+    proxy: {
+      // Qualsevol petició que comenci per '/api'
+      '/api': {
+        // La redirigim a l'emulador de Functions
+        target: 'http://127.0.0.1:5001/norkarym/europe-west1',
+        // Important per a que funcioni correctament
+        changeOrigin: true,
+      },
+    },
+  },
 
+  build: {
+    outDir: resolve(__dirname, 'dist'),
+    emptyOutDir: true,
     rollupOptions: {
-      // Definim explícitament cada pàgina HTML de la nostra aplicació.
       input: {
         main: resolve(__dirname, 'CLIENT/index.html'),
-        // Quan creeu més pàgines, les afegireu aquí. Per exemple:
-        // login: resolve(__dirname, 'CLIENT/src/pages/login.html'),
+        // Afegeix aquí altres pàgines si les tens
       },
     },
   },
