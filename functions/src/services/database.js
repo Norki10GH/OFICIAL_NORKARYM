@@ -1,6 +1,5 @@
 // functions/src/services/database.js
-import db from '../../../db.js'; // Pugem 3 nivells per arribar a l'arrel i trobar db.js
-
+import db from '../config/db.js';
 /**
  * Insereix un nou usuari a la base de dades amb estat 'PENDENT VALIDACIO'.
  * @param {object} dadesUsuari Dades de l'usuari a registrar.
