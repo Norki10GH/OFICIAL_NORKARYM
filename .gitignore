@@ -71,3 +71,6 @@ node_modules/
 # Fitxer .gitignore sql
 .env
 node_modules/
+
+# Fitxer .versio
+.aaversion/

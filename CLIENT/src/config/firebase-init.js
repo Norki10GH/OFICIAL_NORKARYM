@@ -1,4 +1,4 @@
-// CLIENT/src/config/firebase-init.js
+// CLIENT/src/config/firebase-init.js// oficial 1.0
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
