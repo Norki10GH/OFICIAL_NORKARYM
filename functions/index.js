@@ -1,19 +1,26 @@
+// functions/index.js
 
-// Importa l'SDK d'Admin de Firebase per interactuar amb els serveis de Firebase
-import admin from "firebase-admin";
 import functions from "firebase-functions";
 import cors from "cors";
+import admin from "firebase-admin";
 
-// Inicialitza l'SDK d'Admin. Aquesta crida única configura l'entorn
-// perquè les funcions puguin autenticar-se i realitzar accions amb privilegis.
+// Importem les funcions que volem exposar des dels nostres controladors
+import { registerNewUser } from "./src/controllers/adminController.js";
+// import { altres funcions... } from "./src/controllers/userController.js";
+
 admin.initializeApp();
 
-const corsHandler = cors({origin: true});
+const corsHandler = cors({ origin: true });
 
-// Aquí definirem les futures funcions del backend.
-// Exemple:
-// export const laMevaFuncio = functions.https.onRequest((req, res) => {
-//   corsHandler(req, res, () => {
-//     res.status(200).send("Hola des de NORKÄRŸM!");
-//   });
-// });
+// --- DEFINICIÓ DELS ENDPOINTS DE L'API ---
+
+// Endpoint per registrar un nou usuari
+export const apiRegisterNewUser = functions.https.onRequest((req, res) => {
+  // Envoltem la nostra funció de controlador amb el gestor de CORS
+  corsHandler(req, res, () => {
+    registerNewUser(req, res);
+  });
+});
+
+// Aquí anirien altres endpoints en el futur
+// export const apiLogin = functions.https.onRequest(...)

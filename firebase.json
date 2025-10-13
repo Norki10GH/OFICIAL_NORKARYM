@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist", 
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -8,28 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/api/getNewUsers",
-        "function": "getNewUsers"
-      },
-      {
-        "source": "/api/updateNewUser",
-        "function": "updateNewUser"
-      },
-      {
         "source": "/api/registerNewUser",
-        "function": "registerNewUser"
-      },
-      {
-        "source": "/api/getUsersSummary",
-        "function": "getUsersSummary"
-      },
-      {
-        "source": "/api/processNewUser",
-        "function": "processNewUser"
-      },
-      {
-        "source": "/api/sendContactEmail",
-        "function": "sendContactEmail"
+        "function": "apiRegisterNewUser" 
       },
       {
         "source": "**",

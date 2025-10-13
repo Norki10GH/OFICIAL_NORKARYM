@@ -1,47 +1,26 @@
-
+// functions/src/controllers/adminController.js
 import * as database from "../services/database.js";
-
-export const getNewUsers = async (req, res) => {
-  try {
-    const data = await database.dbGetNewUsers();
-    res.status(200).send({status: "ok", data});
-  } catch (error) {
-    res.status(500).send({status: "error", message: error.message});
-  }
-};
-
-export const updateNewUser = async (req, res) => {
-  try {
-    const {dades} = req.body;
-    const data = await database.dbUpdateNewUser(dades);
-    res.status(200).send({status: "ok", data});
-  } catch (error) {
-    res.status(500).send({status: "error", message: error.message});
-  }
-};
 
 export const registerNewUser = async (req, res) => {
   try {
-    const {dades} = req.body;
-    const data = await database.dbRegisterUser(dades);
-    res.status(200).send({status: "ok", data});
+    const { dades } = req.body;
+    if (!dades) {
+      // Si no rebem l'objecte 'dades', retornem un error clar.
+      return res.status(400).send({ status: "error", message: "L'objecte 'dades' és requerit." });
+    }
+
+    // Cridem a la funció del nostre servei de base de dades
+    const nouUsuari = await database.dbRegisterUser(dades);
+    
+    // Enviem una resposta correcta (201 Created) amb l'usuari creat
+    res.status(201).send({ status: "ok", data: nouUsuari });
+
   } catch (error) {
-    res.status(500).send({status: "error", message: error.message});
+    // Afegim un log per a depuració al servidor
+    console.error("Error al registrar l'usuari:", error);
+    // Retornem un error 500 (error intern del servidor)
+    res.status(500).send({ status: "error", message: error.message });
   }
 };
 
-export const getUsersSummary = async (req, res) => {
-  try {
-    // This function is not in the database file, so we'll add a placeholder
-    // TODO: Implementar la lògica per obtenir el resum d'usuaris.
-    console.log("Obtenint resum d'usuaris...");
-    const data = {
-      total: 0,
-      registered: 0,
-      pending: 0,
-    };
-    res.status(200).send({status: "ok", data});
-  } catch (error) {
-    res.status(500).send({status: "error", message: error.message});
-  }
-};
+// ... aquí anirien les altres funcions del controlador (getNewUsers, etc.)

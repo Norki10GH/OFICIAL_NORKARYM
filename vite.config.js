@@ -1,0 +1,25 @@
+// OFICIAL_NORKARYM/vite.config.js (Versió Definitiva i Correcta)
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // 1. Definim on es troba el codi font del nostre frontend.
+  root: resolve(__dirname, 'CLIENT'),
+
+  // 2. Configurem el procés de 'build' per a producció.
+  build: {
+    // La carpeta on es generarà la versió final es dirà 'dist' i estarà a l'arrel del projecte.
+    outDir: resolve(__dirname, 'dist'),
+    rollupOptions: {
+      // Definim explícitament cada pàgina HTML de la nostra aplicació.
+      // Això és més robust que buscar fitxers automàticament.
+      input: {
+        main: resolve(__dirname, 'CLIENT/index.html'),
+        inscripcio: resolve(__dirname, 'CLIENT/src/pages/inscripcio.html'),
+        // Quan tinguis més pàgines, les afegiràs aquí:
+        // admin: resolve(__dirname, 'CLIENT/src/pages/admin.html'),
+        // login: resolve(__dirname, 'CLIENT/src/pages/login.html'),
+      },
+    },
+  },
+});
