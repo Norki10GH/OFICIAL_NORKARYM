@@ -8,6 +8,17 @@
     ],
     "rewrites": [
 
+      // Regla per a la pàgina d'inscripció
+      {
+        "source": "/inscripcio",
+        "destination": "/inscripcio.html"
+      },
+      // Regla per a la pàgina d'administradors
+      {
+        "source": "/administradors",
+        "destination": "/administradors.html"
+      },
+      // Regla general per a SPA (Single Page Application)
       {
         "source": "**",
         "destination": "/index.html"

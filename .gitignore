@@ -12,3 +12,6 @@ yarn-error.log*
 # Ficheros de entorno
 .env
 .env.local
+
+# Ficheros de cache de Firebase
+/.firebase
