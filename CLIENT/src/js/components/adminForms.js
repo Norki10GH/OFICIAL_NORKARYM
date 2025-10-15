@@ -1,4 +1,4 @@
-// CLIENT/src/js/components/adminForms.js (Reubicat i corregit)
+// CLIENT/src/js/components/adminForms.js
 
 import { getAuth } from "firebase/auth";
 
@@ -9,15 +9,19 @@ import { getAuth } from "firebase/auth";
  * @param {Function} onSuccess - Callback que se ejecuta al tener éxito.
  */
 export function createAddAdminForm(container, onCancel, onSuccess) {
+  // Limpiamos el contenedor por si había algo antes
   container.innerHTML = "";
 
+  // Creamos el contenedor del formulario
   const formContainer = document.createElement("div");
   formContainer.id = "add-admin-view";
 
+  // Creamos el título
   const title = document.createElement("h2");
   title.textContent = "Afegir Nou Administrador";
   formContainer.appendChild(title);
 
+  // Creamos el formulario
   const form = document.createElement("form");
   form.id = "add-admin-form";
   form.innerHTML = `
@@ -33,13 +37,16 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
   `;
   formContainer.appendChild(form);
 
+  // Creamos el div para mostrar mensajes de salida
   const outputDiv = document.createElement("div");
   outputDiv.id = "admin-output";
   outputDiv.style.display = "none";
   formContainer.appendChild(outputDiv);
 
+  // Añadimos todo al contenedor principal
   container.appendChild(formContainer);
 
+  // --- Lógica del formulario ---
   const btnSubmit = form.querySelector("#btn-submit-admin");
   const btnCancel = form.querySelector("#btn-cancel-add-admin");
 
@@ -68,7 +75,7 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
     data.firebase_uid = currentUser.uid;
 
     try {
-      const response = await fetch("/api/addAdmin", { // Ruta absoluta
+      const response = await fetch("/api/addAdmin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -78,7 +85,7 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
 
       if (response.ok) {
         outputDiv.className = "success";
-        outputDiv.textContent = result.message || "Administrador afegit correctament!";
+        outputDiv.textContent = "Administrador afegit correctament!";
         form.reset();
         setTimeout(onSuccess, 2000);
       } else {
@@ -101,5 +108,5 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
  * @param {Function} onCancel - Callback que se ejecuta al volver.
  */
 export function createListAdminsView(container, onCancel) {
-  // Lògica futura
+  // Aquí anirà la lògica per llistar administradors en el futur.
 }
