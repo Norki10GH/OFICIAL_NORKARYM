@@ -1,4 +1,4 @@
-// functions/index.js (Versió Corregida i Ampliada)
+// Contenido para el archivo: functions/index.js
 
 import { onRequest } from "firebase-functions/v2/https";
 import { setGlobalOptions } from "firebase-functions/v2";
@@ -6,27 +6,26 @@ import admin from "firebase-admin";
 import cors from "cors";
 import db from "./src/config/db.js";
 
-// Inicialització de Firebase
+// Inicialización de Firebase
 admin.initializeApp();
 setGlobalOptions({ region: "europe-west1" });
 
-// Configuració del CORS per permetre peticions des del frontend
+// Configuramos CORS para permitir peticiones desde cualquier origen (para desarrollo)
 const corsHandler = cors({ origin: true });
 
 /**
- * Endpoint per afegir un nou administrador a la taula taula_admins_nk.
- * Rep les dades des del formulari del panell d'administració.
+ * Endpoint para añadir un nuevo administrador.
  */
-export const addAdmin = onRequest(async (req, res) => { // CORRECCIÓ: Renombrada de 'apiAddAdmin' a 'addAdmin'
+export const addAdmin = onRequest((req, res) => { // ¡Sin opciones de VPC!
   corsHandler(req, res, async () => {
     if (req.method !== "POST") {
-      return res.status(405).send({ status: "error", message: "Mètode no permès." });
+      return res.status(405).send({ status: "error", message: "Método no permitido." });
     }
     try {
       const { nom, email, notes, firebase_uid } = req.body;
       
       if (!nom || !email || !firebase_uid) {
-        return res.status(400).json({ status: "error", message: "Falten dades obligatòries (nom, email, firebase_uid)." });
+        return res.status(400).json({ status: "error", message: "Faltan datos obligatorios (nom, email, firebase_uid)." });
       }
 
       const sql = `
@@ -40,7 +39,7 @@ export const addAdmin = onRequest(async (req, res) => { // CORRECCIÓ: Renombrad
 
       res.status(201).json({ 
         status: "ok", 
-        message: "Administrador afegit correctament!", 
+        message: "Administrador añadido correctament!", 
         adminId: result.rows[0].id_admin_nk 
       });
 
@@ -55,25 +54,20 @@ export const addAdmin = onRequest(async (req, res) => { // CORRECCIÓ: Renombrad
   });
 });
 
-
 /**
- * NOU ENDPOINT: Endpoint per registrar una nova sol·licitud d'usuari a la taula taula_users_ky.
- * Rep les dades des del formulari d'inscripció públic.
+ * Endpoint para registrar una nueva solicitud de usuario.
  */
-export const registerNewUser = onRequest(async (req, res) => {
+export const registerNewUser = onRequest((req, res) => { // ¡Sin opciones de VPC!
   corsHandler(req, res, async () => {
     if (req.method !== "POST") {
-        return res.status(405).send({ status: "error", message: "Mètode no permès." });
+        return res.status(405).send({ status: "error", message: "Método no permitido." });
     }
     try {
-        // El frontend envia un objecte { dades: { ... } }
         const { dades } = req.body;
         if (!dades || !dades.nom_complet_k_reg || !dades.email_k_reg) {
             return res.status(400).json({ status: "error", message: "Falten dades obligatòries (nom i email)." });
         }
         
-        // NOTA: Assumim que l'estat 'PENDENT VALIDACIO' té l'ID = 2 a la taula 'taula_estats_nk'.
-        // Això s'hauria de gestionar de forma més dinàmica en el futur.
         const ESTAT_PENDENT_VALIDACIO = 2;
 
         const sql = `
@@ -104,8 +98,7 @@ export const registerNewUser = onRequest(async (req, res) => {
 
     } catch (error) {
         console.error("Error en registrar el nou usuari:", error);
-        // Controlem si l'error és per un email duplicat (constraint 'unique')
-        if (error.code === '23505') { // Codi d'error de PostgreSQL per a violació de 'unique'
+        if (error.code === '23505') { 
             return res.status(409).json({
                 status: "error",
                 message: "L'adreça de correu electrònic ja està registrada."
