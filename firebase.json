@@ -7,18 +7,22 @@
       "**/node_modules/**"
     ],
     "rewrites": [
-
+      // NOU: Redirigeix les trucades a l'API a la funció corresponent
+      {
+        "source": "/api/addAdmin",
+        "function": "apiAddAdmin"
+      },
       // Regla per a la pàgina d'inscripció
       {
         "source": "/inscripcio",
-        "destination": "/inscripcio.html"
+        "destination": "/src/pages/inscripcio.html"
       },
       // Regla per a la pàgina d'administradors
       {
         "source": "/administradors",
-        "destination": "/administradors.html"
+        "destination": "/src/pages/administradors.html"
       },
-      // Regla general per a SPA (Single Page Application)
+      // Regla general per a la pàgina principal
       {
         "source": "**",
         "destination": "/index.html"
@@ -37,17 +41,5 @@
         "*.local"
       ]
     }
-  ],
-  "emulators": {
-    "functions": {
-      "port": 5001
-    },
-    "hosting": {
-      "port": 5000
-    },
-    "ui": {
-      "enabled": true
-    },
-    "singleProjectMode": true
-  }
+  ]
 }
