@@ -13,11 +13,11 @@
       },
       {
         "source": "/inscripcio",
-        "destination": "/src/pages/inscripcio.html"
+        "destination": "/inscripcio.html"
       },
       {
-        "source": "/administradors",
-        "destination": "/src/pages/administradors.html"
+        "source": "/administracio",
+        "destination": "/administracio.html"
       },
       {
         "source": "**",
