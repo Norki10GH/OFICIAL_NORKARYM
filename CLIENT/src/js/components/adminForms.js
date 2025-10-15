@@ -1,27 +1,19 @@
 // CLIENT/src/js/components/adminForms.js
 
+// Aquest mòdul ja està preparat per crear el formulari i enviar les dades
+// a l'endpoint /api/addAdmin. La gestió d'autenticació (auth.currentUser)
+// és un plus de seguretat excel·lent.
 import { getAuth } from "firebase/auth";
 
-/**
- * Crea y gestiona el formulario para añadir un nuevo administrador.
- * @param {HTMLElement} container - El elemento donde se inyectará el formulario.
- * @param {Function} onCancel - Callback que se ejecuta al cancelar.
- * @param {Function} onSuccess - Callback que se ejecuta al tener éxito.
- */
 export function createAddAdminForm(container, onCancel, onSuccess) {
-  // Limpiamos el contenedor por si había algo antes
   container.innerHTML = "";
-
-  // Creamos el contenedor del formulario
   const formContainer = document.createElement("div");
   formContainer.id = "add-admin-view";
 
-  // Creamos el título
   const title = document.createElement("h2");
   title.textContent = "Afegir Nou Administrador";
   formContainer.appendChild(title);
 
-  // Creamos el formulario
   const form = document.createElement("form");
   form.id = "add-admin-form";
   form.innerHTML = `
@@ -36,17 +28,14 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
     </div>
   `;
   formContainer.appendChild(form);
-
-  // Creamos el div para mostrar mensajes de salida
+  
   const outputDiv = document.createElement("div");
   outputDiv.id = "admin-output";
   outputDiv.style.display = "none";
   formContainer.appendChild(outputDiv);
 
-  // Añadimos todo al contenedor principal
   container.appendChild(formContainer);
 
-  // --- Lógica del formulario ---
   const btnSubmit = form.querySelector("#btn-submit-admin");
   const btnCancel = form.querySelector("#btn-cancel-add-admin");
 
@@ -57,7 +46,9 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
     btnSubmit.disabled = true;
     btnSubmit.textContent = "Enviant...";
     outputDiv.style.display = "none";
-
+    
+    // NOTA: Per a aquesta primera prova, un administrador ha d'estar autenticat
+    // a Firebase per poder afegir un altre administrador.
     const auth = getAuth();
     const currentUser = auth.currentUser;
 
@@ -72,7 +63,7 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    data.firebase_uid = currentUser.uid;
+    data.firebase_uid = currentUser.uid; // El backend necessita saber qui fa la petició
 
     try {
       const response = await fetch("/api/addAdmin", {
@@ -100,13 +91,4 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
       btnSubmit.textContent = "Desar Administrador";
     }
   });
-}
-
-/**
- * Crea y gestiona el formulario para listar administradores.
- * @param {HTMLElement} container - El elemento donde se inyectará el contenido.
- * @param {Function} onCancel - Callback que se ejecuta al volver.
- */
-export function createListAdminsView(container, onCancel) {
-  // Aquí anirà la lògica per llistar administradors en el futur.
 }

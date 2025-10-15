@@ -9,15 +9,19 @@
     "rewrites": [
       {
         "source": "/api/addAdmin",
-        "function": "apiAddAdmin"
+        "function": "addAdmin" 
+      },
+      {
+        "source": "/api/registerNewUser",
+        "function": "registerNewUser"
       },
       {
         "source": "/inscripcio",
-        "destination": "/inscripcio.html"
+        "destination": "/src/pages/inscripcio.html"
       },
       {
         "source": "/administracio",
-        "destination": "/administracio.html"
+        "destination": "/src/pages/administradors.html"
       },
       {
         "source": "**",

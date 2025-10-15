@@ -21,18 +21,59 @@
         <img src="https://i.imgur.com/Sk2UbcA.png" alt="Logo de NORKÄRŸM" class="header-logo-corner">
         <div class="header-buttons">
             <a href="/index.html" class="main-button button-inici">Anar a l'Inici</a>
-            <a href="/administradors.html" class="main-button button-admin">Zona Admins</a>
+            <a href="/src/pages/administradors.html" class="main-button button-admin">Zona Admins</a>
         </div>
     </header>
 
     <div class="container">
         <div id="initial-view">
+            <h2>Portal KÄRŸ</h2>
             <div class="initial-buttons">
                 <a href="#" class="main-button">Accedeix a KÄRŸ</a>
-                <!-- <button id="btnMostrarFormulari">Inscriure's a KÄRŸ</button> -->
+                <button id="btnMostrarFormulari" class="main-button">Inscriure's a KÄRŸ</button>
                 <a href="mailto:contacte@norkarym.com" class="main-button">Contactar</a>
             </div>
         </div>
+
+        <form id="registrationForm" style="display: none;">
+            <h2>Formulari d'Inscripció</h2>
+            <div class="email-note">
+                Rebràs un correu per verificar la teva adreça electrònica un cop hagis enviat el formulari.
+            </div>
+            
+            <div class="form-sections-grid">
+                <fieldset>
+                    <legend>Dades Personals</legend>
+                    <div class="form-grid">
+                        <label for="nomComplet">Nom Complet o Raó Social</label>
+                        <input type="text" id="nomComplet" name="nom_complet_k_reg" required>
+                        <label for="dniCif">DNI/CIF</label>
+                        <input type="text" id="dniCif" name="dni_cif_k_reg" required>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Dades de Contacte</legend>
+                    <div class="form-grid">
+                        <label for="email">Correu Electrònic</label>
+                        <input type="email" id="email" name="email_k_reg" required>
+                        <label for="telefon">Telèfon</label>
+                        <input type="tel" id="telefon" name="telefon_k_reg">
+                    </div>
+                </fieldset>
+            </div>
+
+            <fieldset class="full-width-section">
+                <legend>Notes Addicionals</legend>
+                <textarea id="notes" name="notes_k_reg" rows="4" placeholder="Si vols, pots deixar-nos un comentari..."></textarea>
+            </fieldset>
+
+            <div id="output" style="display: none;"></div>
+
+            <div class="button-group">
+                <button type="submit" id="btnSubmit" class="main-button">Envia la Inscripció</button>
+            </div>
+        </form>
     </div>
 
     <div class="slogan">

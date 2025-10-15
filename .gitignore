@@ -1,17 +1,26 @@
-# Dependencias
+# Dependències
 /node_modules
 
-# Ficheros de compilación y producción
+# Fitxers de compilació i producció
 /dist
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+firebase-debug.log*
 
-# Ficheros de entorno
+# Fitxers d'entorn (Contenen secrets!)
 .env
 .env.local
 
-# Ficheros de cache de Firebase
+# Fitxers de cache de Firebase
 /.firebase
+
+# Fitxers del sistema operatiu
+.DS_Store
+Thumbs.db
+
+# Directoris d'editors de codi
+.vscode/
+.idea/

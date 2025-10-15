@@ -1,4 +1,4 @@
-// CLIENT/src/js/pages/administradors.js (Versió Corregida)
+// CLIENT/src/js/pages/administradors.js
 
 import { createAddAdminForm } from "../components/adminForms.js";
 
@@ -20,12 +20,11 @@ export function administradorsPage() {
     dynamicContentContainer.style.display = "block";
   };
 
-  // Quan es clica el botó "Gestionar Administració"
+  // Quan es clica el botó "Afegir Nou Administrador"
   if (btnShowForm) {
     btnShowForm.addEventListener("click", () => {
       showDynamicView();
       // Cridem la funció que crea el formulari
-      // Li passem el contenidor i la funció de "cancel·lar" (que torna al menú)
       createAddAdminForm(dynamicContentContainer, showMainMenu, showMainMenu);
     });
   }

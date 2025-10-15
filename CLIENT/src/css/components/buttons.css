@@ -1,5 +1,11 @@
 /* Estils per a tots els botons de l'aplicació */
-.main-button, .initial-buttons a, .initial-buttons button, button#btnSubmit {
+
+/* BASE COMUNA PER A TOTS ELS BOTONS */
+.main-button, 
+.initial-buttons a, 
+.initial-buttons button, 
+.button-primary, 
+.button-secondary {
     font-family: 'Montserrat', sans-serif;
     padding: 15px 30px;
     font-size: 16px;
@@ -13,17 +19,48 @@
     border-radius: 6px;
     transition: all 0.3s ease;
     text-align: center;
+    display: inline-block; /* Assegura consistència */
 }
 
-.main-button:hover, .initial-buttons a:hover, .initial-buttons button:hover, button#btnSubmit:hover:not(:disabled) {
+/* EFECTE HOVER COMÚ */
+.main-button:hover:not(:disabled), 
+.initial-buttons a:hover:not(:disabled), 
+.initial-buttons button:hover:not(:disabled),
+.button-primary:hover:not(:disabled),
+.button-secondary:hover:not(:disabled) {
     transform: translateY(-3px);
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-button:disabled {
-    background-color: #555;
+/* ESTAT DESHABILITAT COMÚ */
+button:disabled, a:disabled {
+    background-color: rgba(85, 85, 85, 0.5);
+    border-color: rgba(85, 85, 85, 0.7);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+    color: #aaa;
+}
+
+/* ---- Específics per als botons de formulari ---- */
+
+/* Botó Primari (ex: Desar, Enviar) */
+.button-primary {
+    background-color: rgba(46, 204, 113, 0.25); /* Un toc de verd per a l'acció principal */
+    border-color: rgba(46, 204, 113, 0.4);
+}
+.button-primary:hover:not(:disabled) {
+    background-color: rgba(46, 204, 113, 0.4);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+}
+
+/* Botó Secundari (ex: Cancel·lar) */
+.button-secondary {
+    background-color: rgba(231, 76, 60, 0.2); /* Un toc de vermell per a cancel·lar */
+    border-color: rgba(231, 76, 60, 0.35);
+}
+.button-secondary:hover:not(:disabled) {
+    background-color: rgba(231, 76, 60, 0.35);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
 }
