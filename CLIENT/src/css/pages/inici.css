@@ -55,14 +55,16 @@
 .welcome-logo {
     max-width: 400px;
     height: auto;
-    margin-bottom: 30px;
+    margin-bottom: 40px; /* Ajustem el marge per a millor espaiat */
     opacity: 0.85;
     /* Afegim una transició per suavitzar l'efecte */
     transition: all 0.3s ease;
+    cursor: pointer; /* Indiquem que el logo és interactiu */
 }
 
 /* Aquesta és la nova regla que afegeix l'efecte de brillantor */
 .welcome-logo:hover {
     opacity: 1;
-    filter: drop-shadow(0 0 12px rgb(238, 50, 255));
+    /* Pots canviar el color del brillantor modificant el valor rgb() */
+    filter: drop-shadow(0 0 15px rgb(26, 187, 228));
 }
