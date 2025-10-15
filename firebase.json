@@ -7,14 +7,7 @@
       "**/node_modules/**"
     ],
     "rewrites": [
-      {
-        "source": "/api/registerNewUser",
-        "function": "apiRegisterNewUser"
-      },
-      {
-        "source": "/api/addAdmin",
-        "function": "apiAddAdmin"
-      },
+
       {
         "source": "**",
         "destination": "/index.html"
