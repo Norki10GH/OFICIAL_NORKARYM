@@ -60,5 +60,5 @@
 .welcome-logo:hover {
     opacity: 1;
     /* Pots canviar el color del brillantor modificant el valor rgb() */
-    filter: drop-shadow(0 0 15px rgb(26, 187, 228));
+    filter: drop-shadow(0 0 15px rgba(61, 194, 35, 0.705));
 }
