@@ -1,7 +1,7 @@
 // CLIENT/src/js/pages/administradors.js
 
 // Importem les funcions per crear els formularis/vistes
-import { createAddAdminForm, createListAdminsView } from "../components/adminForms.js";
+import { createAddAdminForm, createListAdminsView } from "../../../../adminForms.js";
 
 export function administradorsPage() {
   const adminMenuView = document.getElementById("admin-menu-view");
