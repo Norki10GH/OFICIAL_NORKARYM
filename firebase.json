@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "/api/addAdmin",
-        "function": "addAdmin" 
+        "function": "addAdmin"
       },
       {
         "source": "/api/registerNewUser",
@@ -22,10 +22,6 @@
       {
         "source": "/administracio",
         "destination": "/src/pages/administradors.html"
-      },
-      {
-        "source": "**",
-        "destination": "/index.html"
       }
     ]
   },

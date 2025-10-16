@@ -1,9 +1,7 @@
 // CLIENT/src/js/components/adminForms.js
 
-// Aquest mòdul ja està preparat per crear el formulari i enviar les dades
-// a l'endpoint /api/addAdmin. La gestió d'autenticació (auth.currentUser)
-// és un plus de seguretat excel·lent.
-import { getAuth } from "firebase/auth";
+// Importem la instància d'autenticació ja inicialitzada
+import { auth } from "../../config/firebase-init.js";
 
 export function createAddAdminForm(container, onCancel, onSuccess) {
   container.innerHTML = "";
@@ -47,9 +45,7 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
     btnSubmit.textContent = "Enviant...";
     outputDiv.style.display = "none";
     
-    // NOTA: Per a aquesta primera prova, un administrador ha d'estar autenticat
-    // a Firebase per poder afegir un altre administrador.
-    const auth = getAuth();
+    // Ara fem servir la instància 'auth' importada
     const currentUser = auth.currentUser;
 
     if (!currentUser) {
