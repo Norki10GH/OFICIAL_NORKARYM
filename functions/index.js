@@ -29,7 +29,7 @@ async function getDbPool() {
         password: dbPassword,
         database: 'gestio_usuaris',
         // ¡Importante! Esta es la forma segura de conectar con Cloud SQL
-        host: '/cloudsql/norkarym-app-bd',
+        host: '/cloudsql/norkarym:europe-west1:norkarym-app-bd',
     };
 
     pool = new pg.Pool(config);
