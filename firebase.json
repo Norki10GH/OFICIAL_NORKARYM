@@ -8,12 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/api/addAdmin",
-        "function": "addAdmin"
-      },
-      {
-        "source": "/api/registerNewUser",
-        "function": "registerNewUser"
+        "source": "/api/**",
+        "function": "api_norkarym"
       },
       {
         "source": "/inscripcio",
@@ -29,17 +25,7 @@
       }
     ]
   },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ]
-    }
-  ]
+  "functions": {
+    "source": "functions"
+  }
 }
