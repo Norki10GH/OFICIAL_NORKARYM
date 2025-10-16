@@ -17,6 +17,8 @@ export default defineConfig({
   },
   // NOU: S'ha afegit la configuració del servidor de desenvolupament
   server: {
+    port: 5173,
+    host: '0.0.0.0',
     // Aquesta és la clau per a la comunicació local frontend-backend
     proxy: {
       // Qualsevol petició que comenci amb '/api' serà redirigida
