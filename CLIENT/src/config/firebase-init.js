@@ -15,3 +15,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+// Funció per obtenir la URL base de les Cloud Functions
+export function getFunctionUrl(functionName) {
+  const projectId = firebaseConfig.projectId;
+  // Canvia "europe-west1" si les teves funcions estan en una altra regió
+  return `https://europe-west1-${projectId}.cloudfunctions.net/${functionName}`;
+}

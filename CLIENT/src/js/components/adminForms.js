@@ -1,9 +1,7 @@
 // CLIENT/src/js/components/adminForms.js
 
-// Aquest mòdul ja està preparat per crear el formulari i enviar les dades
-// a l'endpoint /api/addAdmin. La gestió d'autenticació (auth.currentUser)
-// és un plus de seguretat excel·lent.
 import { getAuth } from "firebase/auth";
+import { getFunctionUrl } from "../../config/firebase-init.js";
 
 export function createAddAdminForm(container, onCancel, onSuccess) {
   container.innerHTML = "";
@@ -47,8 +45,6 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
     btnSubmit.textContent = "Enviant...";
     outputDiv.style.display = "none";
     
-    // NOTA: Per a aquesta primera prova, un administrador ha d'estar autenticat
-    // a Firebase per poder afegir un altre administrador.
     const auth = getAuth();
     const currentUser = auth.currentUser;
 
@@ -63,10 +59,12 @@ export function createAddAdminForm(container, onCancel, onSuccess) {
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    data.firebase_uid = currentUser.uid; // El backend necessita saber qui fa la petició
+    data.firebase_uid = currentUser.uid;
 
     try {
-      const response = await fetch("/api/addAdmin", {
+      // Obtenim la URL de la funció dinàmicament
+      const addAdminUrl = getFunctionUrl("addAdmin");
+      const response = await fetch(addAdminUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
