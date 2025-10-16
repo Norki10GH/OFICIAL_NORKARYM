@@ -22,6 +22,10 @@
       {
         "source": "/administracio",
         "destination": "/src/pages/administradors.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   },
