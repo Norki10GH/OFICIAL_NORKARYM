@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // Le dice a Vite que la raíz de tu proyecto web es la carpeta 'CLIENT'.
-  root: 'CLIENT',
+  // NO es necesaria la opción 'root'. Vite usará esta carpeta ('CLIENT') como raíz.
 
   build: {
-    // Le dice a Vite que la carpeta de salida para la compilación se llame 'dist'
-    // y la cree en la raíz del proyecto (no dentro de 'CLIENT').
-    outDir: 'dist'
+    // Sube un nivel ('../') para crear la carpeta 'dist' en la raíz del proyecto,
+    // fuera de 'CLIENT'.
+    outDir: '../dist',
+    
+    // Opcional pero recomendado: Vacía la carpeta 'dist' antes de cada build.
+    emptyOutDir: true 
   }
 });
