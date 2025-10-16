@@ -1,8 +1,8 @@
 // Contenido para el archivo: CLIENT/src/js/main.js
 
-// 👇 ¡AÑADE ESTA LÍNEA AL PRINCIPIO DE TODO!
-// Esto importa y ejecuta el código de inicialización de Firebase.
-import { auth } from '../config/firebase-init.js';
+// 👇 ¡MODIFICA ESTA LÍNEA!
+// Esto importa y ejecuta el código de inicialización de Firebase por su efecto secundario.
+import '../config/firebase-init.js';
 
 import { initParticleAnimation } from './components/particle-animation.js';
 
