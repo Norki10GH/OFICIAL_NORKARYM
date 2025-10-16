@@ -1,0 +1,11 @@
+import{a as y}from"./main-udv2bKbr.js";function b(o,a,d){o.innerHTML="";const t=document.createElement("div");t.id="add-admin-view";const r=document.createElement("h2");r.textContent="Afegir Nou Administrador",t.appendChild(r);const n=document.createElement("form");n.id="add-admin-form",n.innerHTML=`
+    <div class="form-grid">
+      <input type="text" id="nom" name="nom" placeholder="Nom de l'administrador" required>
+      <input type="email" id="email" name="email" placeholder="Email de l'administrador" required>
+      <textarea id="notes" name="notes" placeholder="Notes (opcional)"></textarea>
+    </div>
+    <div class="button-group">
+      <button type="button" id="btn-cancel-add-admin" class="button-secondary">Cancel·lar</button>
+      <button type="submit" id="btn-submit-admin" class="button-primary">Desar Administrador</button>
+    </div>
+  `,t.appendChild(n);const e=document.createElement("div");e.id="admin-output",e.style.display="none",t.appendChild(e),o.appendChild(t);const i=n.querySelector("#btn-submit-admin");n.querySelector("#btn-cancel-add-admin").addEventListener("click",a),n.addEventListener("submit",async l=>{l.preventDefault(),i.disabled=!0,i.textContent="Enviant...",e.style.display="none";const c=y.currentUser;if(!c){e.className="error",e.textContent="Error: Has d'estar autenticat per a realitzar aquesta acció.",e.style.display="block",i.disabled=!1,i.textContent="Desar Administrador";return}const u=new FormData(n),m=Object.fromEntries(u.entries());m.firebase_uid=c.uid;try{const s=await fetch("/api/addAdmin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(m)}),p=await s.json();if(s.ok)e.className="success",e.textContent="Administrador afegit correctament!",n.reset(),setTimeout(d,2e3);else throw new Error(p.message||"Hi ha hagut un error desconegut.")}catch(s){e.className="error",e.textContent=`Error: ${s.message}`}finally{e.style.display="block",i.disabled=!1,i.textContent="Desar Administrador"}})}function C(){const o=document.getElementById("admin-menu-view"),a=document.getElementById("dynamic-content-container"),d=document.getElementById("btn-show-add-admin-form"),t=()=>{o.style.display="block",a.style.display="none",a.innerHTML=""},r=()=>{o.style.display="none",a.style.display="block"};d&&d.addEventListener("click",()=>{r(),b(a,t,t)})}export{C as administradorsPage};
