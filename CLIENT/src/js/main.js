@@ -1,18 +1,18 @@
 // CLIENT/src/js/main.js
 
+// L'animació de partícules ja no la fem servir a la pàgina d'inici,
+// però mantenim la importació per si altres pàgines la necessiten.
 import { initParticleAnimation } from './components/particle-animation.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  initParticleAnimation();
-
   const page = document.body.className;
 
   if (page === 'page-inici') {
+    // Importem i executem la lògica específica de la pàgina d'inici
     import('./pages/inici.js').then(module => {
       module.iniciPage();
     });
   } else if (page === 'page-inscripcio') {
-    // Aquesta línia ara funcionarà perquè l'arxiu existeix
     import('./pages/inscripcio.js').then(module => {
       module.inscripcioPage();
     });
@@ -20,5 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./pages/administradors.js').then(module => {
       module.administradorsPage();
     });
+  } else {
+    // Per a qualsevol altra pàgina, podríem inicialitzar les partícules si existeix el canvas
+    initParticleAnimation();
   }
 });

@@ -1,68 +1,470 @@
-/* CLIENT/src/css/pages/inici.css */
-.main-content-wrapper {
+/* CLIENT/src/css/pages/inici.css (Versió amb Logo Icona a l'Esquerra com a Toggle i Estructura Restaurada) */
+
+/* ========= Variables de Color i Fonts ========= */
+:root {
+    --color-primary: #3B82F6;
+    --color-bg: #FFFFFF;
+    --color-bg-alt: #F9FAFB;
+    --color-text-main: #1F2937;
+    --color-text-secondary: #6B7280;
+    --color-white: #FFFFFF;
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Lato', sans-serif;
+    --color-gradient-start: #3B82F6;
+    --color-gradient-end: #0D9488;  
+}
+
+/* ========= Header (Menú de Navegació) ========= */
+.main-header {
     width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estil per quan el header està sobre la Hero Section (fons turquesa opac) */
+.main-header.on-hero {
+    background-color: rgba(17, 24, 39, 0.35);
+    box-shadow: none;
+    backdrop-filter: blur(2px);
+}
+
+/* Quan fem scroll i sortim de la Hero (fons gris més fosc) */
+.main-header.scrolled {
+    background-color: rgba(229, 231, 235, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Quan fem scroll, l'estil "on-hero" ha de ser sobreescrit pel "scrolled" */
+.main-header.on-hero.scrolled {
+    background-color: rgba(229, 231, 235, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+.header-content {
+    width: 100%;
+    margin: 0;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* NOU CONTENIDOR: Logotip de la icona (funciona com a toggle) */
+.header-logo-icon-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    min-width: 300px;
+    justify-content: flex-start;
+}
+/* Estil de la icona quan és el botó */
+.header-logo-icon-link .header-logo {
+    height: 45px; /* Mida de la icona del logo */
+    transition: transform 0.2s ease-out;
+}
+
+/* Grup Marca (Centre: Nom de l'Empresa) */
+.header-logo-link {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+/* Amaguem la icona del logo al centre */
+.header-logo-hidden {
+    display: none;
+}
+
+/* Grup Botons (Dreta) */
+.header-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 300px;
+}
+
+
+/* Estils de la Marca */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.header-logo {
+    height: 45px;
+}
+
+/* Estil del LOGOTIP DE TEXT PNG */
+.header-app-name {
+    font-size: 24px;
+    letter-spacing: -0.5px;
+    
+    height: 60px;
+    width: auto;
+}
+
+/* Botó d'Hamburguesa - ELIMINAT del HTML, l'ocultem per si de cas */
+.menu-toggle {
+    display: none;
+}
+
+/* CANVIS DE COLOR: Quan estem sobre la Hero (fons fosc/opac) */
+.main-header.on-hero .menu-toggle {
+    color: var(--color-white);
+}
+
+/* Botons: Estils */
+.header-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.header-buttons .button-primary,
+.button-secondary {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Menú Desplegable (Conté la navegació interna - sense canvis de lògica visual) */
+.menu-dropdown {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.menu-dropdown.is-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.main-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--color-bg);
+    padding-top: 80px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.menu-dropdown.is-open .main-nav {
+    transform: translateX(0);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 15px;
+}
+
+.main-nav a {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    color: var(--color-text-main);
+    display: block;
+    padding: 10px 0;
+    position: relative;
+}
+
+/* ========= Secció 1: Hero Section (Estructura Base Restaurada) ========= */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 24, 39, 0.4);
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-content {
+    padding: 80px 20px 20px 20px;
+    max-width: 90vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    text-align: center;
     z-index: 10;
 }
-.welcome-logo {
-    max-width: 280px;
-    height: auto;
-    margin-bottom: 30px;
-    opacity: 0.85;
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+    white-space: nowrap;
 }
-.main-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.2em;
-    font-weight: 300;
-    color: #ffffff;
-    letter-spacing: 1px;
-    margin: 0 0 15px 0;
-    text-transform: uppercase;
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    font-family: var(--font-secondary);
+    max-width: 600px;
 }
-.subtitle {
-    font-family: 'Lato', sans-serif;
-    font-size: 1.4em;
-    font-weight: 300;
-    color: #c0c0c0;
-    line-height: 1.6;
-    margin: 0 0 40px 0; /* Espai per al botó */
-}
-.main-button {
-    font-family: 'Montserrat', sans-serif;
-    padding: 15px 40px;
+
+.hero-content .button-primary {
     font-size: 18px;
-    font-weight: 400;
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    text-transform: uppercase;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    transition: all 0.3s ease;
-}
-.main-button:hover {
-    transform: translateY(-3px);
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    padding: 15px 35px;
 }
 
-.welcome-logo {
-    max-width: 400px;
-    height: auto;
-    margin-bottom: 30px;
-    opacity: 0.85;
-    /* Afegim una transició per suavitzar l'efecte */
-    transition: all 0.3s ease;
+/* ---- CURSOR I ANIMACIONS (Base Restaurada) ---- */
+.hero-content h1.typing-effect::after {
+    content: '';
+    display: inline-block;
+    width: 0.6em;
+    height: 3px;
+    background-color: var(--color-white);
+    animation: blink 1s step-end infinite;
+    margin-left: 0.25rem;
+    transform: translateY(0.1em);
 }
 
-/* Aquesta és la nova regla que afegeix l'efecte de brillantor */
-.welcome-logo:hover {
+@keyframes blink {
+    from, to { background-color: var(--color-white); }
+    50% { background-color: transparent; }
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.fade-in.visible {
     opacity: 1;
-    filter: drop-shadow(0 0 12px rgb(238, 50, 255));
+}
+
+/* ========= Secció 2: Manifest (MODIFICADA AMB IMATGE FULL-WIDTH) ========= */
+.manifest-section {
+    height: 100vh;
+    position: relative;
+    background-color: var(--color-bg-alt);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.manifest-section-title {
+    text-align: center;
+    padding: 20px 20px 40px 20px;
+}
+
+.manifest-section-title h2 {
+    font-size: 2.5rem;
+}
+
+.manifest-slider-container {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.manifest-horizontal-scroll {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.manifest-panel {
+    width: 100vw; 
+    height: 100%;
+    padding: 0; /* <-- CANVI: Eliminem tot el padding del panell */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.manifest-panel img {
+    width: 100%; /* <-- CANVI: Ocupa el 100% del panell */
+    max-width: none; /* <-- CANVI: Eliminem el límit d'amplada */
+    height: auto;
+    max-height: 60vh; /* Augmentem l'alçada màxima per a més impacte */
+    object-fit: cover; /* <-- CANVI: 'cover' per omplir l'espai, 'contain' si es vol veure sencera */
+    border-radius: 0; /* <-- CANVI: Eliminem el border-radius */
+}
+
+.manifest-panel p {
+    max-width: 800px; /* Mantenim l'amplada màxima per a la llegibilitat */
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 0 auto; /* Centrem el bloc de text */
+    padding: 0 40px; /* Afegim padding horitzontal per seguretat en pantalles petites */
+}
+
+/* Estils per als botons de navegació del slider (sense canvis) */
+.manifest-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manifest-nav-button:hover {
+    background-color: var(--color-white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manifest-nav-button.prev {
+    left: 40px;
+}
+
+.manifest-nav-button.next {
+    right: 40px;
+}
+
+.manifest-nav-button svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-text-main);
+}
+
+.manifest-nav-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+/* (Les seccions 3, 4, 5 i Footer es mantenen) */
+
+
+/* ========= Disseny Responsive ========= */
+@media (max-width: 900px) {
+    
+    /* A mòbils, desactivem la simetria de min-width */
+    .header-content {
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+
+    .header-logo-icon-link,
+    .header-buttons-container {
+        min-width: auto;
+    }
+    
+    .header-logo-link {
+        flex-grow: 0;
+        justify-content: flex-start;
+    }
+    
+    /* Adaptació de la mida dels elements a mòbils */
+    .header-logo {
+        height: 35px;
+    }
+    .header-app-name {
+        height: 40px;
+    }
+
+    /* Ajustos de botons i hero... (la resta d'estils es mantenen) */
+    .header-buttons {
+        gap: 8px;
+    }
+    .header-buttons .button-primary,
+    .header-buttons .button-secondary {
+        padding: 8px 12px;
+    }
+    .hero-content {
+        padding: 80px 20px 20px 20px;
+    }
+    .kary-content, .user-block {
+        flex-direction: column;
+        text-align: center;
+    }
+    .user-block-reverse {
+        flex-direction: column;
+    }
+
+    /* -- AJUSTOS RESPONSIVE PER AL MANIFEST -- */
+    .manifest-section {
+        padding-top: 80px;
+    }
+
+    .manifest-section-title h2 {
+        font-size: 2rem;
+    }
+
+    .manifest-panel {
+        gap: 1.5rem;
+    }
+
+    .manifest-panel p {
+        padding: 0 20px;
+    }
+    
+    .manifest-nav-button.prev {
+        left: 15px;
+    }
+    .manifest-nav-button.next {
+        right: 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+        white-space: normal;
+    }
 }
