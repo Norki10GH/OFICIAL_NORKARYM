@@ -281,7 +281,7 @@
     opacity: 1;
 }
 
-/* ========= Secció 2: Manifest (MODIFICADA AMB IMATGE FULL-WIDTH) ========= */
+/* ========= Secció 2: Manifest (MODIFICADA AMB ALÇADA FIXA D'IMATGE) ========= */
 .manifest-section {
     height: 100vh;
     position: relative;
@@ -320,7 +320,7 @@
 .manifest-panel {
     width: 100vw; 
     height: 100%;
-    padding: 0; /* <-- CANVI: Eliminem tot el padding del panell */
+    padding: 0;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -330,20 +330,20 @@
 }
 
 .manifest-panel img {
-    width: 100%; /* <-- CANVI: Ocupa el 100% del panell */
-    max-width: none; /* <-- CANVI: Eliminem el límit d'amplada */
-    height: auto;
-    max-height: 60vh; /* Augmentem l'alçada màxima per a més impacte */
-    object-fit: cover; /* <-- CANVI: 'cover' per omplir l'espai, 'contain' si es vol veure sencera */
-    border-radius: 0; /* <-- CANVI: Eliminem el border-radius */
+    width: 100%;
+    max-width: none;
+    height: 60vh; /* <-- CANVI CLAU: Forcem una alçada fixa */
+    max-height: none; /* <-- CANVI CLAU: Eliminem el límit màxim */
+    object-fit: cover;
+    border-radius: 0;
 }
 
 .manifest-panel p {
-    max-width: 800px; /* Mantenim l'amplada màxima per a la llegibilitat */
+    max-width: 800px;
     text-align: center;
     font-size: 1.1rem;
-    margin: 0 auto; /* Centrem el bloc de text */
-    padding: 0 40px; /* Afegim padding horitzontal per seguretat en pantalles petites */
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
 /* Estils per als botons de navegació del slider (sense canvis) */
@@ -450,6 +450,11 @@
 
     .manifest-panel {
         gap: 1.5rem;
+    }
+
+    /* AJUST MÒBIL: Ajustem l'alçada de la imatge per donar més espai al text */
+    .manifest-panel img {
+        height: 50vh;
     }
 
     .manifest-panel p {

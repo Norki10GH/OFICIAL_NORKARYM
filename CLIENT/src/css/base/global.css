@@ -34,6 +34,7 @@ body {
     color: var(--color-text-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-smoothing: grayscale;
+    overflow-x: hidden; /* <-- CANVI CLAU: Evita el desbordament horitzontal */
 }
 
 h1, h2, h3, h4, h5, h6 {
