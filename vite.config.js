@@ -7,6 +7,6 @@ export default defineConfig({
   build: {
     // Le dice a Vite que la carpeta de salida para la compilación se llame 'dist'
     // y la cree en la raíz del proyecto (no dentro de 'CLIENT').
-    outDir: '../dist'
+    outDir: 'dist'
   }
 });
