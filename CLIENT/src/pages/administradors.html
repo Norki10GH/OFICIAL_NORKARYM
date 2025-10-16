@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zona Administradors - NORKÄRŸM</title>
+    <title>Panell d'Administració - NORKÄRŸM</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,40 +16,23 @@
 </head>
 <body class="page-admin">
     <canvas id="particle-canvas"></canvas>
-
+    
     <div class="admin-container">
-        <h1>Zona Administradors</h1>
+        <h1>Panell d'Administració</h1>
 
         <div id="admin-menu-view">
             <div class="admin-menu">
-                <a href="/" class="main-button">Tornar a l'Inici</a>
-                <button id="btn-show-add-admin-form" class="main-button">Gestionar Administració</button>
-                <a href="#" class="main-button">Gestionar Usuaris KÄRŸ</a>
-                <a href="#" class="main-button">Settings</a>
+                <button id="btn-show-add-admin-form" class="main-button">Afegir Nou Administrador</button>
+                
+                <button class="main-button" disabled>Gestionar Projectes (Properament)</button>
+                <button class="main-button" disabled>Analítiques (Properament)</button>
+                
+                <a href="/src/pages/inscripcio.html" class="main-button button-secondary">Tornar</a>
             </div>
         </div>
 
-        <div id="add-admin-view" style="display: none;">
-            <h2>Afegir Nou Administrador</h2>
-            <form id="add-admin-form">
-                <fieldset>
-                    <legend>Dades del Nou Administrador</legend>
-                    <label for="admin-nom">Nom i Cognoms:</label>
-                    <input type="text" id="admin-nom" name="nom" required>
-
-                    <label for="admin-email">Email:</label>
-                    <input type="email" id="admin-email" name="email" required>
-
-                    <label for="admin-notes">Notes (opcional):</label>
-                    <textarea id="admin-notes" name="notes" rows="3"></textarea>
-                </fieldset>
-                <div class="button-group">
-                    <button type="button" id="btn-cancel-add-admin" class="main-button secondary">Cancel·lar</button>
-                    <button type="submit" id="btn-submit-admin" class="main-button">Desar Administrador</button>
-                </div>
-            </form>
-            <div id="admin-output"></div>
-        </div>
+        <div id="dynamic-content-container" style="display: none;">
+            </div>
     </div>
 
     <script type="module" src="/src/js/main.js"></script>

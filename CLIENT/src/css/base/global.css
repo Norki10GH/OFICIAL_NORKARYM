@@ -1,27 +1,52 @@
-/* CLIENT/src/css/base/global.css */
+/* CLIENT/src/css/base/global.css (Actualitzat amb Quicksand i Colors Turquesa) */
 :root {
-    --bg-color: #121212;
-    --particle-color: #777777;
-    --text-color-light: #ffffff;
-    --text-color-soft: #c0c0c0;
-    --border-color-dark: #444444;
+    /* -- Paleta de Colors -- */
+    --color-primary: #14B8A6; /* Turquesa (Teal 600) - CONTROL DEL COLOR DEL BOTÓ PRIMARI (Base) */
+    --color-primary-light: #2DD4BF; /* Turquesa Clar (per al hover) */
+    --color-primary-dark: #0D9488; /* Turquesa Fosc (Color fons botó i Degradat Final) */
+    --color-bg-main: #FFFFFF;
+    --color-bg-alt: #F9FAFB;
+    --color-text-main: #1F2937;
+    --color-text-sec: #6B7280;
+    --color-white: #FFFFFF;
+    --color-border: #E5E7EB;
+
+    /* -- Tipografies -- */
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Lato', sans-serif;
+    --font-button: 'Quicksand', sans-serif; /* NOVA TIPOGRAFIA PER BOTONS */
 }
-body {
-    background-color: var(--bg-color);
+
+/* -- Reseteig i Base -- */
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lato', sans-serif;
-    overflow: hidden;
-    color: var(--text-color-light);
+    padding: 0;
 }
-canvas#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-bg-main);
+    font-family: var(--font-secondary);
+    color: var(--color-text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: 600; /* SemiBold */
+}
+
+p {
+    line-height: 1.6;
+    color: var(--color-text-sec);
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
 }

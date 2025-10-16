@@ -3,23 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvingut a NORKÄRŸM</title>
+    <meta name="theme-color" content="#3B82F6">
+    <title>NORKÄRŸM - Recupera la il·lusió pel teu projecte</title>
+    
+    <link rel="icon" type="image/png" href="/FAVICON NORKARYM COLOR.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="/src/css/base/global.css">
+    <link rel="stylesheet" href="/src/css/components/buttons.css">
     <link rel="stylesheet" href="/src/css/pages/inici.css">
 </head>
-<body class="page-inici"> <canvas id="particle-canvas"></canvas>
+<body class="page-inici">
 
-    <div class="main-content-wrapper">
-    <a href="/src/pages/inscripcio.html" aria-label="Anar a la pàgina d'inscripció">
-        <img src="https://i.imgur.com/Sk2UbcA.png" alt="Logo de l'Aplicació" class="welcome-logo">
-    </a>
-        <h1 class="main-title">EL FUTUR DE LA GESTIÓ COMENÇA AQUÍ</h1>
-        <p class="subtitle">Estem finalitzant l'eina per impulsar l'èxit del teu negoci.</p>
-    </div>
+    <header class="main-header">
+        <div class="header-content">
+            
+            <a href="#" class="header-logo-icon-link" id="menu-toggle">
+                <img src="/assets/logo-icona-nova.png" alt="Obrir menú de navegació" class="header-logo header-logo-clickable">
+            </a>
+            
+            <a href="/" class="header-logo-link">
+                <div class="header-brand">
+                    <img src="/assets/norkarym-logo-text.png" alt="NORKÄRŸM" class="header-app-name is-png-logo">
+                </div>
+            </a>
+            
+            <div class="header-buttons-container">
+                <div class="header-buttons">
+                    <a href="/src/pages/inscripcio.html" class="button-primary">Inicia Sessió</a>
+                    <a href="/src/pages/inscripcio.html" class="button-primary">Registra't</a>
+                </div>
+            </div>
+            
+            <div class="menu-dropdown" id="main-navigation-group">
+                    <nav class="main-nav">
+                        <ul>
+                            <li><a href="#manifest">Nosaltres</a></li>
+                            <li><a href="#kary">La Nostra App: KARY</a></li>
+                            <li><a href="#contacte">Contacte</a></li>
+                        </ul>
+                    </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero-section">
+            <div class="video-background">
+                <div class="video-overlay"></div>
+                <video src="/assets/hero-video.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <div class="hero-content">
+               <h1 id="hero-h1" class="typing-effect"></h1>
+                <p id="hero-paragraph" class="fade-in">A Norkarym creem tecnologia intuïtiva perquè la gestió del teu negoci no et torni a robar mai més el temps.</p>
+                <a href="#kary" id="hero-button" class="button button-primary fade-in">Descobreix KARY</a>
+            </div>
+        </section>
+
+        <section id="manifest" class="manifest-section">
+            <div class="manifest-section-title">
+                <h2>Fet per i per a emprenedors.</h2>
+            </div>
+            
+            <div class="manifest-slider-container">
+                <button class="manifest-nav-button prev" id="manifest-prev-btn" aria-label="Panell anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="manifest-nav-button next" id="manifest-next-btn" aria-label="Panell següent">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                
+                <div class="manifest-horizontal-scroll">
+                    <div class="manifest-panel">
+                        <img src="/assets/manifest-origen.jpg" alt="L'origen de Norkarym">
+                        <p>Norkarym va néixer de la nostra pròpia experiència. Com tu, vam llançar projectes amb una motxilla plena d'il·lusió, però aviat ens vam veure atrapats entre factures, fulls de càlcul i burocràcia.</p>
+                    </div>
+                    <div class="manifest-panel">
+                        <img src="/assets/manifest-problema-conceptual.jpg" alt="El problema de la gestió">
+                        <p>El 80% del temps d'un emprenedor es perd en tasques que no tenen a veure amb la seva passió. La gestió no hauria de ser un fre, sinó un impuls.</p>
+                    </div>
+                    <div class="manifest-panel">
+                        <img src="/assets/manifest-missio-conceptual.jpg" alt="La nostra missió">
+                        <p>La nostra missió és tornar-te aquest temps. Creem eines que automatitzen allò que és complex i simplifiquen allò que és tediós, perquè puguis tornar a fer el que se't dóna millor: crear.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kary" class="kary-section content-section animate-on-scroll">
+            <div class="kary-content">
+                <div class="kary-text">
+                    <h2>Presentem KARY: Inverteix temps en el teu projecte, no en la gestió.</h2>
+                    <ul>
+                        <li>
+                            <div class="icon-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div>
+                                <h3>Gestió de Clients</h3>
+                                <p>Tota la informació dels teus clients en un sol lloc, accessible i organitzada.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                            </div>
+                            <div>
+                                <h3>Facturació i Pressupostos</h3>
+                                <p>Crea i envia factures professionals en menys d'un minut. Automatitza'n el seguiment.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                            </div>
+                            <div>
+                                <h3>Comptabilitat Clara</h3>
+                                <p>Entén la salut del teu negoci amb balanços i informes visuals que tenen sentit.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="button-secondary">Veure totes les funcions de KARY</a>
+                </div>
+                <div class="kary-mockup">
+                    <img src="https://placehold.co/500x550/FFFFFF/1F2937?text=Mockup+KARY" alt="Dashboard de KARY">
+                </div>
+            </div>
+        </section>
+
+        <section class="users-section content-section">
+            <h2 class="animate-on-scroll">Et sona familiar?</h2>
+            <div class="user-block animate-on-scroll">
+                <div class="user-image">
+                    <img src="https://placehold.co/500x350/F9FAFB/1F2937?text=Imatge+Freelance" alt="Creativa freelance treballant">
+                </div>
+                <div class="user-text">
+                    <h3>Per a la creativa que vol passar més hores dissenyant i menys temps perseguint pagaments.</h3>
+                </div>
+            </div>
+            <div class="user-block user-block-reverse animate-on-scroll">
+                <div class="user-image">
+                     <img src="https://placehold.co/500x350/F9FAFB/1F2937?text=Imatge+Comer%C3%A7" alt="Comerciant al seu negoci">
+                </div>
+                <div class="user-text">
+                    <h3>Per al comerciant que necessita controlar el seu estoc i les seves vendes sense perdre's en programes complicats.</h3>
+                </div>
+            </div>
+            <div class="user-block animate-on-scroll">
+                <div class="user-image">
+                    <img src="https://placehold.co/500x350/F9FAFB/1F2937?text=Imatge+Consultor" alt="Consultor en una reunió">
+                </div>
+                <div class="user-text">
+                    <h3>Per al professional que ofereix serveis i necessita una manera àgil de gestionar projectes i pressupostos.</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacte" class="cta-final-section content-section">
+            <h2>És hora de tornar a començar.</h2>
+            <p>Uneix-te a la comunitat d'emprenedors que ja estan recuperant el control del seu temps. Comença a fer servir KARY gratis.</p>
+            <div class="cta-buttons">
+                <a href="/src/pages/inscripcio.html" class="button-primary">Comença Gratis amb KARY</a>
+                <a href="#" class="button-secondary">Parlem del teu Projecte</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 NORKÄRŸM. Tots els drets reservats.</p>
+    </footer>
 
     <script type="module" src="/src/js/main.js"></script>
 </body>

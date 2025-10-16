@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "norkarym"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

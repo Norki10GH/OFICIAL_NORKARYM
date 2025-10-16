@@ -8,12 +8,16 @@
     ],
     "rewrites": [
       {
-        "source": "/api/registerNewUser",
-        "function": "apiRegisterNewUser"
+        "source": "/api/**",
+        "function": "api_norkarym"
       },
       {
-        "source": "/api/addAdmin",
-        "function": "apiAddAdmin"
+        "source": "/inscripcio",
+        "destination": "/src/pages/inscripcio.html"
+      },
+      {
+        "source": "/administracio",
+        "destination": "/src/pages/administradors.html"
       },
       {
         "source": "**",
@@ -21,29 +25,7 @@
       }
     ]
   },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ]
-    }
-  ],
-  "emulators": {
-    "functions": {
-      "port": 5001
-    },
-    "hosting": {
-      "port": 5000
-    },
-    "ui": {
-      "enabled": true
-    },
-    "singleProjectMode": true
+  "functions": {
+    "source": "functions"
   }
 }

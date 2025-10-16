@@ -1,0 +1,535 @@
+[debug] [2025-10-13T14:46:59.850Z] ----------------------------------------------------------------------
+[debug] [2025-10-13T14:46:59.853Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-10-13T14:46:59.853Z] CLI Version:   14.19.1
+[debug] [2025-10-13T14:46:59.853Z] Platform:      win32
+[debug] [2025-10-13T14:46:59.853Z] Node Version:  v22.20.0
+[debug] [2025-10-13T14:46:59.853Z] Time:          Mon Oct 13 2025 16:46:59 GMT+0200 (Hora d’estiu d’Europa central)
+[debug] [2025-10-13T14:46:59.853Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-13T14:46:59.985Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-13T14:46:59.985Z] > authorizing via signed-in user (norki10@norkarym.com)
+[debug] [2025-10-13T14:46:59.985Z] [iam] checking project norkarym for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-10-13T14:46:59.986Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:46:59.986Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:46:59.986Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions [none]
+[debug] [2025-10-13T14:46:59.986Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions x-goog-quota-user=projects/norkarym
+[debug] [2025-10-13T14:46:59.987Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-10-13T14:47:01.079Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions 200
+[debug] [2025-10-13T14:47:01.080Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-10-13T14:47:01.080Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:01.080Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:01.080Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-10-13T14:47:01.080Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-10-13T14:47:02.085Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-10-13T14:47:02.085Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-10-13T14:47:02.085Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:02.085Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:02.085Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/norkarym [none]
+[debug] [2025-10-13T14:47:02.693Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/norkarym 200
+[debug] [2025-10-13T14:47:02.693Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/norkarym {"projectId":"norkarym","projectNumber":"389577112007","displayName":"norkarym","name":"projects/norkarym","resources":{"hostingSite":"norkarym"},"state":"ACTIVE","etag":"1_7cadde9c-bda4-4833-b0b0-481df5c1a542"}
+[info] 
+[info] === Deploying to 'norkarym'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2025-10-13T14:47:02.696Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:02.696Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:02.696Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym [none]
+[debug] [2025-10-13T14:47:02.929Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym 200
+[debug] [2025-10-13T14:47:02.929Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym {"projectNumber":"389577112007","projectId":"norkarym","lifecycleState":"ACTIVE","name":"norkarym","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-08T15:00:50.911904Z","parent":{"type":"organization","id":"982433622617"}}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-10-13T14:47:02.931Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:02.932Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:02.932Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/norkarym/adminSdkConfig [none]
+[debug] [2025-10-13T14:47:03.165Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/norkarym/adminSdkConfig 200
+[debug] [2025-10-13T14:47:03.165Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/norkarym/adminSdkConfig {"projectId":"norkarym","storageBucket":"norkarym.firebasestorage.app"}
+[debug] [2025-10-13T14:47:03.166Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:03.166Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:03.166Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/norkarym/configs [none]
+[debug] [2025-10-13T14:47:03.832Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/norkarym/configs 200
+[debug] [2025-10-13T14:47:03.832Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/norkarym/configs {}
+[debug] [2025-10-13T14:47:03.833Z] Validating nodejs source
+[debug] [2025-10-13T14:47:04.962Z] > [functions] package.json contents: {
+  "name": "functions",
+  "private": true,
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "firebase-admin": "^12.1.1",
+    "firebase-functions": "^6.5.0",
+    "oficial_norkarym": "file:..",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
+[debug] [2025-10-13T14:47:04.962Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-10-13T14:47:04.963Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-10-13T14:47:04.978Z] Found firebase-functions binary at 'C:\Users\airda\Documents\GitHub\OFICIAL_NORKARYM\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8314
+
+[debug] [2025-10-13T14:47:05.509Z] Got response from /__/functions.yaml {"endpoints":{"apiRegisterNewUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west1"],"labels":{},"httpsTrigger":{},"entryPoint":"apiRegisterNewUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2025-10-13T14:47:09.535Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-13T14:47:09.535Z] > authorizing via signed-in user (norki10@norkarym.com)
+[debug] [2025-10-13T14:47:09.535Z] [iam] checking project norkarym for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2025-10-13T14:47:09.535Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:09.535Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:09.535Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions [none]
+[debug] [2025-10-13T14:47:09.535Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions x-goog-quota-user=projects/norkarym
+[debug] [2025-10-13T14:47:09.535Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-10-13T14:47:10.554Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions 200
+[debug] [2025-10-13T14:47:10.554Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-10-13T14:47:10.554Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:10.555Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:10.555Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/norkarym/instances pageSize=100&pageToken=
+[debug] [2025-10-13T14:47:11.644Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/norkarym/instances 200
+[debug] [2025-10-13T14:47:11.644Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/norkarym/instances {}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\airda\Documents\GitHub\OFICIAL_NORKARYM\functions (46.38 KB) for uploading 
+[debug] [2025-10-13T14:47:11.691Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:11.691Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:11.691Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/norkarym/locations/-/functions [none]
+[debug] [2025-10-13T14:47:12.642Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/norkarym/locations/-/functions 200
+[debug] [2025-10-13T14:47:12.642Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/norkarym/locations/-/functions {}
+[debug] [2025-10-13T14:47:12.643Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:12.643Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:12.643Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-10-13T14:47:13.682Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/-/functions 200
+[debug] [2025-10-13T14:47:13.682Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/-/functions {}
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[debug] [2025-10-13T14:47:13.684Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:13.684Z] Checked if tokens are valid: true, expires at: 1760369694615
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[debug] [2025-10-13T14:47:13.684Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:13.684Z] Checked if tokens are valid: true, expires at: 1760369694615
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[debug] [2025-10-13T14:47:13.685Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:13.685Z] Checked if tokens are valid: true, expires at: 1760369694615
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[debug] [2025-10-13T14:47:13.685Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:13.685Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:13.685Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/run.googleapis.com [none]
+[debug] [2025-10-13T14:47:13.685Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/run.googleapis.com x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:13.686Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com [none]
+[debug] [2025-10-13T14:47:13.686Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:13.686Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/pubsub.googleapis.com [none]
+[debug] [2025-10-13T14:47:13.686Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/pubsub.googleapis.com x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:13.687Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/storage.googleapis.com [none]
+[debug] [2025-10-13T14:47:13.687Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/storage.googleapis.com x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:14.511Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/storage.googleapis.com 200
+[debug] [2025-10-13T14:47:14.511Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/storage.googleapis.com [omitted]
+[info] +  functions: required API storage.googleapis.com is enabled 
+[debug] [2025-10-13T14:47:14.890Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com 200
+[debug] [2025-10-13T14:47:14.891Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com [omitted]
+[warn] !  functions: missing required API eventarc.googleapis.com. Enabling now... 
+[debug] [2025-10-13T14:47:14.891Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:14.891Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:14.891Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com:enable [none]
+[debug] [2025-10-13T14:47:14.891Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com:enable x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:14.897Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/pubsub.googleapis.com 200
+[debug] [2025-10-13T14:47:14.897Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/pubsub.googleapis.com [omitted]
+[info] +  functions: required API pubsub.googleapis.com is enabled 
+[debug] [2025-10-13T14:47:14.913Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/run.googleapis.com 200
+[debug] [2025-10-13T14:47:14.913Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/389577112007/services/run.googleapis.com [omitted]
+[info] +  functions: required API run.googleapis.com is enabled 
+[debug] [2025-10-13T14:47:15.970Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com:enable 200
+[debug] [2025-10-13T14:47:15.970Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/389577112007/services/eventarc.googleapis.com:enable [omitted]
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[debug] [2025-10-13T14:47:25.987Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:25.987Z] Checked if tokens are valid: true, expires at: 1760369694615
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2025-10-13T14:47:25.988Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:25.988Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:25.988Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-10-13T14:47:25.988Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:25.988Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity {}
+[debug] [2025-10-13T14:47:25.988Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-10-13T14:47:25.988Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:47:25.988Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity {}
+[debug] [2025-10-13T14:47:27.133Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2025-10-13T14:47:27.133Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-389577112007@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"111945278691177506798"}}
+[debug] [2025-10-13T14:47:27.310Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2025-10-13T14:47:27.310Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-389577112007@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"105770731205617686581"}}
+[debug] [2025-10-13T14:47:27.311Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:27.311Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:27.312Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym [none]
+[debug] [2025-10-13T14:47:28.370Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym 200
+[debug] [2025-10-13T14:47:28.370Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym {"projectNumber":"389577112007","projectId":"norkarym","lifecycleState":"ACTIVE","name":"norkarym","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-08T15:00:50.911904Z","parent":{"type":"organization","id":"982433622617"}}
+[debug] [2025-10-13T14:47:28.370Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:28.370Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:28.370Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/389577112007 [none]
+[debug] [2025-10-13T14:47:29.122Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/389577112007 200
+[debug] [2025-10-13T14:47:29.123Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/389577112007 {"kind":"compute#project","id":"4311212523228986302","creationTimestamp":"2025-10-11T14:00:02.488-07:00","name":"norkarym","commonInstanceMetadata":{"kind":"compute#metadata","fingerprint":"cU3gUyDO370="},"quotas":[{"metric":"SNAPSHOTS","limit":1000,"usage":0},{"metric":"NETWORKS","limit":5,"usage":1},{"metric":"FIREWALLS","limit":100,"usage":4},{"metric":"IMAGES","limit":100,"usage":0},{"metric":"STATIC_ADDRESSES","limit":8,"usage":0},{"metric":"ROUTES","limit":200,"usage":0},{"metric":"FORWARDING_RULES","limit":15,"usage":0},{"metric":"TARGET_POOLS","limit":50,"usage":0},{"metric":"HEALTH_CHECKS","limit":75,"usage":0},{"metric":"IN_USE_ADDRESSES","limit":8,"usage":0},{"metric":"TARGET_INSTANCES","limit":50,"usage":0},{"metric":"TARGET_HTTP_PROXIES","limit":10,"usage":0},{"metric":"URL_MAPS","limit":10,"usage":0},{"metric":"BACKEND_SERVICES","limit":50,"usage":0},{"metric":"INSTANCE_TEMPLATES","limit":100,"usage":0},{"metric":"TARGET_VPN_GATEWAYS","limit":5,"usage":0},{"metric":"VPN_TUNNELS","limit":10,"usage":0},{"metric":"BACKEND_BUCKETS","limit":3,"usage":0},{"metric":"ROUTERS","limit":10,"usage":0},{"metric":"TARGET_SSL_PROXIES","limit":10,"usage":0},{"metric":"TARGET_HTTPS_PROXIES","limit":10,"usage":0},{"metric":"SSL_CERTIFICATES","limit":10,"usage":0},{"metric":"SUBNETWORKS","limit":100,"usage":0},{"metric":"TARGET_TCP_PROXIES","limit":10,"usage":0},{"metric":"CPUS_ALL_REGIONS","limit":32,"usage":0},{"metric":"SECURITY_POLICIES","limit":10,"usage":0},{"metric":"SECURITY_POLICY_RULES","limit":100,"usage":0},{"metric":"XPN_SERVICE_PROJECTS","limit":1000,"usage":0},{"metric":"PACKET_MIRRORINGS","limit":20,"usage":0},{"metric":"NETWORK_ENDPOINT_GROUPS","limit":100,"usage":0},{"metric":"INTERCONNECTS","limit":6,"usage":0},{"metric":"SSL_POLICIES","limit":10,"usage":0},{"metric":"GLOBAL_INTERNAL_ADDRESSES","limit":5000,"usage":0},{"metric":"VPN_GATEWAYS","limit":5,"usage":0},{"metric":"MACHINE_IMAGES","limit":100,"usage":0},{"metric":"SECURITY_POLICY_CEVAL_RULES","limit":20,"usage":0},{"metric":"GPUS_ALL_REGIONS","limit":0,"usage":0},{"metric":"EXTERNAL_VPN_GATEWAYS","limit":5,"usage":0},{"metric":"PUBLIC_ADVERTISED_PREFIXES","limit":1,"usage":0},{"metric":"PUBLIC_DELEGATED_PREFIXES","limit":10,"usage":0},{"metric":"STATIC_BYOIP_ADDRESSES","limit":128,"usage":0},{"metric":"NETWORK_FIREWALL_POLICIES","limit":10,"usage":0},{"metric":"INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES","limit":15,"usage":0},{"metric":"GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES","limit":15,"usage":0},{"metric":"GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES","limit":250,"usage":0}],"selfLink":"https://www.googleapis.com/compute/v1/projects/norkarym","defaultServiceAccount":"389577112007-compute@developer.gserviceaccount.com","xpnProjectStatus":"UNSPECIFIED_XPN_PROJECT_STATUS","defaultNetworkTier":"PREMIUM","vmDnsSetting":"ZONAL_ONLY","cloudArmorTier":"CA_STANDARD"}
+[debug] [2025-10-13T14:47:29.124Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:29.124Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:29.124Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions [none]
+[debug] [2025-10-13T14:47:29.124Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-10-13T14:47:30.607Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions 200
+[debug] [2025-10-13T14:47:30.607Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions {"name":"projects/389577112007/sites/norkarym/versions/387b1591cb4e1225","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-10-13T14:47:30.608Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:30.608Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:30.608Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/norkarym/billingInfo [none]
+[debug] [2025-10-13T14:47:31.678Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/norkarym/billingInfo 200
+[debug] [2025-10-13T14:47:31.679Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/norkarym/billingInfo {"name":"projects/norkarym/billingInfo","projectId":"norkarym","billingAccountName":"billingAccounts/01D887-ACFBB8-15B346","billingEnabled":true}
+[debug] [2025-10-13T14:47:31.679Z] [functions] found 1 new HTTP functions, testing setIamPolicy permission...
+[debug] [2025-10-13T14:47:31.679Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:31.679Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:31.679Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions [none]
+[debug] [2025-10-13T14:47:31.679Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions x-goog-quota-user=projects/norkarym
+[debug] [2025-10-13T14:47:31.679Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["cloudfunctions.functions.setIamPolicy"]}
+[debug] [2025-10-13T14:47:31.866Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions 200
+[debug] [2025-10-13T14:47:31.866Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["cloudfunctions.functions.setIamPolicy"]}
+[debug] [2025-10-13T14:47:31.866Z] [functions] found setIamPolicy permission, proceeding with deploy
+[debug] [2025-10-13T14:47:31.867Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:31.867Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:31.867Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions:generateUploadUrl [none]
+[debug] [2025-10-13T14:47:33.646Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions:generateUploadUrl 200
+[debug] [2025-10-13T14:47:33.646Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com/dc5795d7-e5e9-497b-ba6e-cb722374362e.zip?GoogleAccessId=service-389577112007@gcf-admin-robot.iam.gserviceaccount.com&Expires=1760368653&Signature=jfzBqx0b8sLvJ7MHiZZbf3b8uzQp8t3mP1XmsWh8nlbcIBGnhTiNAn9MD1sC2WLPrMQkc74rSCgMh4YQrHFuPWUy%2B2efqaVj8WcfBseFzDFM2jq43XFiNw29QBJRNqiarI9IAlPxz9rSAC3FGLrfij3BQQ4Zf33VCO2NYGOCGJWZWl9lfisWQdej9TDUOgOYqyfSM96feXQeZfFnQvEwZ07fJdyTS%2BQGZMGF%2B%2Fe%2BoCm8ISspr%2Fp0gGMN7kN03%2BYSlzwLNkgLRx4lLYmV8%2B0HCgW0HCN8X91ehDcxF8a1XPYs6hXzp1cilo%2FTEGLLLHkkt6xuWfs5IZq6qtclMynaqw%3D%3D","storageSource":{"bucket":"gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com","object":"dc5795d7-e5e9-497b-ba6e-cb722374362e.zip"}}
+[debug] [2025-10-13T14:47:33.647Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com/dc5795d7-e5e9-497b-ba6e-cb722374362e.zip GoogleAccessId=service-389577112007%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1760368653&Signature=jfzBqx0b8sLvJ7MHiZZbf3b8uzQp8t3mP1XmsWh8nlbcIBGnhTiNAn9MD1sC2WLPrMQkc74rSCgMh4YQrHFuPWUy%2B2efqaVj8WcfBseFzDFM2jq43XFiNw29QBJRNqiarI9IAlPxz9rSAC3FGLrfij3BQQ4Zf33VCO2NYGOCGJWZWl9lfisWQdej9TDUOgOYqyfSM96feXQeZfFnQvEwZ07fJdyTS%2BQGZMGF%2B%2Fe%2BoCm8ISspr%2Fp0gGMN7kN03%2BYSlzwLNkgLRx4lLYmV8%2B0HCgW0HCN8X91ehDcxF8a1XPYs6hXzp1cilo%2FTEGLLLHkkt6xuWfs5IZq6qtclMynaqw%3D%3D
+[debug] [2025-10-13T14:47:33.647Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com/dc5795d7-e5e9-497b-ba6e-cb722374362e.zip [stream]
+[debug] [2025-10-13T14:47:34.162Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com/dc5795d7-e5e9-497b-ba6e-cb722374362e.zip 200
+[debug] [2025-10-13T14:47:34.162Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com/dc5795d7-e5e9-497b-ba6e-cb722374362e.zip [omitted]
+[info] +  functions: functions source uploaded successfully 
+[info] i  hosting[norkarym]: beginning deploy... 
+[info] i  hosting[norkarym]: found 4 files in dist 
+[debug] [2025-10-13T14:47:34.170Z] [hosting] uploading with 200 concurrency
+[debug] [2025-10-13T14:47:34.172Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:34.172Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:34.173Z] [hosting] hash cache [ZGlzdA] stored for 4 files
+[debug] [2025-10-13T14:47:34.173Z] [hosting][hash queue][FINAL] {"max":0,"min":0,"avg":0,"active":0,"complete":4,"success":4,"errored":0,"retried":0,"total":4,"elapsed":1}
+[debug] [2025-10-13T14:47:34.174Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/387b1591cb4e1225:populateFiles [none]
+[debug] [2025-10-13T14:47:34.174Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/387b1591cb4e1225:populateFiles {"files":{"/index.html":"94119d3c9d19a06a26839e6390572d4f54d4c468dc7d9163372a7d0dd4b5c240","/assets/main-KpE1mN-S.css":"0649d078f8fed68a00675c20b89f0fb28bdaf4669867dfc21c3dad84d859d717","/assets/main-Cj0ydpzJ.js":"088aadf36ed88ef5628d278e16eadfb3c0a10fec6168ca3f5011c95d73a125fa","/assets/inici-Cth6A4uA.js":"b29f71ac341d050c2e4031e14a1283bd8a633258ef81dc0a87ace4c8490bc5f7"}}
+[debug] [2025-10-13T14:47:34.443Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/387b1591cb4e1225:populateFiles 200
+[debug] [2025-10-13T14:47:34.443Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/387b1591cb4e1225:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/norkarym/versions/387b1591cb4e1225/files"}
+[debug] [2025-10-13T14:47:34.443Z] [hosting][populate queue][FINAL] {"max":271,"min":271,"avg":271,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":271}
+[debug] [2025-10-13T14:47:34.443Z] [hosting] uploads queued: 0
+[debug] [2025-10-13T14:47:34.443Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1760366854443}
+[info] +  hosting[norkarym]: file upload complete 
+[debug] [2025-10-13T14:47:34.443Z] [hosting] deploy completed after 279ms
+[info] i  functions: creating Node.js 20 (2nd Gen) function apiRegisterNewUser(europe-west1)... 
+[debug] [2025-10-13T14:47:34.445Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:34.446Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:34.446Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions functionId=apiRegisterNewUser
+[debug] [2025-10-13T14:47:34.446Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions {"name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-uploads-389577112007.europe-west1.cloudfunctions.appspot.com","object":"dc5795d7-e5e9-497b-ba6e-cb722374362e.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"}}
+[debug] [2025-10-13T14:47:36.738Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions 200
+[debug] [2025-10-13T14:47:36.738Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/functions {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2025-10-13T14:47:36.739Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:36.739Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:36.739Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:47:36.830Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:47:36.830Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2025-10-13T14:47:37.330Z] [create-default-europe-west1-apiRegisterNewUser] Retrying task index 0
+[debug] [2025-10-13T14:47:37.331Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:37.331Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:37.331Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:47:37.406Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:47:37.406Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/norkarym/locations/europe-west1/services/apiregisternewuser","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"389577112007-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2025-10-13T14:47:38.407Z] [create-default-europe-west1-apiRegisterNewUser] Retrying task index 0
+[debug] [2025-10-13T14:47:38.408Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:38.408Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:38.408Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:47:38.471Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:47:38.471Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/norkarym/locations/europe-west1/services/apiregisternewuser","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"389577112007-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a"},"done":false}
+[debug] [2025-10-13T14:47:40.476Z] [create-default-europe-west1-apiRegisterNewUser] Retrying task index 0
+[debug] [2025-10-13T14:47:40.476Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:40.476Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:40.476Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:47:40.530Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:47:40.530Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/norkarym/locations/europe-west1/services/apiregisternewuser","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"389577112007-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a"},"done":false}
+[debug] [2025-10-13T14:47:44.538Z] [create-default-europe-west1-apiRegisterNewUser] Retrying task index 0
+[debug] [2025-10-13T14:47:44.538Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:44.538Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:44.538Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:47:44.607Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:47:44.607Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/norkarym/locations/europe-west1/services/apiregisternewuser","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"389577112007-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a"},"done":false}
+[debug] [2025-10-13T14:47:52.607Z] [create-default-europe-west1-apiRegisterNewUser] Retrying task index 0
+[debug] [2025-10-13T14:47:52.608Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:52.608Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:47:52.608Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:47:53.060Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:47:53.060Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/norkarym/locations/europe-west1/services/apiregisternewuser","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"389577112007-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a"},"done":false}
+[debug] [2025-10-13T14:48:03.074Z] [create-default-europe-west1-apiRegisterNewUser] Retrying task index 0
+[debug] [2025-10-13T14:48:03.074Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:48:03.074Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:48:03.075Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd [none]
+[debug] [2025-10-13T14:48:03.478Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd 200
+[debug] [2025-10-13T14:48:03.478Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd {"name":"projects/norkarym/locations/europe-west1/operations/operation-1760366854193-6410b5904c1ec-a90aae4f-954605fd","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-10-13T14:47:36.356791688Z","endTime":"2025-10-13T14:47:55.111846587Z","target":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/norkarym/locations/europe-west1/services/apiregisternewuser","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}","GCLOUD_PROJECT":"norkarym","EVENTARC_CLOUD_EVENT_SOURCE":"projects/norkarym/locations/europe-west1/services/apiRegisterNewUser","FUNCTION_TARGET":"apiRegisterNewUser","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"389577112007-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"environment":"GEN_2"},"stages":[{"name":"ARTIFACT_REGISTRY","message":"Deleting function artifacts in Artifact Registry","state":"COMPLETE"},{"name":"SERVICE","message":"Deleting Cloud Run service","state":"COMPLETE","resource":"projects/norkarym/locations/europe-west1/services/apiregisternewuser"}],"operationType":"CREATE_FUNCTION"},"done":true,"error":{"code":3,"message":"Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account\n You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007.\n"}}
+[debug] [2025-10-13T14:48:03.478Z] Got source token undefined for region europe-west1
+[error] Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account
+ You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007.
+
+[debug] [2025-10-13T14:48:03.481Z] Total Function Deployment time: 29033
+[debug] [2025-10-13T14:48:03.481Z] 1 Functions Deployed
+[debug] [2025-10-13T14:48:03.481Z] 1 Functions Errored
+[debug] [2025-10-13T14:48:03.481Z] 0 Function Deployments Aborted
+[debug] [2025-10-13T14:48:03.481Z] Average Function Deployment time: 29033
+[info] 
+[info] Functions deploy had errors with the following functions:
+	apiRegisterNewUser(europe-west1)
+[debug] [2025-10-13T14:48:03.913Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[debug] [2025-10-13T14:48:03.913Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:48:03.913Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:48:03.913Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1/projects/norkarym/locations/europe-west1/repositories/gcf-artifacts [none]
+[debug] [2025-10-13T14:48:04.417Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/norkarym/locations/europe-west1/repositories/gcf-artifacts 200
+[debug] [2025-10-13T14:48:04.417Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/norkarym/locations/europe-west1/repositories/gcf-artifacts {"name":"projects/norkarym/locations/europe-west1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":{"goog-managed-by":"cloudfunctions"},"createTime":"2025-10-13T01:47:12.165859Z","updateTime":"2025-10-13T01:49:15.677530Z","mode":"STANDARD_REPOSITORY","cleanupPolicies":{"firebase-functions-cleanup":{"id":"firebase-functions-cleanup","action":"DELETE","condition":{"tagState":"ANY","olderThan":"2592000s"}}},"vulnerabilityScanningConfig":{"lastEnableTime":"2025-10-13T01:46:58.622578126Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."},"satisfiesPzi":true,"registryUri":"europe-west1-docker.pkg.dev/norkarym/gcf-artifacts"}
+[debug] [2025-10-13T14:48:04.418Z] Functions deploy failed.
+[debug] [2025-10-13T14:48:04.418Z] {
+  "endpoint": {
+    "id": "apiRegisterNewUser",
+    "project": "norkarym",
+    "region": "europe-west1",
+    "entryPoint": "apiRegisterNewUser",
+    "platform": "gcfv2",
+    "runtime": "nodejs20",
+    "httpsTrigger": {},
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "serviceAccount": null,
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "concurrency": 80,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"norkarym\",\"storageBucket\":\"norkarym.firebasestorage.app\"}",
+      "GCLOUD_PROJECT": "norkarym",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/norkarym/locations/europe-west1/services/apiRegisterNewUser"
+    },
+    "codebase": "default",
+    "cpu": 1,
+    "targetedByOnly": false,
+    "hash": "878dc13bd45ebf035640ebe31fd88d931d4ea3e0"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account\n You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007.\n",
+    "original": {
+      "code": 3,
+      "message": "Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account\n You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=europe-west1/5415e15b-98f2-4ffe-abf7-ade66c86821a?project=389577112007.\n"
+    },
+    "status": 3,
+    "code": 3
+  }
+}
+[debug] [2025-10-13T14:48:04.469Z] Error: Failed to create function apiRegisterNewUser in region europe-west1
+    at C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:306:27
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Fabricator.createV2Function (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:290:30)
+    at async Fabricator.createEndpoint (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:137:13)
+    at async handle (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:89:17)
+[error] 
+[error] Error: There was an error deploying functions
+[debug] [2025-10-13T14:51:01.916Z] ----------------------------------------------------------------------
+[debug] [2025-10-13T14:51:01.918Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-10-13T14:51:01.919Z] CLI Version:   14.19.1
+[debug] [2025-10-13T14:51:01.919Z] Platform:      win32
+[debug] [2025-10-13T14:51:01.919Z] Node Version:  v22.20.0
+[debug] [2025-10-13T14:51:01.919Z] Time:          Mon Oct 13 2025 16:51:01 GMT+0200 (Hora d’estiu d’Europa central)
+[debug] [2025-10-13T14:51:01.919Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-13T14:51:02.056Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-13T14:51:02.056Z] > authorizing via signed-in user (norki10@norkarym.com)
+[debug] [2025-10-13T14:51:02.056Z] [iam] checking project norkarym for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-10-13T14:51:02.057Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:02.057Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:02.058Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions [none]
+[debug] [2025-10-13T14:51:02.058Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions x-goog-quota-user=projects/norkarym
+[debug] [2025-10-13T14:51:02.058Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-10-13T14:51:03.103Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions 200
+[debug] [2025-10-13T14:51:03.104Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-10-13T14:51:03.104Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:03.104Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:03.104Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-10-13T14:51:03.104Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-10-13T14:51:04.037Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-10-13T14:51:04.037Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/norkarym/serviceAccounts/norkarym@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-10-13T14:51:04.037Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:04.037Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:04.038Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/norkarym [none]
+[debug] [2025-10-13T14:51:04.637Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/norkarym 200
+[debug] [2025-10-13T14:51:04.637Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/norkarym {"projectId":"norkarym","projectNumber":"389577112007","displayName":"norkarym","name":"projects/norkarym","resources":{"hostingSite":"norkarym"},"state":"ACTIVE","etag":"1_7cadde9c-bda4-4833-b0b0-481df5c1a542"}
+[info] 
+[info] === Deploying to 'norkarym'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2025-10-13T14:51:04.640Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:04.640Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:04.640Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym [none]
+[debug] [2025-10-13T14:51:04.856Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym 200
+[debug] [2025-10-13T14:51:04.856Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym {"projectNumber":"389577112007","projectId":"norkarym","lifecycleState":"ACTIVE","name":"norkarym","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-08T15:00:50.911904Z","parent":{"type":"organization","id":"982433622617"}}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-10-13T14:51:04.858Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:04.858Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:04.858Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/norkarym/adminSdkConfig [none]
+[debug] [2025-10-13T14:51:05.063Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/norkarym/adminSdkConfig 200
+[debug] [2025-10-13T14:51:05.063Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/norkarym/adminSdkConfig {"projectId":"norkarym","storageBucket":"norkarym.firebasestorage.app"}
+[debug] [2025-10-13T14:51:05.064Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:05.064Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:05.064Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/norkarym/configs [none]
+[debug] [2025-10-13T14:51:05.664Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/norkarym/configs 200
+[debug] [2025-10-13T14:51:05.664Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/norkarym/configs {}
+[debug] [2025-10-13T14:51:05.665Z] Validating nodejs source
+[debug] [2025-10-13T14:51:06.676Z] > [functions] package.json contents: {
+  "name": "functions",
+  "private": true,
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "firebase-admin": "^12.1.1",
+    "firebase-functions": "^6.5.0",
+    "oficial_norkarym": "file:..",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
+[debug] [2025-10-13T14:51:06.677Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-10-13T14:51:06.677Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-10-13T14:51:06.689Z] Found firebase-functions binary at 'C:\Users\airda\Documents\GitHub\OFICIAL_NORKARYM\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8008
+
+[debug] [2025-10-13T14:51:07.204Z] Got response from /__/functions.yaml {"endpoints":{"apiRegisterNewUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west1"],"labels":{},"httpsTrigger":{},"entryPoint":"apiRegisterNewUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2025-10-13T14:51:11.231Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-13T14:51:11.231Z] > authorizing via signed-in user (norki10@norkarym.com)
+[debug] [2025-10-13T14:51:11.231Z] [iam] checking project norkarym for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2025-10-13T14:51:11.231Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:11.231Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:11.231Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions [none]
+[debug] [2025-10-13T14:51:11.231Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions x-goog-quota-user=projects/norkarym
+[debug] [2025-10-13T14:51:11.231Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-10-13T14:51:12.249Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions 200
+[debug] [2025-10-13T14:51:12.249Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/norkarym:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-10-13T14:51:12.250Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:12.250Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:12.250Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/norkarym/instances pageSize=100&pageToken=
+[debug] [2025-10-13T14:51:13.274Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/norkarym/instances 200
+[debug] [2025-10-13T14:51:13.274Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/norkarym/instances {}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\airda\Documents\GitHub\OFICIAL_NORKARYM\functions (46.38 KB) for uploading 
+[debug] [2025-10-13T14:51:13.303Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:13.303Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:13.303Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/norkarym/locations/-/functions [none]
+[debug] [2025-10-13T14:51:14.171Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/norkarym/locations/-/functions 200
+[debug] [2025-10-13T14:51:14.171Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/norkarym/locations/-/functions {}
+[debug] [2025-10-13T14:51:14.172Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:14.172Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:14.172Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-10-13T14:51:15.156Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/-/functions 200
+[debug] [2025-10-13T14:51:15.156Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/norkarym/locations/-/functions {"functions":[{"name":"projects/norkarym/locations/europe-west1/functions/apiRegisterNewUser","buildConfig":{"build":"projects/389577112007/locations/europe-west1/builds/5415e15b-98f2-4ffe-abf7-ade66c86821a","runtime":"nodejs20","entryPoint":"apiRegisterNewUser","source":{"storageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/norkarym/locations/europe-west1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-389577112007-europe-west1","object":"apiRegisterNewUser/function-source.zip","generation":"1760366855907617"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/norkarym/serviceAccounts/389577112007-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"state":"FAILED","updateTime":"2025-10-13T14:47:55.120687081Z","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"878dc13bd45ebf035640ebe31fd88d931d4ea3e0"},"stateMessages":[{"severity":"ERROR","type":"CloudRunServiceNotFound","message":"Cloud Run service projects/norkarym/locations/europe-west1/services/apiregisternewuser for the function was not found. The function will not work correctly. Please redeploy."}],"environment":"GEN_2","url":"https://europe-west1-norkarym.cloudfunctions.net/apiRegisterNewUser","createTime":"2025-10-13T14:47:36.352880183Z","satisfiesPzi":true}]}
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[debug] [2025-10-13T14:51:15.159Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:15.159Z] Checked if tokens are valid: true, expires at: 1760369694615
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2025-10-13T14:51:15.160Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:15.160Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:15.160Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-10-13T14:51:15.160Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:51:15.160Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity {}
+[debug] [2025-10-13T14:51:15.161Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-10-13T14:51:15.161Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/389577112007
+[debug] [2025-10-13T14:51:15.161Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity {}
+[debug] [2025-10-13T14:51:16.307Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2025-10-13T14:51:16.308Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-389577112007@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"111945278691177506798"}}
+[debug] [2025-10-13T14:51:16.372Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2025-10-13T14:51:16.373Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/389577112007/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-389577112007@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"105770731205617686581"}}
+[debug] [2025-10-13T14:51:16.374Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:16.374Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:16.374Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym [none]
+[debug] [2025-10-13T14:51:16.585Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym 200
+[debug] [2025-10-13T14:51:16.585Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/norkarym {"projectNumber":"389577112007","projectId":"norkarym","lifecycleState":"ACTIVE","name":"norkarym","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-10-08T15:00:50.911904Z","parent":{"type":"organization","id":"982433622617"}}
+[debug] [2025-10-13T14:51:16.586Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:16.586Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:16.586Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/389577112007 [none]
+[debug] [2025-10-13T14:51:17.291Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/389577112007 200
+[debug] [2025-10-13T14:51:17.291Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/389577112007 {"kind":"compute#project","id":"4311212523228986302","creationTimestamp":"2025-10-11T14:00:02.488-07:00","name":"norkarym","commonInstanceMetadata":{"kind":"compute#metadata","fingerprint":"cU3gUyDO370="},"quotas":[{"metric":"SNAPSHOTS","limit":1000,"usage":0},{"metric":"NETWORKS","limit":5,"usage":1},{"metric":"FIREWALLS","limit":100,"usage":4},{"metric":"IMAGES","limit":100,"usage":0},{"metric":"STATIC_ADDRESSES","limit":8,"usage":0},{"metric":"ROUTES","limit":200,"usage":0},{"metric":"FORWARDING_RULES","limit":15,"usage":0},{"metric":"TARGET_POOLS","limit":50,"usage":0},{"metric":"HEALTH_CHECKS","limit":75,"usage":0},{"metric":"IN_USE_ADDRESSES","limit":8,"usage":0},{"metric":"TARGET_INSTANCES","limit":50,"usage":0},{"metric":"TARGET_HTTP_PROXIES","limit":10,"usage":0},{"metric":"URL_MAPS","limit":10,"usage":0},{"metric":"BACKEND_SERVICES","limit":50,"usage":0},{"metric":"INSTANCE_TEMPLATES","limit":100,"usage":0},{"metric":"TARGET_VPN_GATEWAYS","limit":5,"usage":0},{"metric":"VPN_TUNNELS","limit":10,"usage":0},{"metric":"BACKEND_BUCKETS","limit":3,"usage":0},{"metric":"ROUTERS","limit":10,"usage":0},{"metric":"TARGET_SSL_PROXIES","limit":10,"usage":0},{"metric":"TARGET_HTTPS_PROXIES","limit":10,"usage":0},{"metric":"SSL_CERTIFICATES","limit":10,"usage":0},{"metric":"SUBNETWORKS","limit":100,"usage":0},{"metric":"TARGET_TCP_PROXIES","limit":10,"usage":0},{"metric":"CPUS_ALL_REGIONS","limit":32,"usage":0},{"metric":"SECURITY_POLICIES","limit":10,"usage":0},{"metric":"SECURITY_POLICY_RULES","limit":100,"usage":0},{"metric":"XPN_SERVICE_PROJECTS","limit":1000,"usage":0},{"metric":"PACKET_MIRRORINGS","limit":20,"usage":0},{"metric":"NETWORK_ENDPOINT_GROUPS","limit":100,"usage":0},{"metric":"INTERCONNECTS","limit":6,"usage":0},{"metric":"SSL_POLICIES","limit":10,"usage":0},{"metric":"GLOBAL_INTERNAL_ADDRESSES","limit":5000,"usage":0},{"metric":"VPN_GATEWAYS","limit":5,"usage":0},{"metric":"MACHINE_IMAGES","limit":100,"usage":0},{"metric":"SECURITY_POLICY_CEVAL_RULES","limit":20,"usage":0},{"metric":"GPUS_ALL_REGIONS","limit":0,"usage":0},{"metric":"EXTERNAL_VPN_GATEWAYS","limit":5,"usage":0},{"metric":"PUBLIC_ADVERTISED_PREFIXES","limit":1,"usage":0},{"metric":"PUBLIC_DELEGATED_PREFIXES","limit":10,"usage":0},{"metric":"STATIC_BYOIP_ADDRESSES","limit":128,"usage":0},{"metric":"NETWORK_FIREWALL_POLICIES","limit":10,"usage":0},{"metric":"INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES","limit":15,"usage":0},{"metric":"GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES","limit":15,"usage":0},{"metric":"GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES","limit":250,"usage":0}],"selfLink":"https://www.googleapis.com/compute/v1/projects/norkarym","defaultServiceAccount":"389577112007-compute@developer.gserviceaccount.com","xpnProjectStatus":"UNSPECIFIED_XPN_PROJECT_STATUS","defaultNetworkTier":"PREMIUM","vmDnsSetting":"ZONAL_ONLY","cloudArmorTier":"CA_STANDARD"}
+[debug] [2025-10-13T14:51:17.294Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:17.294Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:17.294Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions [none]
+[debug] [2025-10-13T14:51:17.294Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-10-13T14:51:18.721Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions 200
+[debug] [2025-10-13T14:51:18.721Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/norkarym/versions {"name":"projects/389577112007/sites/norkarym/versions/34dc21c387379bd7","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-10-13T14:51:18.721Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:18.721Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:18.721Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/norkarym/billingInfo [none]
+[debug] [2025-10-13T14:51:19.265Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/norkarym/billingInfo 200
+[debug] [2025-10-13T14:51:19.265Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/norkarym/billingInfo {"name":"projects/norkarym/billingInfo","projectId":"norkarym","billingAccountName":"billingAccounts/01D887-ACFBB8-15B346","billingEnabled":true}
+[info] i  hosting[norkarym]: beginning deploy... 
+[info] i  hosting[norkarym]: found 4 files in dist 
+[debug] [2025-10-13T14:51:19.274Z] [hosting] uploading with 200 concurrency
+[debug] [2025-10-13T14:51:19.276Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:19.276Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:19.277Z] [hosting] hash cache [ZGlzdA] stored for 4 files
+[debug] [2025-10-13T14:51:19.277Z] [hosting][hash queue][FINAL] {"max":0,"min":0,"avg":0,"active":0,"complete":4,"success":4,"errored":0,"retried":0,"total":4,"elapsed":1}
+[debug] [2025-10-13T14:51:19.277Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/34dc21c387379bd7:populateFiles [none]
+[debug] [2025-10-13T14:51:19.277Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/34dc21c387379bd7:populateFiles {"files":{"/index.html":"94119d3c9d19a06a26839e6390572d4f54d4c468dc7d9163372a7d0dd4b5c240","/assets/main-KpE1mN-S.css":"0649d078f8fed68a00675c20b89f0fb28bdaf4669867dfc21c3dad84d859d717","/assets/main-Cj0ydpzJ.js":"088aadf36ed88ef5628d278e16eadfb3c0a10fec6168ca3f5011c95d73a125fa","/assets/inici-Cth6A4uA.js":"b29f71ac341d050c2e4031e14a1283bd8a633258ef81dc0a87ace4c8490bc5f7"}}
+[debug] [2025-10-13T14:51:19.525Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/34dc21c387379bd7:populateFiles 200
+[debug] [2025-10-13T14:51:19.525Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/389577112007/sites/norkarym/versions/34dc21c387379bd7:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/norkarym/versions/34dc21c387379bd7/files"}
+[debug] [2025-10-13T14:51:19.525Z] [hosting][populate queue][FINAL] {"max":249,"min":249,"avg":249,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":249}
+[debug] [2025-10-13T14:51:19.525Z] [hosting] uploads queued: 0
+[debug] [2025-10-13T14:51:19.525Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1760367079525}
+[info] +  hosting[norkarym]: file upload complete 
+[debug] [2025-10-13T14:51:19.526Z] [hosting] deploy completed after 259ms
+[info] i  functions: updating Node.js 20 (2nd Gen) function apiRegisterNewUser(europe-west1)... 
+[debug] [2025-10-13T14:51:19.527Z] Precondition failed. Cannot update a GCFv2 function without storage
+[debug] [2025-10-13T14:51:19.530Z] Total Function Deployment time: 0
+[debug] [2025-10-13T14:51:19.530Z] 1 Functions Deployed
+[debug] [2025-10-13T14:51:19.530Z] 1 Functions Errored
+[debug] [2025-10-13T14:51:19.530Z] 0 Function Deployments Aborted
+[debug] [2025-10-13T14:51:19.530Z] Average Function Deployment time: 0
+[info] 
+[info] Functions deploy had errors with the following functions:
+	apiRegisterNewUser(europe-west1)
+[debug] [2025-10-13T14:51:19.956Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[debug] [2025-10-13T14:51:19.956Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:19.956Z] Checked if tokens are valid: true, expires at: 1760369694615
+[debug] [2025-10-13T14:51:19.956Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1/projects/norkarym/locations/europe-west1/repositories/gcf-artifacts [none]
+[debug] [2025-10-13T14:51:20.429Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/norkarym/locations/europe-west1/repositories/gcf-artifacts 200
+[debug] [2025-10-13T14:51:20.429Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/norkarym/locations/europe-west1/repositories/gcf-artifacts {"name":"projects/norkarym/locations/europe-west1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":{"goog-managed-by":"cloudfunctions"},"createTime":"2025-10-13T01:47:12.165859Z","updateTime":"2025-10-13T01:49:15.677530Z","mode":"STANDARD_REPOSITORY","cleanupPolicies":{"firebase-functions-cleanup":{"id":"firebase-functions-cleanup","action":"DELETE","condition":{"tagState":"ANY","olderThan":"2592000s"}}},"vulnerabilityScanningConfig":{"lastEnableTime":"2025-10-13T01:46:58.622578126Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."},"satisfiesPzi":true,"registryUri":"europe-west1-docker.pkg.dev/norkarym/gcf-artifacts"}
+[debug] [2025-10-13T14:51:20.429Z] Functions deploy failed.
+[debug] [2025-10-13T14:51:20.429Z] {}
+[debug] [2025-10-13T14:51:20.510Z] Error: Precondition failed
+    at Fabricator.updateV2Function (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:394:19)
+    at Fabricator.updateEndpoint (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:160:24)
+    at C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:110:71
+    at handle (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:89:23)
+    at Fabricator.applyChangeset (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:110:26)
+    at C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:69:40
+    at Array.map (<anonymous>)
+    at Fabricator.applyPlan (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:68:54)
+    at release (C:\Users\airda\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\index.js:76:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: There was an error deploying functions

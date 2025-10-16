@@ -1,37 +1,28 @@
-// functions/index.js (Actualitzat a la sintaxi v2)
+// functions/index.js
 
-// Importacions per a les funcions de Firebase (nova sintaxi v2)
-import {log} from "firebase-functions/logger";
-import {onRequest} from "firebase-functions/v2/https";
-import {setGlobalOptions} from "firebase-functions/v2";
-
+import { onRequest } from "firebase-functions/v2/https";
+import { setGlobalOptions } from "firebase-functions/v2";
 import admin from "firebase-admin";
-import { addAdmin } from "./src/controllers/adminController.js";
-// Mantenim l'exemple anterior per si el necessites
-// import { laTevaFuncio } from "./src/controllers/elTeuController.js";
+import api from "./src/api.js"; // Importem l'app d'Express
 
-// --- INICIALITZACIÓ I CONFIGURACIÓ GLOBAL ---
+// --- INICIALITZACIÓ GLOBAL ---
 
-// Inicialitza l'SDK d'Admin de Firebase. Només es fa una vegada.
+// Inicialitzem l'SDK d'Admin de Firebase.
+// Això només s'ha de fer una vegada per a tota l'aplicació.
 admin.initializeApp();
 
-// Estableix la regió per a totes les funcions desplegades des d'aquest fitxer.
-// És una bona pràctica per mantenir les teves funcions a prop dels teus usuaris.
-setGlobalOptions({region: "europe-west1"});
-
-// Crea un gestor de CORS que podem reutilitzar a totes les funcions HTTP.
-const corsHandler = cors({origin: true});
+// Establim opcions globals per a totes les funcions.
+// En aquest cas, definim la regió on s'executaran les funcions.
+setGlobalOptions({ region: "europe-west1" });
 
 
-// --- DEFINICIÓ DELS ENDPOINTS DE L'API ---
+// --- EXPORTACIÓ DE L'API ---
 
-// Endpoint per afegir un nou administrador
-export const apiAddAdmin = functions.region("europe-west1").https.onRequest((req, res) => {
-  corsHandler(req, res, () => {
-    // Aquí podríem afegir un middleware de verificació d'autenticació en el futur
-    addAdmin(req, res);
-  });
-});
-
-// Exemple:
-// export const elTeuEndpoint = functions.region("europe-west1").https.onRequest(...)
+// Creem una única Cloud Function que servirà tota la nostra API d'Express.
+// Qualsevol petició que arribi a '/api' (configurat a firebase.json)
+// serà gestionada per la nostra aplicació 'api'.
+//
+// Per exemple:
+// - Una petició a '.../api/addAdmin' serà gestionada per 'app.post("/addAdmin", ...)'
+// - Una petició a '.../api/registerNewUser' serà gestionada per 'app.post("/registerNewUser", ...)'
+export const api_norkarym = onRequest(api);

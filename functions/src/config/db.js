@@ -1,56 +1,57 @@
-// OFICIAL_NORKARYM/db.js (Versió amb inicialització mandrosa/pèrdua d'inicialització) --actualitzacio Arym-- kaka de vaka -- verda
-/**
- * Database pool helper (lazy-initialized).
- * This module exports query/getPool/close wrappers and avoids creating
- * a Pool at import time to prevent network activity during Cloud Build.
- */
-import "dotenv/config"; // Per carregar les variables d'entorn
+// Contenido para el archivo: functions/src/config/db.js
+
+import "dotenv/config";
 import pg from "pg";
 
-const {Pool} = pg;
+const { Pool } = pg;
 
-// Support either a single connection string (DATABASE_URL) or individual env vars.
-const connectionString = process.env.DATABASE_URL || undefined;
+// Determina si l'entorn és de desenvolupament local (emulador) o de producció.
+// Firebase automàticament estableix aquesta variable a 'true' quan s'executa amb l'emulador.
+const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
 
-// Enable SSL in production or when explicitly requested via DB_SSL=true.
-const useSsl = (process.env.DB_SSL === "true") || (process.env.NODE_ENV === "production");
+// Configuració base comuna per a tots els entorns
+const baseConfig = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+};
 
-// Build pool configuration (same as before)
-const poolConfig = connectionString ?
-  {
-    connectionString,
-    ssl: useSsl ? {rejectUnauthorized: false} : false,
-  } :
-  {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT ? Number(process.env.DB_PORT) : undefined,
-    ssl: useSsl ? {rejectUnauthorized: false} : false,
-    // sensible defaults for connection pooling
-    max: process.env.DB_POOL_MAX ? Number(process.env.DB_POOL_MAX) : 10,
-    idleTimeoutMillis: 30000,
-  };
+// Configuració específica per a cada entorn
+const envConfig = isEmulator
+  ? {
+      // --- ENTORN LOCAL (EMULADOR) ---
+      // Ens connectem a través de TCP/IP al Cloud SQL Auth Proxy.
+      // Aquestes variables d'entorn (DB_HOST, DB_PORT) les definiràs al teu arxiu .env local.
+      host: process.env.DB_HOST || "127.0.0.1",
+      port: parseInt(process.env.DB_PORT || "5432", 10),
+    }
+  : {
+      // --- ENTORN DE PRODUCCIÓ (GOOGLE CLOUD) ---
+      // Ens connectem a través del socket Unix segur que proporciona Google Cloud.
+      host: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+    };
 
-// Lazy pool reference. We only create the Pool when it's first needed.
+// Unim la configuració base amb la de l'entorn corresponent
+const poolConfig = { ...baseConfig, ...envConfig };
+
 let pool;
 
-/**
- * Initialize the PG pool on first use.
- * @return {Pool} the initialized pg Pool
- */
+// La funció d'inicialització ara és més robusta
 function initPool() {
   if (!pool) {
+    console.log("Creant una nova instància del pool de connexions...");
+    console.log(`Mode de connexió: ${isEmulator ? "Local (Emulator)" : "Producció (Cloud)"}`);
     pool = new Pool(poolConfig);
-    // Log unexpected errors on idle clients (helps debugging in Cloud Functions)
-    // eslint-disable-next-line no-console
-    pool.on("error", (err) => console.error("Unexpected error on idle postgres client", err));
+    pool.on("error", (err) => {
+      console.error("Error inesperat en el client de la base de dades.", err);
+      // En cas d'error greu, tanquem el procés per forçar un reinici saludable.
+      process.exit(-1);
+    });
   }
   return pool;
 }
 
-// Convenience wrappers that ensure the pool is initialized lazily.
+// Wrappers para asegurar que el pool se inicializa solo cuando se necesita
 const query = (text, params) => initPool().query(text, params);
 const getPool = () => initPool();
 const close = () => (pool ? pool.end() : Promise.resolve());

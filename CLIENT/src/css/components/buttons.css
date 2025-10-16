@@ -1,29 +1,41 @@
-/* Estils per a tots els botons de l'aplicació */
-.main-button, .initial-buttons a, .initial-buttons button, button#btnSubmit {
-    font-family: 'Montserrat', sans-serif;
-    padding: 15px 30px;
+/* CLIENT/src/css/components/buttons.css (Nou Estil: Turquesa Fosc, Quicksand, Hover de Sombra Il·luminada) */
+
+/* Apliquem l'estil a totes dues classes ja que, de moment, són idèntiques */
+.button-primary,
+.button-secondary {
+    display: inline-block;
+    
+    /* Canvis Sol·licitats */
+    font-family: var(--font-button); /* Quicksand */
+    font-weight: 500; /* Medium */
     font-size: 16px;
-    font-weight: 400;
+    padding: 12px 24px;
+    border-radius: 100px; /* Bordes molt més arrodonits (Pill shape) */
     cursor: pointer;
-    text-decoration: none;
-    color: var(--text-color-light);
-    text-transform: uppercase;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    transition: all 0.3s ease;
     text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    
+    /* Estil Principal: Fons Turquesa Fosc, text blanc */
+    /* MODIFICACIÓ CLAU: Utilitzem el color primari per al fons (Turquesa Fosc: #0D9488) */
+    background-color: #0D9488; 
+    color: var(--color-white);
+    
+    /* Ombra subtil inicial per donar profunditat. */
+    box-shadow: 0 4px 10px rgba(199, 219, 218, 0.199);
 }
 
-.main-button:hover, .initial-buttons a:hover, .initial-buttons button:hover, button#btnSubmit:hover:not(:disabled) {
-    transform: translateY(-3px);
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+/* Estil Hover: S'il·lumina (per darrere) i es mou lleugerament amunt */
+.button-primary:hover,
+.button-secondary:hover {
+    /* Mantenim el color base del botó, no el fem més clar */
+    background-color: #0D9488; 
+    
+    transform: translateY(-3px); /* Puja 3px */
+    
+    /* MODIFICACIÓ CLAU: Només augmentem la intensitat de l'ombra (il·luminació posterior) */
+    box-shadow: 0 8px 30px rgba(187, 197, 196, 0.7); /* Ombra molt més gran i opaca */
 }
 
-button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
+/* Eliminem l'estil secundari fins que es defineixi un nou disseny */
