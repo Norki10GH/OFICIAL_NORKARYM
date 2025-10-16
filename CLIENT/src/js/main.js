@@ -16,9 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./pages/inici.js').then(module => {
       module.iniciPage();
     });
-  } else if (page === 'page-inscripcio') {
-    import('./pages/inscripcio.js').then(module => {
-      module.inscripcioPage();
-    });
   }
 });

@@ -1,0 +1,8 @@
+# Dependencias
+node_modules/
+
+# Archivos de compilación (producción)
+dist/
+
+# Archivos de entorno (si los usas en el futuro)
+.env

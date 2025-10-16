@@ -1,0 +1,563 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////      /////   ////   //       ///    //     ////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////  //////  /  //   /////  /////  ///////  ///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////  /////  ///  /  //////  ////   ///////  ////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////      //  /////   ////       ///    ///      //////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// NORKÄRŸM - GESTOR USUARIS
+
+//versio: 1.3
+
+//
+NOU PROMPT DE CONTEXT ACTUALITZAT
+ROL I OBJECTIU PRINCIPAL: Actua com un enginyer de software sènior expert en arquitectures web modernes, ajudant-me a construir, modificar i ampliar l'aplicació web "NORKÄRŸM". La nostra comunicació serà en castellà, però tot el codi, la interfície d'usuari i els comentaris han d'estar exclusivament en català. La teva missió és entendre a fons l'arquitectura i l'estil del codi existent per generar respostes coherents, professionals i que s'integrin perfectament amb el projecte.
+CONTEXT CORPORATIU:
+Nom de l'empresa: NORKÄRŸM
+Nom de l'aplicació principal: NORKÄRŸM
+Emails d'administradors: arym10@norkarym.com, norki10@norkarym.com, admins@norkarym.com
+Propietat Intel·lectual: Tot el codi base ha estat escrit per mi i és de la meva propietat. El teu rol és ajudar-me a millorar-lo i ampliar-lo.
+OBJECTIU DE L'APLICACIÓ NORKÄRŸM: L'aplicació NORKÄRŸM és el sistema central de gestió d'usuaris de l'empresa. S'encarrega del registre de nous clients, l'autenticació (accés), la gestió de dades per part dels administradors i servirà com a portal d'entrada per a futures aplicacions. La primera d'aquestes aplicacions serà KÄRŸ, una eina de gestió comptable per a negocis. Ara mateix, el nostre focus és consolidar i deixar 100% funcional l'app NORKÄRŸM.
+
+ARQUITECTURA TÈCNICA ACTUAL
+El projecte utilitza un stack tecnològic modern, professional i escalable.
+Frontend: Construït amb Vite, utilitzant HTML5, CSS3 i JavaScript vainilla totalment modular (Mòduls ES6).
+Backend: Desenvolupat sobre Firebase Functions (v2), utilitzant Node.js amb Mòduls ES6. S'ha actualitzat a la sintaxi més recent per a un millor rendiment i modularitat.
+Base de Dades: Google Cloud SQL (PostgreSQL). Tota la interacció amb les dades es gestiona a través del backend.
+Autenticació: Gestionada per Firebase Authentication.
+Hosting: Desplegat amb Firebase Hosting.
+
+RESUM DE L'ESTRUCTURA DEL CODI
+1. client/ (Frontend):
+client/.env: Fitxer (ignorat per Git) que emmagatzema de forma segura les claus de configuració de Firebase per al frontend.
+client/index.html i altres fitxers HTML: Pàgines de l'aplicació.
+client/src/: Carpeta principal del codi font.
+js/: Codi JavaScript modular.
+main.js: Punt d'entrada que actua com a "router" bàsic segons la classe del <body>.
+pages/: Lògica específica de cada pàgina.
+components/: Components reutilitzables (com particle-animation.js).
+css/: Estils modulars (global.css, estils per pàgina a pages, i per component, botons a buttons.css i formularis a forms.css).
+config/firebase-init.js: Inicialitza Firebase llegint les claus des de les variables d'entorn de Vite.
+vite.config.js: Fitxer de configuració de Vite.
+Defineix client/ com a root.
+Genera la build a la carpeta dist/ a l'arrel del projecte.
+Configura un proxy per redirigir les peticions /api a l'emulador de Firebase durant el desenvolupament.
+2. functions/ (Backend):
+functions/package.json: Configuració del backend, amb "type": "module" i les dependències més recents.
+functions/index.js: Punt d'entrada del backend que defineix els endpoints de l'API utilitzant la sintaxi v2 de Firebase Functions. Delega la lògica de negoci als controladors.
+functions/src/controllers/: Carpeta que conté la lògica de negoci de cada endpoint (ex: userController.js).
+functions/src/config/db.js: Únic mòdul responsable de la connexió amb la base de dades PostgreSQL (Cloud SQL) mitjançant "lazy initialization".
+3. firebase.json:
+Configura el desplegament. La secció hosting serveix el contingut de dist/ i utilitza rewrites per redirigir les crides /api/... a les Firebase Functions en producció.
+
+FLUX DE TREBALL EN DESENVOLUPAMENT LOCAL
+Frontend: El dissenyador (o qualsevol desenvolupador de frontend) treballa exclusivament a la carpeta client/. Executant npm run dev a la terminal, Vite aixeca un servidor local amb recàrrega en calent.
+Backend: El desenvolupador de backend treballa a la carpeta functions/. Executant firebase emulators:start, s'inicia un entorn local que simula les Cloud Functions.
+Comunicació Local: Gràcies al proxy configurat a vite.config.js, quan el frontend (corrent a localhost:5173, per exemple) fa una crida a /api/registerNewUser, Vite la redirigeix automàticament a l'emulador de functions (corrent a localhost:5001), evitant problemes de CORS i permetent un desenvolupament totalment independent i en paral·lel.
+
+RESUM DEL FUNCIONAMENT DEL CODI (EN PRODUCCIÓ)
+Càrrega de Pàgina: L'usuari accedeix a una URL. Firebase Hosting serveix el fitxer HTML corresponent des de la carpeta dist/.
+Execució del Frontend: L'HTML carrega el JavaScript compilat, que executa l'animació de fons i la lògica específica de la pàgina.
+Comunicació amb el Backend: El JavaScript fa una crida fetch a un endpoint relatiu (ex: /api/registerNewUser).
+Execució del Backend:
+La regla rewrite de firebase.json intercepta la crida i la redirigeix a la Cloud Function corresponent.
+La funció (definida a index.js) rep la petició i la passa al controlador adequat.
+El controlador utilitza db.js per interactuar amb Cloud SQL.
+Finalment, el backend retorna una resposta JSON al frontend.
+
+
+## Resumen General de la Base de Datos gestio_usuaris a la instancia norkarym-app-bd de PostgreSQL 17
+nombre base de datos: gestio_usuaris
+
+¡Perfecto! Adoptar estas mejoras hará tu sistema mucho más robusto y escalable.
+Aquí tienes la propuesta final con el resumen, el código SQL corregido y las nuevas tablas, manteniendo la nomenclatura que ya utilizas.
+## Resumen General de la Base de Datos
+Esta estructura está diseñada para una gestión integral de usuarios, proyectos y permisos. Cada tabla cumple una función específica para mantener los datos organizados y evitar redundancias:
+Tablas de Administración (taula_admins_nk, taula_rols_nk, taula_emails_nk): Gestionan a los administradores del sistema, sus roles específicos y sus cuentas de correo.
+Tablas de Proyectos (taula_projectes_nk, taula_versions_ky): Definen los proyectos y sus respectivas versiones, con su README y notas.
+Tablas de Configuración y Tipos (taula_tipus_ky, taula_estats_nk, taula_rols_definicions_nk): Son tablas maestras que definen categorías fijas como los tipos de usuario, los posibles estados (Activo, Inactivo, etc.) y los roles generales que se pueden asignar. Usar estas tablas en lugar de texto libre previene errores.
+Tabla de Usuarios (taula_users_ky): Es el núcleo del sistema. Almacena toda la información personal, de contacto y económica de los usuarios finales.
+Tablas de Relación y Auditoría (NUEVAS):
+taula_projectes_usuaris_nk: Conecta a los usuarios con los proyectos, definiendo quién tiene permiso para acceder a qué.
+taula_usuaris_rols_nk: Asigna los roles definidos a cada usuario.
+taula_auditoria_nk: Es el "libro de registro" del sistema. Guarda un historial de todas las acciones importantes para saber quién hizo qué y cuándo.
+
+1. Tabla de Administradores (taula_admins_nk)
+Propósito: Almacena los datos de los administradores del sistema.
+SQL
+CREATE TABLE taula_admins_nk (
+    id_admin_nk INT AUTO_INCREMENT PRIMARY KEY,
+    firebase_uid_admin_nk VARCHAR(255) UNIQUE,
+    nom_admin_nk VARCHAR(255),
+    email_admin_nk VARCHAR(255) UNIQUE,
+    notes_admin_nk TEXT,
+    data_creacio_admin_nk TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Campo
+Tipo
+Descripción
+id_admin_nk
+INT
+Identificador único del administrador (Clave Primaria).
+firebase_uid_admin_nk
+VARCHAR
+ID de Firebase para la autenticación.
+nom_admin_nk
+VARCHAR
+Nombre del administrador.
+email_admin_nk
+VARCHAR
+Correo electrónico único del administrador.
+notes_admin_nk
+TEXT
+Notas adicionales.
+data_creacio_admin_nk
+TIMESTAMP
+Fecha de creación del registro.
+
+Exportar a Hojas de cálculo
+
+2. Tabla de Roles de Administradores (taula_rols_nk)
+Propósito: Define los roles específicos para los administradores (diferente a los roles de usuario).
+SQL
+CREATE TABLE taula_rols_nk (
+    id_rol_nk INT AUTO_INCREMENT PRIMARY KEY,
+    firebase_uid_admin_nk VARCHAR(255),
+    nom_rol_nk VARCHAR(255),
+    email_rols_nk VARCHAR(255) UNIQUE,
+    notes_rol_nk TEXT,
+    data_creacio_rol_nk TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (firebase_uid_admin_nk) REFERENCES taula_admins_nk(firebase_uid_admin_nk)
+);
+
+Campo
+Tipo
+Descripción
+id_rol_nk
+INT
+Identificador único del rol (Clave Primaria).
+firebase_uid_admin_nk
+VARCHAR
+ID de Firebase del admin al que se asocia (Clave Foránea).
+nom_rol_nk
+VARCHAR
+Nombre del rol de administrador.
+email_rols_nk
+VARCHAR
+Correo electrónico único para el rol.
+notes_rol_nk
+TEXT
+Notas adicionales.
+data_creacio_rol_nk
+TIMESTAMP
+Fecha de creación del registro.
+
+Exportar a Hojas de cálculo
+
+3. Tabla de Correos (taula_emails_nk)
+Propósito: Gestiona cuentas de correo electrónico asociadas a los administradores.
+SQL
+CREATE TABLE taula_emails_nk (
+    id_email_nk INT AUTO_INCREMENT PRIMARY KEY,
+    firebase_uid_admin_nk VARCHAR(255),
+    nom_compte_email_nk VARCHAR(255),
+    email_email_nk VARCHAR(255) UNIQUE,
+    notes_email_nk TEXT,
+    FOREIGN KEY (firebase_uid_admin_nk) REFERENCES taula_admins_nk(firebase_uid_admin_nk)
+);
+
+Campo
+Tipo
+Descripción
+
+
+
+
+
+
+id_email_nk
+INT
+Identificador único del email (Clave Primaria).
+firebase_uid_admin_nk
+VARCHAR
+ID de Firebase del admin asociado (Clave Foránea).
+nom_compte_email_nk
+VARCHAR
+Nombre de la cuenta de correo.
+email_email_nk
+VARCHAR
+Dirección de correo única.
+notes_email_nk
+TEXT
+Notas adicionales.
+
+Exportar a Hojas de cálculo
+
+4. Tabla de Proyectos (taula_projectes_nk) 
+Propósito: Contiene la información de los proyectos. Se ha eliminado la columna redundante versions_proj_nk.
+SQL
+CREATE TABLE taula_projectes_nk (
+    id_proj_nk INT AUTO_INCREMENT PRIMARY KEY,
+    firebase_uid_admin_nk VARCHAR(255),
+    nom_producte_proj_nk VARCHAR(255),
+    FOREIGN KEY (firebase_uid_admin_nk) REFERENCES taula_admins_nk(firebase_uid_admin_nk)
+);
+
+Campo
+Tipo
+Descripción
+id_proj_nk
+INT
+Identificador único del proyecto (Clave Primaria).
+firebase_uid_admin_nk
+VARCHAR
+ID de Firebase del admin que lo creó (Clave Foránea).
+nom_producte_proj_nk
+VARCHAR
+Nombre del producto o proyecto.
+
+Exportar a Hojas de cálculo
+
+5. Tabla de Versiones (taula_versions_ky)
+Propósito: Almacena las diferentes versiones de los proyectos.
+SQL
+CREATE TABLE taula_versions_ky (
+    id_versio_nk INT AUTO_INCREMENT PRIMARY KEY,
+    id_proj_nk INT,
+    nom_versio_nk VARCHAR(255),
+    data_versio_nk TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    readme_versio_nk JSON,
+    notes_versio_nk TEXT,
+    FOREIGN KEY (id_proj_nk) REFERENCES taula_projectes_nk(id_proj_nk)
+);
+
+Campo
+Tipo
+Descripción
+id_versio_nk
+INT
+Identificador único de la versión (Clave Primaria).
+id_proj_nk
+INT
+ID del proyecto al que pertenece (Clave Foránea).
+nom_versio_nk
+VARCHAR
+Nombre de la versión (ej: "v1.0.2").
+data_versio_nk
+TIMESTAMP
+Fecha de la versión.
+readme_versio_nk
+JSON
+Contenido del README en formato JSON.
+notes_versio_nk
+TEXT
+Notas adicionales sobre la versión.
+
+Exportar a Hojas de cálculo
+
+6. Tabla de Tipos (taula_tipus_ky)
+Propósito: Define los tipos de usuarios o registros asociados a proyectos.
+SQL
+CREATE TABLE taula_tipus_ky (
+    id_tipus_k INT AUTO_INCREMENT PRIMARY KEY,
+    codi_tipus_k VARCHAR(255),
+    id_proj_nk INT,
+    id_versio_nk INT,
+    descripcio_tipus_k VARCHAR(255),
+    email_tipus_k VARCHAR(255) UNIQUE,
+    FOREIGN KEY (id_proj_nk) REFERENCES taula_projectes_nk(id_proj_nk),
+    FOREIGN KEY (id_versio_nk) REFERENCES taula_versions_ky(id_versio_nk)
+);
+
+Campo
+Tipo
+Descripción
+id_tipus_k
+INT
+Identificador único del tipo (Clave Primaria).
+codi_tipus_k
+VARCHAR
+Código del tipo.
+id_proj_nk
+INT
+ID del proyecto asociado (Clave Foránea).
+id_versio_nk
+INT
+ID de la versión asociada (Clave Foránea).
+descripcio_tipus_k
+VARCHAR
+Descripción del tipo.
+email_tipus_k
+VARCHAR
+Correo único asociado al tipo.
+
+Exportar a Hojas de cálculo
+
+7. Tabla de Estados (taula_estats_nk) (NUEVA)
+Propósito: Tabla maestra para definir los posibles estados de un usuario (Activo, Pendiente, Inactivo, etc.). Asegura la consistencia de los datos.
+SQL
+CREATE TABLE taula_estats_nk (
+    id_estat_nk INT AUTO_INCREMENT PRIMARY KEY,
+    nom_estat_nk VARCHAR(50) UNIQUE NOT NULL,
+    descripcio_estat_nk TEXT
+);
+
+Campo
+Tipo
+Descripción
+id_estat_nk
+INT
+Identificador único del estado (Clave Primaria).
+nom_estat_nk
+VARCHAR
+Nombre del estado (ej: 'ACTIU').
+descripcio_estat_nk
+TEXT
+Explicación de lo que significa el estado.
+
+Exportar a Hojas de cálculo
+
+8. Tabla de Usuarios (taula_users_ky) (Modificada)
+Propósito: Guarda la información de los usuarios. Se ha modificado el campo de estado para que se relacione con la nueva tabla taula_estats_nk.
+SQL
+CREATE TABLE taula_users_ky (
+    id_k_reg INT AUTO_INCREMENT PRIMARY KEY,
+    firebase_uid_k_reg VARCHAR(255) UNIQUE,
+    id_tipus_k INT,
+    firebase_uid_admin_nk VARCHAR(255),
+    id_estat_k_reg INT,
+    email_k_reg VARCHAR(255) UNIQUE,
+    telefon_k_reg VARCHAR(50),
+    nom_complet_k_reg VARCHAR(255),
+    dni_cif_k_reg VARCHAR(50),
+    cp_k_reg VARCHAR(20),
+    domicili_k_reg VARCHAR(255),
+    poblacio_k_reg VARCHAR(255),
+    pais_k_reg VARCHAR(255),
+    data_solicitud_k_reg DATETIME,
+    data_registre_k_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_cobrat_k_reg DATETIME,
+    total_cobrat_k_reg DECIMAL(10, 2),
+    notes_k_reg TEXT,
+    es_subscrit_correu_k_reg BOOLEAN,
+    FOREIGN KEY (id_tipus_k) REFERENCES taula_tipus_ky(id_tipus_k),
+    FOREIGN KEY (firebase_uid_admin_nk) REFERENCES taula_admins_nk(firebase_uid_admin_nk),
+    FOREIGN KEY (id_estat_k_reg) REFERENCES taula_estats_nk(id_estat_nk)
+);
+
+
+
+Campo
+Tipo
+Descripción
+id_k_reg
+INT
+Identificador único del usuario (Clave Primaria).
+firebase_uid_k_reg
+VARCHAR
+ID único de Firebase del usuario.
+id_tipus_k
+INT
+ID del tipo de usuario (Clave Foránea).
+firebase_uid_admin_nk
+VARCHAR
+ID de Firebase del admin que lo gestiona (Clave Foránea).
+estat_k_reg
+VARCHAR
+Estado del usuario ('ACTIU', 'PENDENT VALIDACIO', etc.).
+email_k_reg
+VARCHAR
+Correo único del usuario.
+telefon_k_reg
+VARCHAR
+Teléfono del usuario.
+nom_complet_k_reg
+VARCHAR
+Nombre completo del usuario.
+dni_cif_k_reg
+VARCHAR
+DNI o CIF del usuario.
+cp_k_reg
+VARCHAR
+Código Postal.
+domicili_k_reg
+VARCHAR
+Domicilio.
+poblacio_k_reg
+VARCHAR
+Población.
+pais_k_reg
+VARCHAR
+País.
+data_solicitud_k_reg
+DATETIME
+Fecha de la solicitud de registro.
+data_registre_k_reg
+TIMESTAMP
+Fecha del registro.
+data_cobrat_k_reg
+DATETIME
+Fecha de cobro.
+total_cobrat_k_reg
+DECIMAL
+Importe total cobrado.
+notes_k_reg
+TEXT
+Notas adicionales.
+es_subscrit_correu_k_reg
+BOOLEAN
+Indica si está suscrito al correo.
+id_estat_k_reg
+INT
+ID del estado del usuario (Clave Foránea a taula_estats_nk).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...
+...
+
+Exportar a Hojas de cálculo
+
+9. Tabla de Definiciones de Roles (taula_rols_definicions_nk) (NUEVA)
+Propósito: Tabla maestra para definir los roles generales que se pueden asignar a los usuarios (Básico, Premium, Editor, etc.).
+SQL
+CREATE TABLE taula_rols_definicions_nk (
+    id_rol_def_nk INT AUTO_INCREMENT PRIMARY KEY,
+    nom_rol_def_nk VARCHAR(50) UNIQUE NOT NULL,
+    descripcio_rol_def_nk TEXT
+);
+
+Campo
+Tipo
+Descripción
+id_rol_def_nk
+INT
+Identificador único del rol (Clave Primaria).
+nom_rol_def_nk
+VARCHAR
+Nombre del rol (ej: 'PREMIUM').
+descripcio_rol_def_nk
+TEXT
+Explicación de los permisos o funciones de este rol.
+
+Exportar a Hojas de cálculo
+
+10. Tabla de Asignación de Roles a Usuarios (taula_usuaris_rols_nk) (NUEVA)
+Propósito: Tabla intermedia (pivote) que asigna los roles de la tabla taula_rols_definicions_nk a los usuarios de tauia_users_ky.
+SQL
+CREATE TABLE taula_usuaris_rols_nk (
+    id_k_reg_ur_nk INT,
+    id_rol_def_ur_nk INT,
+    PRIMARY KEY (id_k_reg_ur_nk, id_rol_def_ur_nk),
+    FOREIGN KEY (id_k_reg_ur_nk) REFERENCES tauia_users_ky(id_k_reg),
+    FOREIGN KEY (id_rol_def_ur_nk) REFERENCES taula_rols_definicions_nk(id_rol_def_nk)
+);
+
+Campo
+Tipo
+Descripción
+id_k_reg_ur_nk
+INT
+ID del usuario (Clave Foránea).
+id_rol_def_ur_nk
+INT
+ID del rol asignado (Clave Foránea).
+
+Exportar a Hojas de cálculo
+
+11. Tabla de Permisos de Usuarios en Proyectos (taula_projectes_usuaris_nk) (NUEVA)
+Propósito: Tabla intermedia que define qué usuarios tienen acceso a qué proyectos y con qué nivel de permiso.
+SQL
+CREATE TABLE taula_projectes_usuaris_nk (
+    id_proj_pu_nk INT,
+    id_k_reg_pu_nk INT,
+    permis_pu_nk VARCHAR(50), -- Ej: 'LECTOR', 'EDITOR', 'ADMIN'
+    PRIMARY KEY (id_proj_pu_nk, id_k_reg_pu_nk),
+    FOREIGN KEY (id_proj_pu_nk) REFERENCES taula_projectes_nk(id_proj_nk),
+    FOREIGN KEY (id_k_reg_pu_nk) REFERENCES tauia_users_ky(id_k_reg)
+);
+
+Campo
+Tipo
+Descripción
+id_proj_pu_nk
+INT
+ID del proyecto (Clave Foránea).
+id_k_reg_pu_nk
+INT
+ID del usuario (Clave Foránea).
+permis_pu_nk
+VARCHAR
+Nivel de permiso del usuario en ese proyecto.
+
+Exportar a Hojas de cálculo
+
+12. Tabla de Auditoría (taula_auditoria_nk) (NUEVA)
+Propósito: Registra todas las acciones importantes realizadas en el sistema para un seguimiento y control de seguridad.
+SQL
+CREATE TABLE taula_auditoria_nk (
+    id_log_nk INT AUTO_INCREMENT PRIMARY KEY,
+    id_admin_nk INT NULL,
+    accio_nk VARCHAR(255) NOT NULL,
+    id_objectiu_nk INT,
+    taula_objectiu_nk VARCHAR(255),
+    valor_antic_nk TEXT,
+    valor_nou_nk TEXT,
+    data_accio_nk TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_admin_nk) REFERENCES taula_admins_nk(id_admin_nk)
+);
+
+Campo
+Tipo
+Descripción
+id_log_nk
+INT
+Identificador único del registro (Clave Primaria).
+id_admin_nk
+INT
+ID del administrador que realizó la acción (puede ser nulo si la acción es del sistema).
+accio_nk
+VARCHAR
+Descripción de la acción (ej: 'CANVI_ESTAT_USUARI').
+id_objectiu_nk
+INT
+El ID del registro afectado (ej: el ID del usuario).
+taula_objectiu_nk
+VARCHAR
+El nombre de la tabla donde está el registro afectado.
+valor_antic_nk
+TEXT
+El valor del campo antes del cambio.
+valor_nou_nk
+TEXT
+El valor del campo después del cambio.
+data_accio_nk
+TIMESTAMP
+Fecha y hora en que ocurrió la acción.
+
+
+//
