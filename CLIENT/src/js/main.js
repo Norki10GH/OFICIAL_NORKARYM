@@ -1,4 +1,4 @@
-// Contenido para el archivo: CLIENT/src/js/main.js
+// Contenido para el archivo: client/src/js/main.js
 
 // 👇 ¡MODIFICA ESTA LÍNEA!
 // Esto importa y ejecuta el código de inicialización de Firebase por su efecto secundario.
@@ -19,10 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (page === 'page-inscripcio') {
     import('./pages/inscripcio.js').then(module => {
       module.inscripcioPage();
-    });
-  } else if (page === 'page-admin') {
-    import('./pages/administradors.js').then(module => {
-      module.administradorsPage();
     });
   }
 });

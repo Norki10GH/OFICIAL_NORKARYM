@@ -1,4 +1,4 @@
-// CLIENT/src/js/pages/inici.js (Lògica de scroll substituïda per slider)
+// client/src/js/pages/inici.js (Lògica de scroll substituïda per slider)
 
 // Funció per controlar el menú responsive (ara activat pel Logotip)
 function initMenuToggle() {
