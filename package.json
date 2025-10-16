@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "type": "module",
 "scripts": {
-  "dev": "vite --config CLIENT/vite.config.js",
-  "build": "vite build --config CLIENT/vite.config.js"
+  "dev": "vite",
+  "build": "vite build"
 },
   "dependencies": {
     "firebase": "^12.4.0"
