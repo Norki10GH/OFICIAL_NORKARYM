@@ -1,5 +1,3 @@
-// firebase.json
-
 {
   "functions": {
     "source": "functions"
@@ -13,16 +11,36 @@
     ],
     "rewrites": [
       {
-        "source": "/api/registrarAdmin", // <-- NOU REWRITE
+        "source": "/api/registrarAdmin",
         "function": "registrarAdmin"
       },
       {
         "source": "/api/**",
-        "function": "testConexionDB" // O la funció que gestioni altres rutes
+        "function": "testConexionDB"
       },
       {
         "source": "**",
         "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "**/*.{js,css}",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       }
     ]
   }
