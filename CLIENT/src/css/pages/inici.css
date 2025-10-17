@@ -1,18 +1,4 @@
-/* CLIENT/src/css/pages/inici.css (Versió amb Logo Icona a l'Esquerra com a Toggle i Estructura Restaurada) */
-
-/* ========= Variables de Color i Fonts ========= */
-:root {
-    --color-primary: #3B82F6;
-    --color-bg: #FFFFFF;
-    --color-bg-alt: #F9FAFB;
-    --color-text-main: #1F2937;
-    --color-text-secondary: #6B7280;
-    --color-white: #FFFFFF;
-    --font-primary: 'Montserrat', sans-serif;
-    --font-secondary: 'Lato', sans-serif;
-    --color-gradient-start: #3B82F6;
-    --color-gradient-end: #0D9488;  
-}
+/* CLIENT/src/css/pages/inici.css */
 
 /* ========= Header (Menú de Navegació) ========= */
 .main-header {
@@ -251,8 +237,8 @@
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
     margin-bottom: 1rem;
     line-height: 1.2;
     text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
@@ -260,11 +246,11 @@
 }
 
 .hero-content p {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2rem;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 2.5rem;
     font-family: var(--font-secondary);
-    max-width: 600px;
+    max-width: 60ch;
 }
 
 .hero-content .button-primary {
@@ -418,84 +404,88 @@
 
 
 /* ========= Disseny Responsive ========= */
-@media (max-width: 900px) {
-    
-    /* A mòbils, desactivem la simetria de min-width */
+/* ========= Disseny Responsive ========= */
+
+/* --- Tauletes (horitzontal i vertical) --- */
+@media (max-width: 1024px) {
     .header-content {
-        justify-content: space-between;
+        padding: 15px 25px;
+    }
+
+    .manifest-panel p {
+        max-width: 80%;
+        padding: 0 20px;
+    }
+}
+
+/* --- Mòbils --- */
+@media (max-width: 768px) {
+    .header-content {
         padding: 15px 20px;
+        flex-wrap: wrap;
     }
 
     .header-logo-icon-link,
     .header-buttons-container {
-        min-width: auto;
+        min-width: 0;
+        flex-basis: 50%;
     }
     
-    .header-logo-link {
-        flex-grow: 0;
-        justify-content: flex-start;
-    }
-    
-    /* Adaptació de la mida dels elements a mòbils */
-    .header-logo {
-        height: 35px;
-    }
-    .header-app-name {
-        height: 40px;
+    .header-buttons-container {
+        justify-content: flex-end;
     }
 
-    /* Ajustos de botons i hero... (la resta d'estils es mantenen) */
-    .header-buttons {
-        gap: 8px;
+    .header-logo-link {
+        order: -1;
+        flex-basis: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+        display: none; /* Opcional: amagar en mòbil si és redundant */
     }
-    .header-buttons .button-primary,
-    .header-buttons .button-secondary {
-        padding: 8px 12px;
-    }
+
+    .header-logo { height: 40px; }
+    .header-app-name { height: 45px; }
+
     .hero-content {
-        padding: 80px 20px 20px 20px;
+        padding-top: 100px;
     }
+
+    .hero-content h1 {
+        white-space: normal; /* Permet que el títol es trenqui */
+    }
+
+    .manifest-section {
+        height: auto;
+        padding: 60px 0;
+    }
+
+    .manifest-panel {
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 2rem;
+    }
+
+    .manifest-panel img {
+        height: 55vh; /* Ajustar segons la pantalla */
+    }
+
+    .manifest-panel p {
+        height: auto;
+        min-height: 4.5em; /* Espai per a 3 línies aprox */
+    }
+
+    .manifest-nav-button {
+        top: 28vh; /* Centrar verticalment amb la imatge */
+    }
+
+    .manifest-nav-button.prev { left: 15px; }
+    .manifest-nav-button.next { right: 15px; }
+
     .kary-content, .user-block {
         flex-direction: column;
         text-align: center;
     }
     .user-block-reverse {
         flex-direction: column;
-    }
-
-    /* -- AJUSTOS RESPONSIVE PER AL MANIFEST -- */
-    .manifest-section {
-        padding-top: 80px;
-    }
-
-    .manifest-section-title h2 {
-        font-size: 2rem;
-    }
-
-    .manifest-panel {
-        gap: 1.5rem;
-    }
-
-    /* AJUST MÒBIL: Ajustem l'alçada de la imatge per donar més espai al text */
-    .manifest-panel img {
-        height: 50vh;
-    }
-
-    .manifest-panel p {
-        padding: 0 20px;
-        height: auto;
-        min-height: 0; 
-    }
-    
-    .manifest-nav-button.prev {
-        left: 15px;
-    }
-    .manifest-nav-button.next {
-        right: 15px;
-    }
-
-    .hero-content h1 {
-        font-size: 2.5rem;
-        white-space: normal;
     }
 }
