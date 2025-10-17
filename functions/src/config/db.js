@@ -1,5 +1,7 @@
-import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
-import pg from 'pg';
+// functions/src/config/db.js
+
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
+const pg = require('pg');
 
 // Inicialitzem el client de Secret Manager.
 const secretManagerClient = new SecretManagerServiceClient();
