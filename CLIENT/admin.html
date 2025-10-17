@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#3B82F6">
-    <title>NORKÄRŸM - Administració</title>
+    <title>NORKÄRŸM - Panell d'Administració</title>
     
     <link rel="icon" type="image/png" href="/FAVICON NORKARYM COLOR.png">
     
@@ -14,205 +13,126 @@
     
     <link rel="stylesheet" href="/src/css/base/global.css">
     <link rel="stylesheet" href="/src/css/components/buttons.css">
+    <link rel="stylesheet" href="/src/css/pages/admin-layout.css">
     <link rel="stylesheet" href="/src/css/pages/admin.css">
 </head>
 <body class="page-admin">
 
     <header class="main-header">
-        <div class="header-content">
-            
-            <a href="#" class="header-logo-icon-link" id="menu-toggle">
-                <img src="/assets/logo-icona-nova.png" alt="Obrir menú de navegació" class="header-logo header-logo-clickable">
-            </a>
-            
-            <a href="/" class="header-logo-link">
-                <div class="header-brand">
-                    <img src="/assets/norkarym-logo-text.png" alt="NORKÄRŸM" class="header-app-name is-png-logo">
-                </div>
-            </a>
-            
-            <div class="header-buttons-container">
-                <div class="header-buttons">
-                    <a href="/" class="button-primary">Tornar a l'inici</a>
-                </div>
-            </div>
-            
-            <div class="menu-dropdown" id="main-navigation-group">
-                    <nav class="main-nav">
-                        <ul>
-                            <li><a href="#manifest">Nosaltres</a></li>
-                            <li><a href="#kary">La Nostra App: KARY</a></li>
-                            <li><a href="#contacte">Contacte</a></li>
-                        </ul>
-                    </nav>
-            </div>
+        </header>
+    <section class="hero-section">
+        <div class="video-background">
+            <div class="video-overlay"></div>
+            <video src="/assets/admins-video.mp4" autoplay muted loop playsinline></video>
         </div>
-    </header>
-
-    <main id="main-content">
-        <section class="hero-section">
-            <div class="video-background">
-                <div class="video-overlay"></div>
-                <video src="/assets/admins-video.mp4" autoplay muted loop playsinline></video>
+        <div class="hero-content">
+            <h1 id="hero-h1" class="typing-effect">Panell de Control</h1>
+            <p id="hero-paragraph" class="fade-in">Gestió central del sistema NORKÄRŸM.</p>
+            <a href="#dashboard" id="hero-button" class="button-primary fade-in delay-1s">Accedir al Panell</a>
+        </div>
+    </section>
+    
+    <div id="dashboard" class="admin-dashboard">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <img src="/assets/norkarym-logo-text.png" alt="NORKÄRŸM" class="sidebar-logo">
             </div>
-            <div class="hero-content">
-               <h1 id="hero-h1" class="typing-effect"></h1>
-                <p id="hero-paragraph" class="fade-in">Tot comença aqui.</p>
-                <a href="#form-nou-admin" id="hero-button" class="button-primary fade-in delay-1s">Registrar Nou Administrador</a>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#section-nou-admin" class="nav-link active">Registrar Administrador</a></li>
+                    <li><a href="#section-assignar-rols" class="nav-link">Assignar Rols</a></li>
+                    <li><a href="#section-auditoria" class="nav-link">Registres d'Auditoria</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="button-secondary">Tornar a l'inici</a>
             </div>
-        </section>
+        </aside>
 
-
-        <section class="admins-section content-section">
-            <div class="admin-content-wrapper animate-on-scroll">
-                <div class="admin-image-container">
-                    <img src="/assets/afadminsun.png" alt="Gestió d'administradors a Norkarym">
-                </div>
-                <div class="admin-container">
-                    <section class="form-section">
-                        <h2>Registrar Nou Administrador</h2>
-                        <form id="form-nou-admin">
-                            <div class="form-group">
-                                <label for="nom">Nom Complet:</label>
-                                <input type="text" id="nom" name="nom" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Correu Electrònic:</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="password">Contrasenya:</label>
-                                <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="confirm-password">Repeteix la Contrasenya:</label>
-                                <input type="password" id="confirm-password" name="confirmPassword" required minlength="8">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="notes">Notes (Opcional):</label>
-                                <textarea id="notes" name="notes"></textarea>
-                            </div>
-                            <button type="submit" class="button-primary">Registrar Administrador</button>
-                        </form>
-                        <div id="form-resultat" class="form-resultat"></div>
-
-                        <div class="audit-controls">
-                            <button id="btn-show-audit" class="button-secondary">Accés als Registres</button>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </section>
-
-        <section id="audit-log-section" class="content-section audit-section is-hidden">
-            <div class="audit-container">
-                <h2>Registres d'Auditoria del Sistema</h2>
-                <div class="table-responsive">
-                    <table id="audit-log-table">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Administrador ID</th>
-                                <th>Acció</th>
-                                <th>Taula Afectada</th>
-                                <th>ID Afectat</th>
-                                <th>Valor Antic</th>
-                                <th>Valor Nou</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section id="manifest" class="manifest-section">
-            <div class="manifest-section-title">
-                <h2>Fet per i per a emprenedors.</h2>
-            </div>
-            
-            <div class="manifest-slider-container">
-                <button class="manifest-nav-button prev" id="manifest-prev-btn" aria-label="Panell anterior">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button class="manifest-nav-button next" id="manifest-next-btn" aria-label="Panell següent">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
+        <main class="dashboard-main">
+            <div class="main-content">
                 
-                <div class="manifest-horizontal-scroll">
-                    <div class="manifest-panel">
-                        <img src="/assets/manifest-origen.jpg" alt="L'origen de Norkarym">
-                        <p>Norkarym va néixer de la nostra pròpia experiència. Com tu, vam llançar projectes amb una motxilla plena d'il·lusió, però aviat ens vam veure atrapats entre factures, fulls de càlcul i burocràcia.</p>
-                    </div>
-                    <div class="manifest-panel">
-                        <img src="/assets/manifest-problema-conceptual.jpg" alt="El problema de la gestió">
-                        <p>El 80% del temps d'un emprenedor es perd en tasques que no tenen a veure amb la seva passió. La gestió no hauria de ser un fre, sinó un impuls.</p>
-                    </div>
-                    <div class="manifest-panel">
-                        <img src="/assets/manifest-missio-conceptual.jpg" alt="La nostra missió">
-                        <p>La nostra missió és tornar-te aquest temps. Creem eines que automatitzen allò que és complex i simplifiquen allò que és tediós, perquè puguis tornar a fer el que se't dóna millor: crear.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <section id="section-nou-admin" class="form-section-card">
+                    <h2>Registrar Nou Administrador</h2>
+                    <p>Crea un nou compte d'administrador al sistema.</p>
+                    <form id="form-nou-admin">
+                        <div class="form-group">
+                            <label for="nom">Nom Complet:</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correu Electrònic:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contrasenya (mín. 8 caràcters):</label>
+                            <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Repeteix la Contrasenya:</label>
+                            <input type="password" id="confirm-password" name="confirmPassword" required minlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notes (Opcional):</label>
+                            <textarea id="notes" name="notes" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="button-primary">Registrar Administrador</button>
+                    </form>
+                    <div id="form-resultat-nou-admin" class="form-resultat"></div>
+                </section>
 
-        <section id="kary" class="kary-section forms-section animate-on-scroll">
-            <div class="kary-content">
-                <div class="kary-text">
-                    <h2>Presentem KARY: Inverteix temps en el teu projecte, no en la gestió.</h2>
-                    <ul>
-                        <li>
-                            <div class="icon-placeholder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                            <div>
-                                <h3>Gestió de Clients</h3>
-                                <p>Tota la informació dels teus clients en un sol lloc, accessible i organitzada.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="icon-placeholder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-                            </div>
-                            <div>
-                                <h3>Facturació i Pressupostos</h3>
-                                <p>Crea i envia factures professionals en menys d'un minut. Automatitza'n el seguiment.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="icon-placeholder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                            </div>
-                            <div>
-                                <h3>Comptabilitat Clara</h3>
-                                <p>Entén la salut del teu negoci amb balanços i informes visuals que tenen sentit.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="#" class="button-secondary">Veure totes les funcions de KARY</a>
-                </div>
-                <div class="kary-mockup">
-                    <img src="https://placehold.co/500x550/FFFFFF/1F2937?text=Mockup+KARY" alt="Dashboard de KARY">
-                </div>
-            </div>
-        </section>
-        <section id="contacte" class="cta-final-section forms-section">
-            <h2>És hora de tornar a començar.</h2>
-            <p>Uneix-te a la comunitat d'emprenedors que ja estan recuperant el control del seu temps. Comença a fer servir KARY gratis.</p>
-            <div class="cta-buttons">
-                <a href="/src/pages/inscripcio.html" class="button-primary">Comença Gratis amb KARY</a>
-                <a href="#" class="button-secondary">Parlem del teu Projecte</a>
-            </div>
-        </section>
-    </main>
+                <section id="section-assignar-rols" class="form-section-card">
+                    <h2>Assignar Rols a Administradors</h2>
+                    <p>Defineix el nivell de permisos d'un administrador existent.</p>
+                    <form id="form-assignar-rol">
+                        <div class="form-group">
+                            <label for="admin-select">Selecciona l'Administrador:</label>
+                            <select id="admin-select" name="firebase_uid_admin_nk" required>
+                                <option value="">Carregant administradors...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rol-nivell">Nivell de Rol:</label>
+                            <select id="rol-nivell" name="nom_rol_nk" required>
+                                <option value="">-- Selecciona un nivell --</option>
+                                <option value="1">1 - Bàsic</option>
+                                <option value="2">2 - Editor</option>
+                                <option value="3">3 - Gestor</option>
+                                <option value="4">4 - Administrador</option>
+                                <option value="5">5 - Super Administrador</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rol-notes">Descripció o notes del rol (Opcional):</label>
+                            <textarea id="rol-notes" name="notes_rol_nk" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="button-primary">Assignar Rol</button>
+                    </form>
+                    <div id="form-resultat-assignar-rol" class="form-resultat"></div>
+                </section>
 
-    <footer class="main-footer">
-        <p>&copy; 2025 NORKÄRŸM. Tots els drets reservats.</p>
-    </footer>
+                <section id="section-auditoria" class="audit-section-card">
+                    <h2>Registres d'Auditoria del Sistema</h2>
+                    <p>Historial de totes les accions importants realitzades al panell.</p>
+                    <div class="table-responsive">
+                        <table id="audit-log-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Admin</th>
+                                    <th>Acció</th>
+                                    <th>Taula Afectada</th>
+                                    <th>ID Afectat</th>
+                                    <th>Dades</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
 
     <script type="module" src="/src/js/main.js"></script>
 </body>
