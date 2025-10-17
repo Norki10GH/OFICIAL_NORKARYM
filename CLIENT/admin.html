@@ -94,16 +94,20 @@
                             <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Contrasenya:</label>
-                            <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Mínim 8 caràcters">
-                            <button type="button" class="password-toggle-btn" data-target="password">👁️</button>
+                            <label for="password">Contrasenya:</label>                            
+                            <div class="password-wrapper">
+                                <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Mínim 8 caràcters">
+                                <button type="button" class="password-toggle-btn" data-target="password">👁️</button>
+                            </div>
                             <div class="password-strength-meter" id="password-strength-meter"></div>
                             <small id="password-strength-text" class="form-error-message"></small>
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">Repeteix la Contrasenya:</label>
-                            <input type="password" id="confirm-password" name="confirmPassword" required minlength="8" autocomplete="new-password">
-                            <button type="button" class="password-toggle-btn" data-target="confirm-password">👁️</button>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirm-password" name="confirmPassword" required minlength="8" autocomplete="new-password">
+                                <button type="button" class="password-toggle-btn" data-target="confirm-password">👁️</button>
+                            </div>
                             <small id="confirm-password-error" class="form-error-message">Les contrasenyes no coincideixen.</small>
                         </div>
                          <div class="form-group">

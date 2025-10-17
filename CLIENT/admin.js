@@ -1,10 +1,39 @@
 /**
  * Inicialitza la funcionalitat específica de la pàgina d'administració.
  */
-export function adminPage() {
+ export function adminPage() {
     console.log("Mòdul admin.js carregat.");
+    initAdminNavigation();
     initAdminRegistrationForm();
     // Aquí es podrien afegir altres inicialitzacions per a la pàgina d'admin
+}
+
+/**
+ * Configura la navegació de la barra lateral per mostrar/ocultar seccions.
+ */
+function initAdminNavigation() {
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    const sections = document.querySelectorAll('.dashboard-main section');
+    const defaultContent = document.querySelector('.main-content > .admin-section-image');
+
+    const hideAllSections = () => {
+        sections.forEach(section => section.style.display = 'none');
+        if (defaultContent) defaultContent.style.display = 'none';
+    };
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            hideAllSections();
+
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+        });
+    });
 }
 
 /**
