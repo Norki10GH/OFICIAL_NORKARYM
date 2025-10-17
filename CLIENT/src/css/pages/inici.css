@@ -159,7 +159,7 @@
     max-width: 300px;
     height: 100vh;
     background-color: var(--color-bg);
-    padding-top: 80px;
+    padding: 20px; /* Reduïm el padding superior i afegim als costats */
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
     
     transform: translateX(-100%);
@@ -170,11 +170,28 @@
     transform: translateX(0);
 }
 
+/* NOU: Grup de la marca dins del menú lateral */
+.sidebar-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0 30px 0; /* Espaiat intern (inferior sobretot) */
+    border-bottom: 1px solid #e5e7eb; /* Línia separadora */
+    margin-bottom: 20px; /* Marge fins a la llista d'enllaços */
+}
+
+.sidebar-logo,
+.sidebar-app-name {
+    height: 45px; /* Mateixa alçada que al header */
+}
+
+
+/* Llista d'enllaços de navegació */
 .main-nav ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0; /* Eliminem el padding que ja té el contenidor .main-nav */
     gap: 15px;
 }
 

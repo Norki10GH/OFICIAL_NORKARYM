@@ -1,4 +1,6 @@
 // client/src/js/pages/inici.js (Lògica de scroll substituïda per slider)
+import { initTypingEffect } from '../components/typing-effect.js';
+import { initParticleAnimation } from '../components/particle-animation.js';
 
 // Funció per controlar el menú responsive (ara activat pel Logotip)
 function initMenuToggle() {
@@ -71,27 +73,17 @@ function initHeaderScroll() {
 
 // --- Lògica d'animacions per a la Hero Section (Base Restaurada) ---
 function initHeroAnimation() {
-    const heroTitle = document.getElementById('hero-h1');
     const heroParagraph = document.getElementById('hero-paragraph');
     const heroButton = document.getElementById('hero-button');
     const textToType = "Recupera la il·lusió pel teu projecte.";
     
-    if (heroTitle && heroParagraph && heroButton) {
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < textToType.length) {
-                heroTitle.innerHTML += textToType.charAt(i);
-                i++;
-                setTimeout(typeWriter, 75);
-            } else {
-                heroParagraph.classList.add('visible');
-                heroButton.classList.add('visible');
-            }
-        }
-
-        heroTitle.innerHTML = '';
-        typeWriter();
+    if (heroParagraph && heroButton) {
+        // Cridem la nova funció reutilitzable
+        initTypingEffect('hero-h1', textToType, () => {
+            // Aquest codi s'executa quan l'animació acaba
+            heroParagraph.classList.add('visible');
+            heroButton.classList.add('visible');
+        });
     }
 }
 
@@ -143,6 +135,7 @@ function initManifestSlider() {
 
 
 export function iniciPage() {
+    initParticleAnimation();
     initHeroAnimation();
     initMenuToggle();
     initHeaderScroll();

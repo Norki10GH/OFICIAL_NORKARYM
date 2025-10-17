@@ -1,299 +1,368 @@
-// client/src/js/pages/admin.js (Lògica de la pàgina d'administració)
+// client/src/js/pages/admin.js
+import { initTypingEffect } from "../components/typing-effect.js";
 
-// Funció per controlar el menú responsive (ara activat pel Logotip)
-function initMenuToggle() {
-    const toggleButton = document.getElementById('menu-toggle');
-    const menuDropdown = document.getElementById('main-navigation-group');
-    const navLinks = menuDropdown ? menuDropdown.querySelectorAll('a[href^="#"]') : [];
-
-    if (toggleButton && menuDropdown) {
-        
-        const closeMenu = () => {
-            menuDropdown.classList.remove('is-open');
-            document.body.classList.remove('menu-open');
-        };
-
-        toggleButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isMenuOpen = menuDropdown.classList.toggle('is-open');
-            document.body.classList.toggle('menu-open', isMenuOpen);
-
-            if (isMenuOpen) {
-                menuDropdown.addEventListener('click', (e) => {
-                    if (e.target === menuDropdown) {
-                        closeMenu();
-                    }
-                }, { once: true });
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                setTimeout(closeMenu, 300);
-            });
-        });
-    }
-}
-
-// Funció per la lògica de canvi d'estil del header en fer scroll
-function initHeaderScroll() {
-    const header = document.querySelector('.main-header');
-    const heroSection = document.querySelector('.hero-section');
-    
-    if (header && heroSection) {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        };
-
-        const handleHeroVisibility = () => {
-            const heroBottom = heroSection.getBoundingClientRect().bottom;
-            if (heroBottom > 0) {
-                header.classList.add('on-hero');
-            } else {
-                header.classList.remove('on-hero');
-            }
-        };
-
-        const handleAllChanges = () => {
-            handleScroll();
-            handleHeroVisibility();
-        }
-
-        window.addEventListener('scroll', handleAllChanges);
-        handleAllChanges();
-    }
-}
-
-
-// --- Lògica d'animacions per a la Hero Section ---
-function initHeroAnimation() {
+function initAdminHeroAnimation() {
     const heroTitle = document.getElementById('hero-h1');
     const heroParagraph = document.getElementById('hero-paragraph');
-    const heroButton = document.getElementById('hero-button');
-    const textToType = "Comencem a introduir les dades.";
-    
-    if (heroTitle && heroParagraph && heroButton) {
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < textToType.length) {
-                heroTitle.innerHTML += textToType.charAt(i);
-                i++;
-                setTimeout(typeWriter, 75);
-            } else {
-                heroParagraph.classList.add('visible');
-                heroButton.classList.add('visible');
-            }
-        }
+    const textToType = "Panell de Control";
 
-        heroTitle.innerHTML = '';
-        typeWriter();
+    if (heroTitle && heroParagraph) {
+        initTypingEffect('hero-h1', textToType, () => {
+            heroParagraph.classList.add('visible');
+        });
     }
 }
 
-// --- Lògica per al SLIDER de la secció Manifest ---
-function initManifestSlider() {
-    const sliderContainer = document.querySelector('.manifest-horizontal-scroll');
-    const prevButton = document.getElementById('manifest-prev-btn');
-    const nextButton = document.getElementById('manifest-next-btn');
-    
-    if (!sliderContainer || !prevButton || !nextButton) {
-        return;
+/**
+ * Mostra un missatge de resultat en un formulari específic.
+ * @param {string} formId - L'ID del formulari on mostrar el missatge.
+ * @param {string} message - El missatge a mostrar.
+ * @param {boolean} isSuccess - Si el missatge és d'èxit o d'error.
+ */
+function mostrarResultat(formId, message, isSuccess) {
+    const resultatDiv = document.querySelector(`#${formId} + .form-resultat`);
+    if (resultatDiv) {
+        resultatDiv.textContent = message;
+        resultatDiv.className = 'form-resultat'; // Reseteja classes
+        resultatDiv.classList.add(isSuccess ? 'success' : 'error');
+        resultatDiv.style.display = 'block';
     }
-
-    const panels = sliderContainer.querySelectorAll('.manifest-panel');
-    const totalPanels = panels.length;
-    let currentIndex = 0;
-
-    const updateButtonStates = () => {
-        prevButton.disabled = currentIndex === 0;
-        nextButton.disabled = currentIndex === totalPanels - 1;
-    };
-
-    const goToPanel = (index) => {
-        const offset = -index * 100;
-        sliderContainer.style.transform = `translateX(${offset}vw)`;
-        currentIndex = index;
-        updateButtonStates();
-    };
-
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < totalPanels - 1) {
-            goToPanel(currentIndex + 1);
-        }
-    });
-
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            goToPanel(currentIndex - 1);
-        }
-    });
-
-    goToPanel(0); 
 }
 
-// --- Lògica per al formulari de registre d'administradors (versió amb contrasenya) ---
-function initAdminForm() {
-    const form = document.getElementById('form-nou-admin');
-    const resultatDiv = document.getElementById('form-resultat');
+/**
+ * Carrega la llista d'administradors en tots els selectors designats.
+ */
+async function carregarSelectorsAdmin() {
+    const selectors = document.querySelectorAll('select[name="firebase_uid_admin_nk"]');
+    if (selectors.length === 0) return;
 
+    try {
+        const response = await fetch('/api/administradors');
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || 'No s\'ha pogut carregar la llista d\'administradors.');
+        }
+
+        selectors.forEach(select => {
+            select.innerHTML = '<option value="">-- Selecciona un administrador --</option>'; // Opció per defecte
+            result.data.forEach(admin => {
+                const option = document.createElement('option');
+                option.value = admin.firebase_uid_admin_nk;
+                option.textContent = `${admin.nom_admin_nk} (${admin.email_admin_nk})`;
+                select.appendChild(option);
+            });
+        });
+
+    } catch (error) {
+        console.error("Error en carregar administradors:", error);
+        selectors.forEach(select => {
+            select.innerHTML = `<option value="">${error.message}</option>`;
+            select.disabled = true;
+        });
+    }
+}
+
+/**
+ * Inicialitza la lògica per al formulari d'assignació d'emails.
+ */
+function initAssignarEmailForm() {
+    const form = document.getElementById('form-assignar-email');
     if (!form) return;
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Registrant...';
-
-        resultatDiv.style.display = 'none';
-        resultatDiv.className = 'form-resultat';
-
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        
-        if (data.password !== data.confirmPassword) {
-            resultatDiv.textContent = 'Error: Les contrasenyes no coincideixen.';
-            resultatDiv.classList.add('error');
-            resultatDiv.style.display = 'block';
-            submitButton.disabled = false;
-            submitButton.textContent = 'Registrar Administrador';
-            return;
-        }
+        const formId = form.id;
 
-        if (data.password.length < 8) {
-            resultatDiv.textContent = 'Error: La contrasenya ha de tenir com a mínim 8 caràcters.';
-            resultatDiv.classList.add('error');
-            resultatDiv.style.display = 'block';
-            submitButton.disabled = false;
-            submitButton.textContent = 'Registrar Administrador';
-            return;
-        }
-
-        const dataToSend = {
-            nom: data.nom,
-            email: data.email,
-            password: data.password,
-            notes: data.notes,
-        };
+        mostrarResultat(formId, 'Processant...', true);
 
         try {
-            const response = await fetch('/api/registrarAdmin', {
+            const response = await fetch('/api/assignarEmail', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataToSend),
+                body: JSON.stringify(data),
             });
 
             const result = await response.json();
 
-            if (!response.ok) {
-                throw new Error(result.message || 'Hi ha hagut un error desconegut.');
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Error desconegut del servidor.');
             }
 
-            resultatDiv.textContent = result.message;
-            resultatDiv.classList.add('success');
+            mostrarResultat(formId, result.message, true);
             form.reset();
+            // Opcional: Recarregar registres d'auditoria per veure el canvi
+            if (document.getElementById('audit-log-table')) {
+                carregarRegistresAuditoria();
+            }
 
         } catch (error) {
-            resultatDiv.textContent = error.message;
-            resultatDiv.classList.add('error');
-        } finally {
-            resultatDiv.style.display = 'block';
-            submitButton.disabled = false;
-            submitButton.textContent = 'Registrar Administrador';
+            console.error(`Error en assignar l'email:`, error);
+            mostrarResultat(formId, `Error: ${error.message}`, false);
         }
     });
 }
 
+/**
+ * Inicialitza la lògica per al formulari de registre de productes.
+ */
+function initRegistrarProducteForm() {
+    const form = document.getElementById('form-registrar-producte');
+    if (!form) return;
 
-// --- VERSIÓ MILLORADA: Lògica per mostrar els registres d'auditoria ---
-function initAuditLogViewer() {
-    const showButton = document.getElementById('btn-show-audit');
-    const auditSection = document.getElementById('audit-log-section');
-    const tableBody = document.querySelector('#audit-log-table tbody');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const formId = form.id;
 
-    if (!showButton || !auditSection || !tableBody) {
-        console.error("No s'han trobat els elements necessaris per a l'auditoria.");
-        return;
-    }
-
-    const fetchAndRenderLogs = async () => {
-        // Mostrem un missatge de càrrega
-        tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Carregant registres...</td></tr>';
+        mostrarResultat(formId, 'Processant...', true);
 
         try {
-            const response = await fetch('/api/audit-logs');
-            if (!response.ok) {
-                throw new Error(`Error del servidor: ${response.statusText}`);
-            }
+            const response = await fetch('/api/registrarProducte', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
 
             const result = await response.json();
 
-            if (!result.success || !Array.isArray(result.data)) {
-                throw new Error(result.message || 'La resposta del servidor no té el format esperat.');
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Error desconegut del servidor.');
             }
 
-            // Buidem la taula abans de renderitzar
-            tableBody.innerHTML = '';
-
-            if (result.data.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hi ha registres per mostrar.</td></tr>';
-                return;
+            mostrarResultat(formId, result.message, true);
+            form.reset();
+            // Opcional: Recarregar registres d'auditoria per veure el canvi
+            if (document.getElementById('audit-log-table')) {
+                carregarRegistresAuditoria();
             }
-
-            const rows = result.data.map(log => {
-                // Formatem la data de manera segura
-                const data = new Date(log.data_accio_nk).toLocaleString('ca-ES', {
-                    year: 'numeric', month: '2-digit', day: '2-digit',
-                    hour: '2-digit', minute: '2-digit', second: '2-digit'
-                });
-                
-                // Funció auxiliar per escapar HTML i evitar problemes de renderitzat
-                const escape = (str) => str ? String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
-
-                return `
-                    <tr>
-                        <td>${escape(data)}</td>
-                        <td>${escape(log.id_admin_nk) || 'N/A'}</td>
-                        <td>${escape(log.accio_nk)}</td>
-                        <td>${escape(log.taula_objectiu_nk)}</td>
-                        <td>${escape(log.id_objectiu_nk)}</td>
-                        <td><pre>${escape(log.valor_antic_nk)}</pre></td>
-                        <td><pre>${escape(log.valor_nou_nk)}</pre></td>
-                    </tr>
-                `;
-            }).join('');
-
-            tableBody.innerHTML = rows;
-
         } catch (error) {
-            console.error("Error en carregar els registres d'auditoria:", error);
-            tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: red;">Error: ${error.message}</td></tr>`;
-        }
-    };
-
-    showButton.addEventListener('click', () => {
-        const isHidden = auditSection.classList.toggle('is-hidden');
-        showButton.textContent = isHidden ? 'Accés als Registres' : 'Amagar Registres';
-
-        // Si la secció es mostra, carreguem les dades
-        if (!isHidden) {
-            fetchAndRenderLogs();
+            console.error(`Error en registrar el producte:`, error);
+            mostrarResultat(formId, `Error: ${error.message}`, false);
         }
     });
 }
 
+/**
+ * Inicialitza la lògica per al formulari d'assignació de productes a usuaris.
+ */
+function initAssignarProducteForm() {
+    const form = document.getElementById('form-assignar-producte');
+    const projecteSelect = document.getElementById('projecte-select-assignar');
+    const versioSelect = document.getElementById('versio-select-assignar');
 
-// Funció principal que s'exporta i s'executa a main.js
+    if (!form || !projecteSelect || !versioSelect) return;
+
+    // 1. Carregar els productes al selector inicial
+    async function carregarProductes() {
+        try {
+            const response = await fetch('/api/productes');
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.message);
+
+            projecteSelect.innerHTML = '<option value="">-- Selecciona un producte --</option>';
+            result.data.forEach(proj => {
+                const option = document.createElement('option');
+                option.value = proj.id_proj_nk;
+                option.textContent = proj.nom_producte_proj_nk;
+                projecteSelect.appendChild(option);
+            });
+        } catch (error) {
+            projecteSelect.innerHTML = `<option value="">Error: ${error.message}</option>`;
+            projecteSelect.disabled = true;
+        }
+    }
+
+    // 2. Carregar versions quan es selecciona un producte
+    projecteSelect.addEventListener('change', async () => {
+        const id_proj_nk = projecteSelect.value;
+        versioSelect.innerHTML = '<option value="">Carregant versions...</option>';
+        versioSelect.disabled = true;
+
+        if (!id_proj_nk) {
+            versioSelect.innerHTML = '<option value="">Selecciona primer un producte</option>';
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/productes/${id_proj_nk}/versions`);
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.message);
+
+            versioSelect.innerHTML = '<option value="">-- Selecciona una versió --</option>';
+            if (result.data.length === 0) {
+                versioSelect.innerHTML = '<option value="">Aquest producte no té versions</option>';
+                return;
+            }
+
+            result.data.forEach(versio => {
+                const option = document.createElement('option');
+                option.value = versio.id_versio_nk;
+                option.textContent = versio.nom_versio_nk;
+                versioSelect.appendChild(option);
+            });
+            versioSelect.disabled = false;
+        } catch (error) {
+            versioSelect.innerHTML = `<option value="">Error: ${error.message}</option>`;
+        }
+    });
+
+    // 3. Gestionar l'enviament del formulari
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const formId = form.id;
+
+        mostrarResultat(formId, 'Processant...', true);
+
+        try {
+            const response = await fetch('/api/assignarProducte', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.message);
+
+            mostrarResultat(formId, result.message, true);
+            form.reset();
+            versioSelect.innerHTML = '<option value="">Selecciona primer un producte</option>';
+            versioSelect.disabled = true;
+            if (document.getElementById('audit-log-table')) {
+                carregarRegistresAuditoria();
+            }
+        } catch (error) {
+            console.error(`Error en assignar el producte:`, error);
+            mostrarResultat(formId, `Error: ${error.message}`, false);
+        }
+    });
+
+    // Càrrega inicial dels productes
+    carregarProductes();
+}
+
+/**
+ * Navegació per pestanyes al panell d'administració.
+ */
+function initAdminTabs() {
+    const imagePlaceholder = document.querySelector('.admin-section-image');
+
+    // Funció per mostrar la secció correcta
+    const showSection = (targetId) => {
+        const sections = document.querySelectorAll('.form-section-card, .audit-section-card');
+        sections.forEach(section => {
+            section.style.display = section.id === targetId.substring(1) ? 'block' : 'none';
+        });
+        // Amaguem la imatge si es mostra una secció
+        if (imagePlaceholder) imagePlaceholder.style.display = 'none';
+    };
+
+    // Lògica per als clics
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Si es fa clic a un enllaç ja actiu, no fem res (o podríem deseleccionar)
+            if (link.classList.contains('active')) {
+                return;
+            }
+
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            link.classList.add('active');
+
+            showSection(link.getAttribute('href'));
+        });
+    });
+
+    // Estat inicial: mostra la secció de la pestanya activa per defecte
+    const activeLink = document.querySelector('.sidebar-nav .nav-link.active');
+    if (activeLink) {
+        showSection(activeLink.getAttribute('href'));
+    } else if (imagePlaceholder) {
+        // Si no hi ha cap actiu, ens assegurem que la imatge sigui visible
+        imagePlaceholder.style.display = 'block';
+    }
+}
+
+/**
+ * Carrega i mostra els registres d'auditoria a la taula.
+ * @param {number} limit - El nombre de registres a carregar.
+ */
+async function carregarRegistresAuditoria(limit = 50) {
+    const tableBody = document.querySelector("#audit-log-table tbody");
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '<tr><td colspan="6">Carregant registres...</td></tr>';
+
+    try {
+        const response = await fetch(`/api/audit-logs?limit=${limit}`);
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Error en la resposta del servidor.");
+        }
+
+        if (result.data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="6">No s\'han trobat registres d\'auditoria.</td></tr>';
+            return;
+        }
+
+        tableBody.innerHTML = ""; // Neteja la taula
+
+        result.data.forEach(log => {
+            const row = document.createElement("tr");
+
+            // Formata la data per a millor llegibilitat
+            const dataFormatada = new Date(log.data_accio_nk).toLocaleString('ca-ES', {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+
+            row.innerHTML = `
+                <td>${dataFormatada}</td>
+                <td>${log.id_admin_nk || 'Sistema'}</td>
+                <td>${log.accio_nk}</td>
+                <td>${log.taula_objectiu_nk}</td>
+                <td>${log.id_objectiu_nk}</td>
+                <td><pre>${JSON.stringify(JSON.parse(log.valor_nou_nk || '{}'), null, 2)}</pre></td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error en carregar els registres d'auditoria:", error);
+        tableBody.innerHTML = `<tr><td colspan="6" class="error-message">Error: ${error.message}</td></tr>`;
+    }
+}
+
+/**
+ * Inicialitza la secció d'auditoria, incloent la càrrega inicial i l'esdeveniment del selector.
+ */
+function initAuditoriaSection() {
+    const limitSelect = document.getElementById('audit-limit-select');
+    if (limitSelect) {
+        // Càrrega inicial
+        carregarRegistresAuditoria(limitSelect.value);
+
+        // Esdeveniment per recarregar quan canvia la selecció
+        limitSelect.addEventListener('change', () => carregarRegistresAuditoria(limitSelect.value));
+    }
+}
+
 export function adminPage() {
-    initMenuToggle();
-    initHeaderScroll();
-    initHeroAnimation();
-    initManifestSlider();
-    initAdminForm();
-    initAuditLogViewer();
+    initAdminHeroAnimation();
+    initAdminTabs();
+    carregarSelectorsAdmin(); // Carrega tots els selectors d'admin
+    // initNouAdminForm(); // Pendent d'implementar
+    // initAssignarRolForm(); // Pendent d'implementar
+    initAssignarEmailForm(); // <-- Afegim la inicialització del nou formulari
+    initRegistrarProducteForm(); // <-- Afegim la inicialització del formulari de productes
+    initAssignarProducteForm(); // <-- Afegim la inicialització del nou formulari d'assignació
+    initAuditoriaSection(); // <-- Afegim la inicialització de la secció d'auditoria
 }
