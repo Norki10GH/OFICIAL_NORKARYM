@@ -3,32 +3,32 @@ import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Arrel del projecte frontend
+  // Defineix 'client' com la carpeta arrel del codi font del frontend
   root: 'client',
 
-  // Configuració del build
+  // Configuració del servidor de desenvolupament
+  server: {
+    // Proxy per redirigir les crides a /api cap a l'emulador de Firebase
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:5001',
+        changeOrigin: true,
+      },
+    },
+  },
+
+  // Configuració de la compilació per a producció
   build: {
-    // Directori de sortida relatiu a l'arrel del repositori
+    // El directori de sortida serà 'dist' a la carpeta arrel del projecte
     outDir: '../dist',
-    // Neteja el directori de sortida abans de construir
     emptyOutDir: true,
-    // 👇 CORRECCIÓ AQUÍ 👇
+    
+    // Assegura que totes les teves pàgines HTML es compilin correctament
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'client/index.html'),
         admin: resolve(__dirname, 'client/admin.html'),
         inscripcio: resolve(__dirname, 'client/inscripcio.html'),
-      },
-    },
-  },
-
-  // Configuració del servidor de desenvolupament
-  server: {
-    // Proxy per a les crides a l'API durant el desenvolupament
-    proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:5001',
-        changeOrigin: true,
       },
     },
   },

@@ -69,7 +69,7 @@ function initHeaderScroll() {
 }
 
 
-// --- Lògica d'animacions per a la Hero Section (Base Restaurada) ---
+// --- Lògica d'animacions per a la Hero Section ---
 function initHeroAnimation() {
     const heroTitle = document.getElementById('hero-h1');
     const heroParagraph = document.getElementById('hero-paragraph');
@@ -95,54 +95,48 @@ function initHeroAnimation() {
     }
 }
 
-// --- NOVA FUNCIÓ: Lògica per al SLIDER de la secció Manifest ---
+// --- Lògica per al SLIDER de la secció Manifest ---
 function initManifestSlider() {
     const sliderContainer = document.querySelector('.manifest-horizontal-scroll');
     const prevButton = document.getElementById('manifest-prev-btn');
     const nextButton = document.getElementById('manifest-next-btn');
     
     if (!sliderContainer || !prevButton || !nextButton) {
-        return; // No executem res si els elements no existeixen
+        return;
     }
 
     const panels = sliderContainer.querySelectorAll('.manifest-panel');
     const totalPanels = panels.length;
     let currentIndex = 0;
 
-    // Funció per actualitzar l'estat dels botons (activat/desactivat)
     const updateButtonStates = () => {
         prevButton.disabled = currentIndex === 0;
         nextButton.disabled = currentIndex === totalPanels - 1;
     };
 
-    // Funció per anar a un panell específic
     const goToPanel = (index) => {
-        const offset = -index * 100; // Cada panell és 100vw
+        const offset = -index * 100;
         sliderContainer.style.transform = `translateX(${offset}vw)`;
         currentIndex = index;
         updateButtonStates();
     };
 
-    // Esdeveniment per al botó 'següent'
     nextButton.addEventListener('click', () => {
         if (currentIndex < totalPanels - 1) {
             goToPanel(currentIndex + 1);
         }
     });
 
-    // Esdeveniment per al botó 'anterior'
     prevButton.addEventListener('click', () => {
         if (currentIndex > 0) {
             goToPanel(currentIndex - 1);
         }
     });
 
-    // Inicialitzem l'estat dels botons al carregar la pàgina
     goToPanel(0); 
 }
 
-// CLIENT/src/js/pages/admin.js
-
+// --- Lògica per al formulari de registre d'administradors ---
 function initAdminForm() {
     const form = document.getElementById('form-nou-admin');
     const resultatDiv = document.getElementById('form-resultat');
@@ -150,23 +144,19 @@ function initAdminForm() {
     if (!form) return;
 
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Evitem que la pàgina es recarregui
+        e.preventDefault();
 
-        // Desactivem el botó per evitar enviaments múltiples
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         submitButton.textContent = 'Registrant...';
 
-        // Amaguem missatges previs
         resultatDiv.style.display = 'none';
         resultatDiv.className = 'form-resultat';
 
-        // Recollim les dades del formulari
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
         try {
-            // Enviem les dades a la nostra Cloud Function
             const response = await fetch('/api/registrarAdmin', {
                 method: 'POST',
                 headers: {
@@ -178,21 +168,17 @@ function initAdminForm() {
             const result = await response.json();
 
             if (!response.ok) {
-                // Si la resposta no és 2xx, llancem un error amb el missatge del servidor
                 throw new Error(result.message || 'Hi ha hagut un error desconegut.');
             }
 
-            // Èxit! Mostrem el missatge de confirmació
             resultatDiv.textContent = result.message;
             resultatDiv.classList.add('success');
-            form.reset(); // Netegem el formulari
+            form.reset();
 
         } catch (error) {
-            // Error! Mostrem el missatge d'error
             resultatDiv.textContent = error.message;
             resultatDiv.classList.add('error');
         } finally {
-            // Tornem a activar el botó
             resultatDiv.style.display = 'block';
             submitButton.disabled = false;
             submitButton.textContent = 'Registrar Administrador';
@@ -200,17 +186,7 @@ function initAdminForm() {
     });
 }
 
-// Exportem la funció principal d'aquesta pàgina
-export function adminPage() {
-    // Inicialitzadors de la interfície general (header, hero, slider)
-    initHeroAnimation();
-    initMenuToggle();
-    initHeaderScroll();
-    initManifestSlider();
-    initAdminForm();
-}
-
-// NOVA FUNCIÓ: Lògica per mostrar els registres d'auditoria
+// --- Lògica per mostrar els registres d'auditoria ---
 function initAuditLogViewer() {
     const showButton = document.getElementById('btn-show-audit');
     const auditSection = document.getElementById('audit-log-section');
@@ -219,11 +195,9 @@ function initAuditLogViewer() {
     if (!showButton || !auditSection || !tableBody) return;
 
     showButton.addEventListener('click', async () => {
-        // Mostra o amaga la secció
         const isHidden = auditSection.classList.toggle('is-hidden');
         showButton.textContent = isHidden ? 'Accés als Registres' : 'Amagar Registres';
 
-        // Si la secció es mostra i la taula està buida, carrega les dades
         if (!isHidden && tableBody.innerHTML === '') {
             try {
                 const response = await fetch('/api/audit-logs');
@@ -238,7 +212,6 @@ function initAuditLogViewer() {
                     return;
                 }
 
-                // Genera les files de la taula amb les dades rebudes
                 const rows = result.data.map(log => {
                     const data = new Date(log.data_accio_nk).toLocaleString('ca-ES');
                     return `
@@ -263,11 +236,12 @@ function initAuditLogViewer() {
     });
 }
 
-
-// Exportem la funció principal d'aquesta pàgina
+// Funció principal que s'exporta i s'executa a main.js
 export function adminPage() {
     initMenuToggle();
     initHeaderScroll();
+    initHeroAnimation();
+    initManifestSlider();
     initAdminForm();
-    initAuditLogViewer(); // <-- CRIDA A LA NOVA FUNCIÓ
+    initAuditLogViewer();
 }
