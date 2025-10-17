@@ -1,34 +1,33 @@
-// client/src/js/pages/inici.js (Lògica de scroll substituïda per slider)
+// client/src/js/pages/inici.js
 import { initTypingEffect } from '../components/typing-effect.js';
 import { initParticleAnimation } from '../components/particle-animation.js';
 
-// Funció per controlar el menú responsive (ara activat pel Logotip)
+// Funció per controlar el menú responsive
 function initMenuToggle() {
     const toggleButton = document.querySelector('.header-brand-group .header-logo');
     const menuDropdown = document.getElementById('main-navigation-group');
-    const navLinks = menuDropdown ? menuDropdown.querySelectorAll('a[href^="#"]') : [];
 
     if (toggleButton && menuDropdown) {
-        
         const closeMenu = () => {
             menuDropdown.classList.remove('is-open');
             document.body.classList.remove('menu-open');
         };
 
         toggleButton.addEventListener('click', (e) => {
-            e.preventDefault();
+            e.stopPropagation(); // Evita que el clic es propagui al menú
             const isMenuOpen = menuDropdown.classList.toggle('is-open');
             document.body.classList.toggle('menu-open', isMenuOpen);
+        });
 
-            if (isMenuOpen) {
-                menuDropdown.addEventListener('click', (e) => {
-                    if (e.target === menuDropdown) {
-                        closeMenu();
-                    }
-                }, { once: true });
+        // Tancar el menú si es fa clic fora d'ell
+        menuDropdown.addEventListener('click', (e) => {
+            if (e.target === menuDropdown) {
+                closeMenu();
             }
         });
 
+        // Tancar el menú en fer clic a un enllaç
+        const navLinks = menuDropdown.querySelectorAll('a[href^="#"]');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 setTimeout(closeMenu, 300);
@@ -139,5 +138,5 @@ export function iniciPage() {
     initHeroAnimation();
     initMenuToggle();
     initHeaderScroll();
-    initManifestSlider(); // <-- CRIDA A LA NOVA FUNCIÓ DEL SLIDER
+    initManifestSlider(); // <-- CRIDA A LA NOVA FUNCIó DEL SLIDER
 }
