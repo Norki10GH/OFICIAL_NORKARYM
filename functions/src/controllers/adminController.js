@@ -1,8 +1,8 @@
 // functions/src/controllers/adminController.js
 
-import { getAuth } from 'firebase-admin/auth';
-import { getDbPool } from '../config/db.js';
-import { randomBytes } from 'crypto';
+const { getAuth } = require('firebase-admin/auth');
+const { getDbPool } = require('../config/db.js');
+const { randomBytes } = require('crypto');
 
 /**
  * Genera una contraseña segura y aleatoria.
@@ -23,8 +23,6 @@ async function registrarAuditoria(auditData) {
     INSERT INTO taula_auditoria_nk (id_admin_nk, accio_nk, id_objectiu_nk, taula_objectiu_nk, valor_nou_nk)
     VALUES ($1, $2, $3, $4, $5);
   `;
-  // NOTA: L'id_admin_nk pot ser null si l'acció la fa el sistema o un usuari no autenticat.
-  // En aquest cas, com és un admin creant un altre, podries registrar qui ho ha fet si tinguessis aquesta info.
   const values = [id_admin_nk || null, accio_nk, id_objectiu_nk, taula_objectiu_nk, valor_nou_nk];
   await pool.query(query, values);
 }
@@ -67,12 +65,12 @@ async function registrarNouAdmin(req, res) {
     const result = await pool.query(dbQuery, values);
     const nouAdmin = result.rows[0];
 
-    // NOU: Registrar l'acció a la taula d'auditoria
+    // Registrar l'acció a la taula d'auditoria
     await registrarAuditoria({
       accio_nk: 'CREACIO_ADMINISTRADOR',
       id_objectiu_nk: nouAdmin.id_admin_nk,
       taula_objectiu_nk: 'taula_admins_nk',
-      valor_nou_nk: JSON.stringify(nouAdmin) // Guardem l'objecte complet del nou admin
+      valor_nou_nk: JSON.stringify(nouAdmin)
     });
 
     res.status(201).json({
@@ -99,4 +97,4 @@ async function registrarNouAdmin(req, res) {
   }
 }
 
-export { registrarNouAdmin };
+module.exports = { registrarNouAdmin };

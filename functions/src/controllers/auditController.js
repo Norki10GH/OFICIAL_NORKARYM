@@ -1,6 +1,6 @@
 // functions/src/controllers/auditController.js
 
-import { getDbPool } from '../config/db.js';
+const { getDbPool } = require('../config/db.js');
 
 /**
  * Controlador per obtenir tots els registres d'auditoria.
@@ -33,4 +33,4 @@ async function obtenirRegistresAuditoria(req, res) {
   }
 }
 
-export { obtenirRegistresAuditoria };
+module.exports = { obtenirRegistresAuditoria };
