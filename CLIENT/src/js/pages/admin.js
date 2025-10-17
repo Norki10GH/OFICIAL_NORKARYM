@@ -1,6 +1,5 @@
-// client/src/js/pages/admin.js
+// client/src/js/pages/admin.js (Lògica de la pàgina d'administració)
 
-// ... (Les funcions initMenuToggle, initHeaderScroll, etc. no canvien) ...
 // Funció per controlar el menú responsive (ara activat pel Logotip)
 function initMenuToggle() {
     const toggleButton = document.getElementById('menu-toggle');
@@ -137,8 +136,7 @@ function initManifestSlider() {
     goToPanel(0); 
 }
 
-
-// --- LÒGICA ACTUALITZADA per al formulari de registre d'administradors ---
+// --- Lògica per al formulari de registre d'administradors (versió amb contrasenya) ---
 function initAdminForm() {
     const form = document.getElementById('form-nou-admin');
     const resultatDiv = document.getElementById('form-resultat');
@@ -157,15 +155,14 @@ function initAdminForm() {
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-
-        // --- VALIDACIONS DE CONTRASENYA ---
+        
         if (data.password !== data.confirmPassword) {
             resultatDiv.textContent = 'Error: Les contrasenyes no coincideixen.';
             resultatDiv.classList.add('error');
             resultatDiv.style.display = 'block';
             submitButton.disabled = false;
             submitButton.textContent = 'Registrar Administrador';
-            return; // Aturem l'enviament
+            return;
         }
 
         if (data.password.length < 8) {
@@ -174,25 +171,21 @@ function initAdminForm() {
             resultatDiv.style.display = 'block';
             submitButton.disabled = false;
             submitButton.textContent = 'Registrar Administrador';
-            return; // Aturem l'enviament
+            return;
         }
-        
-        // No cal enviar la confirmació de la contrasenya al backend
+
         const dataToSend = {
             nom: data.nom,
             email: data.email,
             password: data.password,
             notes: data.notes,
         };
-        // --- FI DE LES VALIDACIONS ---
 
         try {
             const response = await fetch('/api/registrarAdmin', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend), // Enviem les dades amb la contrasenya
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSend),
             });
 
             const result = await response.json();
@@ -216,52 +209,80 @@ function initAdminForm() {
     });
 }
 
-// ... (La funció initAuditLogViewer no canvia) ...
+
+// --- VERSIÓ MILLORADA: Lògica per mostrar els registres d'auditoria ---
 function initAuditLogViewer() {
     const showButton = document.getElementById('btn-show-audit');
     const auditSection = document.getElementById('audit-log-section');
     const tableBody = document.querySelector('#audit-log-table tbody');
 
-    if (!showButton || !auditSection || !tableBody) return;
+    if (!showButton || !auditSection || !tableBody) {
+        console.error("No s'han trobat els elements necessaris per a l'auditoria.");
+        return;
+    }
 
-    showButton.addEventListener('click', async () => {
+    const fetchAndRenderLogs = async () => {
+        // Mostrem un missatge de càrrega
+        tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Carregant registres...</td></tr>';
+
+        try {
+            const response = await fetch('/api/audit-logs');
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+
+            if (!result.success || !Array.isArray(result.data)) {
+                throw new Error(result.message || 'La resposta del servidor no té el format esperat.');
+            }
+
+            // Buidem la taula abans de renderitzar
+            tableBody.innerHTML = '';
+
+            if (result.data.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hi ha registres per mostrar.</td></tr>';
+                return;
+            }
+
+            const rows = result.data.map(log => {
+                // Formatem la data de manera segura
+                const data = new Date(log.data_accio_nk).toLocaleString('ca-ES', {
+                    year: 'numeric', month: '2-digit', day: '2-digit',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit'
+                });
+                
+                // Funció auxiliar per escapar HTML i evitar problemes de renderitzat
+                const escape = (str) => str ? String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+
+                return `
+                    <tr>
+                        <td>${escape(data)}</td>
+                        <td>${escape(log.id_admin_nk) || 'N/A'}</td>
+                        <td>${escape(log.accio_nk)}</td>
+                        <td>${escape(log.taula_objectiu_nk)}</td>
+                        <td>${escape(log.id_objectiu_nk)}</td>
+                        <td><pre>${escape(log.valor_antic_nk)}</pre></td>
+                        <td><pre>${escape(log.valor_nou_nk)}</pre></td>
+                    </tr>
+                `;
+            }).join('');
+
+            tableBody.innerHTML = rows;
+
+        } catch (error) {
+            console.error("Error en carregar els registres d'auditoria:", error);
+            tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: red;">Error: ${error.message}</td></tr>`;
+        }
+    };
+
+    showButton.addEventListener('click', () => {
         const isHidden = auditSection.classList.toggle('is-hidden');
         showButton.textContent = isHidden ? 'Accés als Registres' : 'Amagar Registres';
 
-        if (!isHidden && tableBody.innerHTML === '') {
-            try {
-                const response = await fetch('/api/audit-logs');
-                const result = await response.json();
-
-                if (!response.ok || !result.success) {
-                    throw new Error(result.message || 'No es van poder carregar els registres.');
-                }
-
-                if (result.data.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hi ha registres per mostrar.</td></tr>';
-                    return;
-                }
-
-                const rows = result.data.map(log => {
-                    const data = new Date(log.data_accio_nk).toLocaleString('ca-ES');
-                    return `
-                        <tr>
-                            <td>${data}</td>
-                            <td>${log.id_admin_nk || 'N/A'}</td>
-                            <td>${log.accio_nk}</td>
-                            <td>${log.taula_objectiu_nk || ''}</td>
-                            <td>${log.id_objectiu_nk || ''}</td>
-                            <td><pre>${log.valor_antic_nk || ''}</pre></td>
-                            <td><pre>${log.valor_nou_nk || ''}</pre></td>
-                        </tr>
-                    `;
-                }).join('');
-
-                tableBody.innerHTML = rows;
-
-            } catch (error) {
-                tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: red;">${error.message}</td></tr>`;
-            }
+        // Si la secció es mostra, carreguem les dades
+        if (!isHidden) {
+            fetchAndRenderLogs();
         }
     });
 }
