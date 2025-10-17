@@ -8,27 +8,37 @@ const { getDbPool } = require('../config/db.js');
  * @param {object} res - Objecte de la resposta (response).
  */
 async function obtenirRegistresAuditoria(req, res) {
-  // Obtenim el límit de la query string, amb un valor per defecte de 50.
-  const limit = parseInt(req.query.limit, 10) || 50;
+  const limit = parseInt(req.query.limit, 10) || 25;
+  const page = parseInt(req.query.page, 10) || 1;
+  const offset = (page - 1) * limit;
 
   try {
     const pool = await getDbPool();
     
-    // Afegim la clàusula LIMIT a la consulta SQL.
-    // Fem servir $1 per passar el valor de forma segura i evitar SQL injection.
-    const query = `
+    // Consulta per obtenir els registres paginats
+    const dataQuery = `
       SELECT id_log_nk, id_admin_nk, accio_nk, id_objectiu_nk, taula_objectiu_nk, valor_antic_nk, valor_nou_nk, data_accio_nk
       FROM taula_auditoria_nk
       ORDER BY data_accio_nk DESC
-      LIMIT $1;
+      LIMIT $1 OFFSET $2;
     `;
+    const dataResult = await pool.query(dataQuery, [limit, offset]);
 
-    const values = [limit];
-    const result = await pool.query(query, values);
+    // Consulta per obtenir el total de registres
+    const countQuery = 'SELECT COUNT(*) FROM taula_auditoria_nk;';
+    const countResult = await pool.query(countQuery);
+    const totalRecords = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalRecords / limit);
 
     res.status(200).json({
       success: true,
-      data: result.rows
+      data: dataResult.rows,
+      pagination: {
+        currentPage: page,
+        totalPages: totalPages,
+        totalRecords: totalRecords,
+        limit: limit
+      }
     });
 
   } catch (error) {

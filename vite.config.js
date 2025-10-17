@@ -3,9 +3,7 @@ import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Defineix 'client' com la carpeta arrel del codi font del frontend
-  root: 'client',
-
+  root: 'CLIENT',
   // Configuració del servidor de desenvolupament
   server: {
     // Proxy per redirigir les crides a /api cap a l'emulador de Firebase
@@ -26,9 +24,9 @@ export default defineConfig({
     // Assegura que totes les teves pàgines HTML es compilin correctament
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'client/index.html'),
-        admin: resolve(__dirname, 'client/admin.html'),
-        inscripcio: resolve(__dirname, 'client/inscripcio.html'),
+        main: resolve(__dirname, 'CLIENT/index.html'),
+        admin: resolve(__dirname, 'CLIENT/admin.html'),
+        inscripcio: resolve(__dirname, 'CLIENT/inscripcio.html'),
       },
     },
   },

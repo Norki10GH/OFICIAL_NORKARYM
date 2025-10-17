@@ -64,6 +64,51 @@ async function carregarSelectorsAdmin() {
 }
 
 /**
+ * Inicialitza un gestor de formularis genèric que envia dades a una API.
+ * @param {string} formId - L'ID del formulari.
+ * @param {string} apiEndpoint - L'endpoint de l'API al qual enviar les dades.
+ * @param {object} [options] - Opcions addicionals.
+ * @param {function(FormData, object): object} [options.prepareData] - Funció per preparar les dades abans d'enviar.
+ * @param {function(object): void} [options.onSuccess] - Callback que s'executa en cas d'èxit.
+ */
+function initApiFormHandler(formId, apiEndpoint, options = {}) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        let data = Object.fromEntries(formData.entries());
+
+        if (options.prepareData) {
+            data = options.prepareData(formData, data);
+        }
+
+        mostrarResultat(formId, 'Processant...', true);
+
+        try {
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Error desconegut del servidor.');
+            }
+
+            mostrarResultat(formId, result.message, true);
+            if (options.onSuccess) options.onSuccess(result);
+
+        } catch (error) {
+            console.error(`Error en el formulari ${formId}:`, error);
+            mostrarResultat(formId, `Error: ${error.message}`, false);
+        }
+    });
+}
+
+/**
  * Inicialitza la lògica per al formulari d'assignació d'emails.
  */
 function initAssignarEmailForm() {
@@ -71,36 +116,12 @@ function initAssignarEmailForm() {
     if (!form) return;
 
     form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        const formId = form.id;
-
-        mostrarResultat(formId, 'Processant...', true);
-
-        try {
-            const response = await fetch('/api/assignarEmail', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok || !result.success) {
-                throw new Error(result.message || 'Error desconegut del servidor.');
-            }
-
-            mostrarResultat(formId, result.message, true);
+    initApiFormHandler('form-assignar-email', '/api/assignarEmail', {
+        onSuccess: () => {
             form.reset();
-            // Opcional: Recarregar registres d'auditoria per veure el canvi
             if (document.getElementById('audit-log-table')) {
                 carregarRegistresAuditoria();
             }
-
-        } catch (error) {
-            console.error(`Error en assignar l'email:`, error);
-            mostrarResultat(formId, `Error: ${error.message}`, false);
         }
     });
 }
@@ -112,36 +133,12 @@ function initRegistrarProducteForm() {
     const form = document.getElementById('form-registrar-producte');
     if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        const formId = form.id;
-
-        mostrarResultat(formId, 'Processant...', true);
-
-        try {
-            const response = await fetch('/api/registrarProducte', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok || !result.success) {
-                throw new Error(result.message || 'Error desconegut del servidor.');
-            }
-
-            mostrarResultat(formId, result.message, true);
+    initApiFormHandler('form-registrar-producte', '/api/registrarProducte', {
+        onSuccess: () => {
             form.reset();
-            // Opcional: Recarregar registres d'auditoria per veure el canvi
             if (document.getElementById('audit-log-table')) {
                 carregarRegistresAuditoria();
             }
-        } catch (error) {
-            console.error(`Error en registrar el producte:`, error);
-            mostrarResultat(formId, `Error: ${error.message}`, false);
         }
     });
 }
@@ -211,33 +208,14 @@ function initAssignarProducteForm() {
     });
 
     // 3. Gestionar l'enviament del formulari
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        const formId = form.id;
-
-        mostrarResultat(formId, 'Processant...', true);
-
-        try {
-            const response = await fetch('/api/assignarProducte', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            const result = await response.json();
-            if (!response.ok || !result.success) throw new Error(result.message);
-
-            mostrarResultat(formId, result.message, true);
+    initApiFormHandler('form-assignar-producte', '/api/assignarProducte', {
+        onSuccess: () => {
             form.reset();
             versioSelect.innerHTML = '<option value="">Selecciona primer un producte</option>';
             versioSelect.disabled = true;
             if (document.getElementById('audit-log-table')) {
                 carregarRegistresAuditoria();
             }
-        } catch (error) {
-            console.error(`Error en assignar el producte:`, error);
-            mostrarResultat(formId, `Error: ${error.message}`, false);
         }
     });
 
@@ -249,20 +227,23 @@ function initAssignarProducteForm() {
  * Navegació per pestanyes al panell d'administració.
  */
 function initAdminTabs() {
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
     const imagePlaceholder = document.querySelector('.admin-section-image');
+    const sections = document.querySelectorAll('.form-section-card, .audit-section-card');
 
     // Funció per mostrar la secció correcta
     const showSection = (targetId) => {
-        const sections = document.querySelectorAll('.form-section-card, .audit-section-card');
         sections.forEach(section => {
             section.style.display = section.id === targetId.substring(1) ? 'block' : 'none';
         });
-        // Amaguem la imatge si es mostra una secció
-        if (imagePlaceholder) imagePlaceholder.style.display = 'none';
+
+        // Amaguem la imatge si es mostra una secció, altrament la mostrem
+        if (imagePlaceholder) {
+            imagePlaceholder.style.display = targetId ? 'none' : 'block';
+        }
     };
 
     // Lògica per als clics
-    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -276,18 +257,15 @@ function initAdminTabs() {
             navLinks.forEach(nav => nav.classList.remove('active'));
             link.classList.add('active');
 
-            showSection(link.getAttribute('href'));
+            const targetId = link.getAttribute('href');
+            showSection(targetId);
         });
     });
 
     // Estat inicial: mostra la secció de la pestanya activa per defecte
     const activeLink = document.querySelector('.sidebar-nav .nav-link.active');
-    if (activeLink) {
-        showSection(activeLink.getAttribute('href'));
-    } else if (imagePlaceholder) {
-        // Si no hi ha cap actiu, ens assegurem que la imatge sigui visible
-        imagePlaceholder.style.display = 'block';
-    }
+    const initialTarget = activeLink ? activeLink.getAttribute('href') : null;
+    showSection(initialTarget);
 }
 
 /**
@@ -356,13 +334,18 @@ function initAuditoriaSection() {
 }
 
 export function adminPage() {
+    console.log("S'ha carregat la lògica de la pàgina d'administració.");
+
+    // Inicialització de components visuals
     initAdminHeroAnimation();
     initAdminTabs();
-    carregarSelectorsAdmin(); // Carrega tots els selectors d'admin
-    // initNouAdminForm(); // Pendent d'implementar
-    // initAssignarRolForm(); // Pendent d'implementar
-    initAssignarEmailForm(); // <-- Afegim la inicialització del nou formulari
-    initRegistrarProducteForm(); // <-- Afegim la inicialització del formulari de productes
-    initAssignarProducteForm(); // <-- Afegim la inicialització del nou formulari d'assignació
-    initAuditoriaSection(); // <-- Afegim la inicialització de la secció d'auditoria
+
+    // Càrrega de dades inicial
+    carregarSelectorsAdmin();
+    initAuditoriaSection();
+
+    // Inicialització de formularis
+    initAssignarEmailForm();
+    initRegistrarProducteForm();
+    initAssignarProducteForm();
 }
