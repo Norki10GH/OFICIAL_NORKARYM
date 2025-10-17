@@ -1,5 +1,6 @@
 // client/src/js/pages/inici.js (Lògica de scroll substituïda per slider)
 import { initTypingEffect } from '../components/typing-effect.js';
+import { initParticleAnimation } from '../components/particle-animation.js';
 
 // Funció per controlar el menú responsive (ara activat pel Logotip)
 function initMenuToggle() {
@@ -134,6 +135,7 @@ function initManifestSlider() {
 
 
 export function iniciPage() {
+    initParticleAnimation();
     initHeroAnimation();
     initMenuToggle();
     initHeaderScroll();
