@@ -3,11 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-"scripts": {
-  "dev": "vite",
-  "build": "vite build"
-},
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
   "dependencies": {
+    "express": "^5.1.0",
     "firebase": "^12.4.0"
   },
   "devDependencies": {
