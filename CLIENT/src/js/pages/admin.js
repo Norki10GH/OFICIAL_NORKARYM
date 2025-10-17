@@ -209,10 +209,6 @@ export function adminPage() {
     initManifestSlider();
     initAdminForm();
 }
-// Funció per inicialitzar el formulari d'administració
-function initAdminForm() {
-    // ... (la teva funció existent es manté igual)
-}
 
 // NOVA FUNCIÓ: Lògica per mostrar els registres d'auditoria
 function initAuditLogViewer() {
