@@ -11,12 +11,8 @@
     ],
     "rewrites": [
       {
-        "source": "/api/registrarAdmin",
-        "function": "registrarAdmin"
-      },
-      {
         "source": "/api/**",
-        "function": "testConexionDB"
+        "function": "api"
       },
       {
         "source": "**",

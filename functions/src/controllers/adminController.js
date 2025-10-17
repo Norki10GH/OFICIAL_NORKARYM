@@ -1,7 +1,7 @@
 // functions/src/controllers/adminController.js
 
-import { getAuth } from 'firebase-admin/auth';
-import { getDbPool } from '../config/db.js';
+const { getAuth } = require('firebase-admin/auth');
+const { getDbPool } = require('../config/db.js');
 
 /**
  * Controlador per registrar un nou administrador.
@@ -9,7 +9,7 @@ import { getDbPool } from '../config/db.js';
  * @param {object} req - Objecte de la petició (request).
  * @param {object} res - Objecte de la resposta (response).
  */
-export async function registrarNouAdmin(req, res) {
+async function registrarNouAdmin(req, res) {
   const { nom, email, password, notes } = req.body;
 
   // Validació bàsica de les dades rebudes
@@ -67,3 +67,5 @@ export async function registrarNouAdmin(req, res) {
     });
   }
 }
+
+module.exports = { registrarNouAdmin };

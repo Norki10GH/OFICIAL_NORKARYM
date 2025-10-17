@@ -22,7 +22,7 @@ async function getDbPassword() {
  * Si no existeix, el crea de forma asíncrona.
  * @returns {Promise<pg.Pool>} El pool de connexions de PostgreSQL.
  */
-export async function getDbPool() {
+async function getDbPool() {
     if (pool) {
         return pool;
     }
@@ -38,3 +38,5 @@ export async function getDbPool() {
     pool = new pg.Pool(config);
     return pool;
 }
+
+module.exports = { getDbPool };
