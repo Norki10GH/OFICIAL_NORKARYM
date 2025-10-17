@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './config/apiConfig.js';
+
 /**
  * Inicialitza la funcionalitat específica de la pàgina d'administració.
  */
@@ -85,10 +87,36 @@ function initAdminRegistrationForm() {
     passwordInput.addEventListener('input', validatePasswords);
     confirmPasswordInput.addEventListener('input', validatePasswords);
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
         validatePasswords();
         if (!form.checkValidity()) {
-            e.preventDefault(); // Atura l'enviament si hi ha errors de validació
+            return;
+        }
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/registrarAdmin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert('Administrador registrat amb èxit!');
+                form.reset();
+            } else {
+                const error = await response.json();
+                alert(`Error al registrar l'administrador: ${error.message}`);
+            }
+        } catch (error) {
+            console.error('Error de xarxa:', error);
+            alert('Error de connexió. Si us plau, intenta-ho de nou més tard.');
         }
     });
 }

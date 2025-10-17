@@ -1,3 +1,4 @@
+
 // client/src/js/pages/admin.js
 import { initTypingEffect } from "../components/typing-effect.js";
 
@@ -92,10 +93,13 @@ function initApiFormHandler(formId, apiEndpoint, options = {}) {
             data = options.prepareData(formData, data);
         }
 
+        const finalEndpoint = data.endpoint || apiEndpoint;
+        delete data.endpoint;
+
         mostrarResultat(formId, 'Processant...', true);
 
         try {
-            const response = await fetch(apiEndpoint, {
+            const response = await fetch(finalEndpoint, {
                 method: options.method || 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -250,9 +254,7 @@ function initAssignarProducteForm() {
 }
 
 function initAdminTabs() {
-    // ⬇️ SOLUCIÓN: Cambiar el selector para que busque todas las secciones descendientes.
-    const sections = document.querySelectorAll('.dashboard-main section'); 
-    
+    const sections = document.querySelectorAll('.dashboard-main section');
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
     const imagePlaceholder = document.querySelector('.admin-section-image');
 
@@ -267,7 +269,6 @@ function initAdminTabs() {
             }
         });
         if (imagePlaceholder) {
-            // Asegura que la imagen de bienvenida se oculte si se muestra una sección
             imagePlaceholder.style.display = sectionVisible ? 'none' : 'block';
         }
     };
@@ -292,8 +293,7 @@ function initAdminTabs() {
             link.click();
         }
     } else {
-        // En la carga inicial, si no hay hash, oculta todo y muestra el placeholder
-        showSection(null); 
+        showSection(null);
     }
 }
 
@@ -435,27 +435,24 @@ async function carregarRegistresAuditoria(limit = 25) {
 
 
 function initModals() {
-    // Tancar modals
     document.querySelectorAll('.modal-close-button').forEach(btn => {
         btn.addEventListener('click', () => {
             btn.closest('.modal-overlay').style.display = 'none';
         });
     });
 
-// ... dentro de initModals()
-initApiFormHandler('form-edit-admin', '', { // <-- Endpoint vacío!
-    method: 'PUT',
-    onSuccess: () => {
-        document.getElementById('edit-admin-modal').style.display = 'none';
-        carregarTaulaAdmins();
-    },
-    prepareData: (formData, data) => {
-        const id = document.getElementById('edit-admin-id').value;
-        form.action = `/api/administradors/${id}`; // <-- 'form' NO está definido aquí
-        return data;
-    }
-});
-// ...
+    initApiFormHandler('form-edit-admin', '', {
+        method: 'PUT',
+        onSuccess: () => {
+            document.getElementById('edit-admin-modal').style.display = 'none';
+            carregarTaulaAdmins();
+        },
+        prepareData: (formData, data) => {
+            const id = document.getElementById('edit-admin-id').value;
+            data.endpoint = `/api/administradors/${id}`;
+            return data;
+        }
+    });
 
     initApiFormHandler('form-edit-rol-global', '', {
         method: 'PUT',
@@ -466,7 +463,7 @@ initApiFormHandler('form-edit-admin', '', { // <-- Endpoint vacío!
         },
         prepareData: (formData, data) => {
             const id = document.getElementById('edit-rol-global-id').value;
-            form.action = `/api/rols-definició/${id}`;
+            data.endpoint = `/api/rols-definició/${id}`;
             return data;
         }
     });
@@ -479,13 +476,12 @@ initApiFormHandler('form-edit-admin', '', { // <-- Endpoint vacío!
         },
         prepareData: (formData, data) => {
             const id = document.getElementById('edit-producte-id').value;
-            form.action = `/api/productes/${id}`;
+            data.endpoint = `/api/productes/${id}`;
             return data;
         }
     });
 }
 
-// Funcions globals per als botons de les taules
 window.obrirModalEditarAdmin = async (id) => {
     const modal = document.getElementById('edit-admin-modal');
     try {
@@ -579,25 +575,17 @@ window.eliminarProducte = async (id) => {
 export function adminPage() {
     initAdminHeroAnimation();
     initAdminTabs();
-
-    // Càrregues inicials de dades
     carregarSelectorsAdmin();
     carregarSelectorsRols();
-
-    // Càrregues de les taules
     carregarTaulaAdmins();
     carregarTaulaRolsGlobals();
     carregarTaulaProductes();
     carregarRegistresAuditoria();
-
-    // Inicialització de formularis
     initNouAdminForm();
     initCrearRolGlobalForm();
     initAssignarRolForm();
     initAssignarEmailForm();
     initRegistrarProducteForm();
     initAssignarProducteForm();
-    
-    // Modals
     initModals();
 }

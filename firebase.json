@@ -14,13 +14,11 @@
         "source": "/api/**",
         "function": "api"
       },
-
       {
         "source": "**",
         "destination": "/index.html"
       }
     ],
-    
     "cleanUrls": true,
     "headers": [
       {
@@ -42,5 +40,16 @@
         ]
       }
     ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5002
+    },
+    "hosting": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }

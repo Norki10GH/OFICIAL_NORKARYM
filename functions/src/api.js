@@ -1,11 +1,11 @@
 // functions/src/api.js
 const express = require('express');
 const cors = require('cors');
-const { registrarNouAdmin, eliminarAdmin, editarAdmin } = require('./controllers/adminController.js');
+const { registrarNouAdmin, eliminarAdmin, editarAdmin, obtenirAdministradors } = require('./controllers/adminController.js'); // Afegit obtenirAdministradors
 const { assignarEmail } = require('./controllers/emailController.js');
 const { obtenirRegistresAuditoria } = require('./controllers/auditController.js');
 const { registrarNouProducte, obtenirProductes, obtenirVersionsPerProducte, assignarProducteAUsuari, obtenirProductesDetallats, editarProducte, eliminarProducte, crearNovaVersio, editarVersio, eliminarVersio } = require('./controllers/productController.js');
-const { obtenirAdministradors, assignarRol, eliminarRol } = require('./controllers/rolController.js');
+const { assignarRol, eliminarRol } = require('./controllers/rolController.js'); // Treure obtenirAdministradors d'aquí si està duplicat
 const { obtenirDefinicionsRols, crearDefinicioRol, editarDefinicioRol, eliminarDefinicioRol } = require('./controllers/rolDefinitionController.js');
 
 const app = express();
@@ -14,20 +14,20 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 // --- Rutes d'Administradors ---
-app.post('/registrarAdmin', registrarNouAdmin);
+app.post('/registrar', registrarNouAdmin); // Corregida la ruta
+app.get('/administradors', obtenirAdministradors); // Afegida la ruta GET que faltava
 app.delete('/administradors/:id', eliminarAdmin);
 app.put('/administradors/:id', editarAdmin);
 
 // --- Rutes de Rols ---
-app.get('/administradors', obtenirAdministradors);
 app.post('/assignarRol', assignarRol);
 app.delete('/rols/:id', eliminarRol);
 
 // --- Rutes de Definicions de Rols ---
-app.get('/definicions-rols', obtenirDefinicionsRols);
-app.post('/definicions-rols', crearDefinicioRol);
-app.put('/definicions-rols/:id', editarDefinicioRol);
-app.delete('/definicions-rols/:id', eliminarDefinicioRol);
+app.get('/rols-definició', obtenirDefinicionsRols);
+app.post('/rols-definició', crearDefinicioRol);
+app.put('/rols-definició/:id', editarDefinicioRol);
+app.delete('/rols-definició/:id', eliminarDefinicioRol);
 
 // --- Rutes d'Emails ---
 app.post('/assignarEmail', assignarEmail);
