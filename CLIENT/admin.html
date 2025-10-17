@@ -62,6 +62,109 @@
             color: #fff; /* Assegura el color del text */
             transform: translateX(5px); /* Petit desplaçament a la dreta */
         }
+
+        /* --- Estils per al Modal d'Edició --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: var(--color-bg-main);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+        }
+
+        /* --- Estils per a les píndoles de rol --- */
+        .role-pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .role-pill {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid var(--color-border);
+        }
+        .role-delete-btn {
+            margin-left: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-accent-danger);
+            font-weight: bold;
+        }
+
+        /* --- Estils per al Modal de Versions --- */
+        #versions-producte-modal .modal-content {
+            max-width: 600px;
+        }
+        .versions-list {
+            list-style: none;
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .versions-list li {
+            padding: 10px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        /* --- Millores de validació i usabilitat per a formularis --- */
+        .form-group {
+            position: relative; /* Necessari per posicionar elements interns */
+        }
+        .password-toggle-btn {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(25%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+        }
+        .password-strength-meter {
+            height: 5px;
+            width: 0%;
+            background-color: var(--color-accent-danger);
+            border-radius: 5px;
+            transition: width 0.3s, background-color 0.3s;
+            margin-top: 5px;
+        }
+        .form-error-message {
+            color: var(--color-accent-danger);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none; /* Ocult per defecte */
+        }
     </style>
 </head>
 <body class="page-admin">
@@ -88,8 +191,11 @@
             <nav class="sidebar-nav">
                 <ul>
                     <li><a href="#section-nou-admin" class="nav-link">Registrar Administrador</a></li>
+                    <li><a href="#section-gestionar-rols-globals" class="nav-link">Gestionar Rols Globals</a></li>
+                    <li><a href="#section-veure-admins" class="nav-link">Veure Administradors</a></li>
                     <li><a href="#section-assignar-rols" class="nav-link">Assignar Rols</a></li>
                     <li><a href="#section-assignar-email" class="nav-link">Assignar Email</a></li>
+                    <li><a href="#section-gestionar-productes" class="nav-link">Gestionar Productes</a></li>
                     <li><a href="#section-registrar-producte" class="nav-link">Registrar Producte</a></li>
                     <li><a href="#section-assignar-producte" class="nav-link">Assignar Producte a Usuari</a></li>
                     <li><a href="#section-auditoria" class="nav-link">Registres d'Auditoria</a></li>
@@ -103,6 +209,28 @@
         <main class="dashboard-main">
             <div class="main-content">
                 
+                <section id="section-veure-admins" class="audit-section-card" style="display: none;">
+                    <h2>Tots els Administradors</h2>
+                    <p>Llista de tots els administradors registrats al sistema.</p>
+                    <div class="table-responsive">
+                        <table id="admin-list-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Rols</th>
+                                    <th>Data de Creació</th>
+                                    <th>Notes</th>
+                                    <th>Accions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
                 <section id="section-nou-admin" class="form-section-card" style="display: none;">
                     <h2>Registrar Nou Administrador</h2>
                     <p>Crea un nou compte d'administrador al sistema.</p>
@@ -116,14 +244,19 @@
                             <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Contrasenya (mín. 8 caràcters):</label>
-                            <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+                            <label for="password">Contrasenya:</label>
+                            <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Mínim 8 caràcters">
+                            <button type="button" class="password-toggle-btn" data-target="password">👁️</button>
+                            <div class="password-strength-meter" id="password-strength-meter"></div>
+                            <small id="password-strength-text" class="form-error-message"></small>
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">Repeteix la Contrasenya:</label>
-                            <input type="password" id="confirm-password" name="confirmPassword" required minlength="8">
+                            <input type="password" id="confirm-password" name="confirmPassword" required minlength="8" autocomplete="new-password">
+                            <button type="button" class="password-toggle-btn" data-target="confirm-password">👁️</button>
+                            <small id="confirm-password-error" class="form-error-message">Les contrasenyes no coincideixen.</small>
                         </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <label for="notes">Notes (Opcional):</label>
                             <textarea id="notes" name="notes" rows="3"></textarea>
                         </div>
@@ -131,6 +264,41 @@
                     </form>
                     <div id="form-resultat-nou-admin" class="form-resultat"></div>
                     <div class="admin-image-container">
+                    </div>
+                </section>
+
+                <section id="section-gestionar-rols-globals" class="form-section-card" style="display: none;">
+                    <h2>Gestionar Definicions de Rols Globals</h2>
+                    <p>Crea, edita o elimina els rols que es poden assignar als usuaris del sistema.</p>
+                    
+                    <h3 class="form-subtitle">Crear Nou Rol</h3>
+                    <form id="form-crear-rol-global">
+                        <div class="form-group">
+                            <label for="nom-rol-global">Nom del Rol (ex: PREMIUM):</label>
+                            <input type="text" id="nom-rol-global" name="nom_rol_def_nk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc-rol-global">Descripció (Opcional):</label>
+                            <textarea id="desc-rol-global" name="descripcio_rol_def_nk" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="button-primary">Crear Rol</button>
+                    </form>
+                    <div id="form-resultat-crear-rol-global" class="form-resultat"></div>
+
+                    <hr class="form-separator">
+
+                    <h3 class="form-subtitle">Rols Existents</h3>
+                    <div class="table-responsive">
+                        <table id="rols-globals-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom del Rol</th>
+                                    <th>Descripció</th>
+                                    <th>Accions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </section>
 
@@ -147,12 +315,7 @@
                         <div class="form-group">
                             <label for="rol-nivell">Nivell de Rol:</label>
                             <select id="rol-nivell" name="nom_rol_nk" required>
-                                <option value="">-- Selecciona un nivell --</option>
-                                <option value="1">1 - Bàsic</option>
-                                <option value="2">2 - Editor</option>
-                                <option value="3">3 - Gestor</option>
-                                <option value="4">4 - Administrador</option>
-                                <option value="5">5 - Super Administrador</option>
+                                <option value="">Carregant rols...</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -162,6 +325,28 @@
                         <button type="submit" class="button-primary">Assignar Rol</button>
                     </form>
                     <div id="form-resultat-assignar-rol" class="form-resultat"></div>
+                </section>
+
+                <section id="section-gestionar-productes" class="audit-section-card" style="display: none;">
+                    <h2>Gestionar Productes Registrats</h2>
+                    <p>Visualitza, edita o elimina els productes i projectes del sistema.</p>
+                    <div class="table-responsive">
+                        <table id="product-list-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom del Producte</th>
+                                    <th>Email</th>
+                                    <th>Creador</th>
+                                    <th>Nº Versions</th>
+                                    <th>Data Creació</th>
+                                    <th>Notes</th>
+                                    <th>Accions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
 
                 <section id="section-assignar-email" class="form-section-card" style="display: none;">
@@ -265,15 +450,6 @@
                 <section id="section-auditoria" class="audit-section-card" style="display: none;">
                     <h2>Registres d'Auditoria del Sistema</h2>
                     <p>Historial de totes les accions importants realitzades al panell.</p>
-                    <div class="form-group form-group-inline">
-                        <label for="audit-limit-select">Mostrar registres:</label>
-                        <select id="audit-limit-select">
-                            <option value="25">Últims 25</option>
-                            <option value="50" selected>Últims 50</option>
-                            <option value="100">Últims 100</option>
-                            <option value="250">Últims 250</option>
-                        </select>
-                    </div>
                     <div class="table-responsive">
                         <table id="audit-log-table">
                             <thead>
@@ -289,11 +465,137 @@
                             <tbody></tbody>
                         </table>
                     </div>
+                    <div id="audit-pagination-controls" class="pagination-controls"></div>
                 </section>
                   <img src="/assets/afadmins.png" alt="Administradors Norkarym" class="admin-section-image">
             </div>
         </main>
     </div>
+
+    <!-- Modal per Editar Administrador -->
+    <div id="edit-admin-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-button" aria-label="Tancar modal">&times;</button>
+            <h2>Editar Administrador</h2>
+            <p>Modifica les dades de l'administrador seleccionat.</p>
+            <form id="form-edit-admin">
+                <input type="hidden" id="edit-admin-id" name="id_admin_nk">
+                <div class="form-group">
+                    <label for="edit-nom">Nom Complet:</label>
+                    <input type="text" id="edit-nom" name="nom_admin_nk" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Correu Electrònic:</label>
+                    <input type="email" id="edit-email" name="email_admin_nk" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-notes">Notes (Opcional):</label>
+                    <textarea id="edit-notes" name="notes_admin_nk" rows="3"></textarea>
+                </div>
+                <button type="submit" class="button-primary">Guardar Canvis</button>
+            </form>
+            <div id="form-resultat-edit-admin" class="form-resultat"></div>
+        </div>
+    </div>
+
+    <!-- Modal per Editar Rol Global -->
+    <div id="edit-rol-global-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-rol-global-btn" class="modal-close-button" aria-label="Tancar modal">&times;</button>
+            <h2>Editar Definició de Rol Global</h2>
+            <p>Modifica el nom i la descripció del rol seleccionat.</p>
+            <form id="form-edit-rol-global">
+                <input type="hidden" id="edit-rol-global-id" name="id_rol_def_nk">
+                <div class="form-group">
+                    <label for="edit-rol-global-nom">Nom del Rol:</label>
+                    <input type="text" id="edit-rol-global-nom" name="nom_rol_def_nk" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-rol-global-descripcio">Descripció (Opcional):</label>
+                    <textarea id="edit-rol-global-descripcio" name="descripcio_rol_def_nk" rows="3"></textarea>
+                </div>
+                <button type="submit" class="button-primary">Guardar Canvis</button>
+            </form>
+            <div id="form-resultat-edit-rol-global" class="form-resultat"></div>
+        </div>
+    </div>
+
+    <!-- Modal per Editar Producte -->
+    <div id="edit-producte-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-producte-btn" class="modal-close-button" aria-label="Tancar modal">&times;</button>
+            <h2>Editar Producte</h2>
+            <p>Modifica les dades del producte seleccionat.</p>
+            <form id="form-edit-producte">
+                <input type="hidden" id="edit-producte-id">
+                <div class="form-group">
+                    <label for="edit-producte-nom">Nom del Producte/Projecte:</label>
+                    <input type="text" id="edit-producte-nom" name="nom_producte_proj_nk" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-producte-email">Email del Projecte (Opcional):</label>
+                    <input type="email" id="edit-producte-email" name="email_producte_proj_nk">
+                </div>
+                <div class="form-group">
+                    <label for="edit-producte-notes">Notes (Opcional):</label>
+                    <textarea id="edit-producte-notes" name="notes_producte_proj_nk" rows="3"></textarea>
+                </div>
+                <button type="submit" class="button-primary">Guardar Canvis</button>
+            </form>
+            <div id="form-resultat-edit-producte" class="form-resultat"></div>
+        </div>
+    </div>
+
+    <!-- Modal per Veure Versions del Producte -->
+    <div id="versions-producte-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-versions-btn" class="modal-close-button" aria-label="Tancar modal">&times;</button>
+            <h2 id="versions-modal-title">Versions del Producte</h2>
+            <div class="table-responsive">
+                <table class="versions-list-table">
+                    <thead> 
+                        <tr><th>Nom de la Versió</th><th>Data de Creació</th><th>Accions</th></tr>
+                    </thead>
+                    <tbody id="versions-list-body"></tbody>
+                </table>
+            </div>
+            <hr class="form-separator">
+            <h3 class="form-subtitle">Crear Nova Versió</h3>
+            <form id="form-crear-versio">
+                <div class="form-group">
+                    <label for="nom-nova-versio">Nom de la Nova Versió (ex: v1.1.0):</label>
+                    <input type="text" id="nom-nova-versio" name="nom_versio_nk" required>
+                </div>
+                <!-- Opcional: Es podria afegir un camp per al README aquí -->
+                <button type="submit" class="button-primary button-small">Crear Versió</button>
+            </form>
+            <div id="form-resultat-crear-versio" class="form-resultat"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal per Editar Versió del Producte -->
+    <div id="edit-versio-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-versio-btn" class="modal-close-button" aria-label="Tancar modal">&times;</button>
+            <h2>Editar Versió</h2>
+            <p>Modifica les dades de la versió seleccionada.</p>
+            <form id="form-edit-versio">
+                <input type="hidden" id="edit-versio-id">
+                <div class="form-group">
+                    <label for="edit-versio-nom">Nom de la Versió:</label>
+                    <input type="text" id="edit-versio-nom" name="nom_versio_nk" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-versio-readme">Contingut del README (Markdown):</label>
+                    <textarea id="edit-versio-readme" name="readme_versio_nk" rows="8"></textarea>
+                </div>
+                <button type="submit" class="button-primary">Guardar Canvis</button>
+            </form>
+            <div id="form-resultat-edit-versio" class="form-resultat"></div>
+        </div>
+    </div>
+
 
     <script type="module" src="/src/js/main.js"></script>
 </body>

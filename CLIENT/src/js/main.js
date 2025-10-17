@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./pages/inici.js').then(module => {
       module.iniciPage();
     });
-  } else if (page === 'page-admin') { // <-- NOU BLOC
+  } else if (page === 'page-admin') {
     import('./pages/admin.js').then(module => {
       module.adminPage();
     });
