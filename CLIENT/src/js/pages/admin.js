@@ -249,23 +249,20 @@ function initAssignarProducteForm() {
  * Navegació per pestanyes al panell d'administració.
  */
 function initAdminTabs() {
-    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
     const imagePlaceholder = document.querySelector('.admin-section-image');
-    const sections = document.querySelectorAll('.form-section-card, .audit-section-card');
 
     // Funció per mostrar la secció correcta
     const showSection = (targetId) => {
+        const sections = document.querySelectorAll('.form-section-card, .audit-section-card');
         sections.forEach(section => {
             section.style.display = section.id === targetId.substring(1) ? 'block' : 'none';
         });
-
-        // Amaguem la imatge si es mostra una secció, altrament la mostrem
-        if (imagePlaceholder) {
-            imagePlaceholder.style.display = targetId ? 'none' : 'block';
-        }
+        // Amaguem la imatge si es mostra una secció
+        if (imagePlaceholder) imagePlaceholder.style.display = 'none';
     };
 
     // Lògica per als clics
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -279,15 +276,18 @@ function initAdminTabs() {
             navLinks.forEach(nav => nav.classList.remove('active'));
             link.classList.add('active');
 
-            const targetId = link.getAttribute('href');
-            showSection(targetId);
+            showSection(link.getAttribute('href'));
         });
     });
 
     // Estat inicial: mostra la secció de la pestanya activa per defecte
     const activeLink = document.querySelector('.sidebar-nav .nav-link.active');
-    const initialTarget = activeLink ? activeLink.getAttribute('href') : null;
-    showSection(initialTarget);
+    if (activeLink) {
+        showSection(activeLink.getAttribute('href'));
+    } else if (imagePlaceholder) {
+        // Si no hi ha cap actiu, ens assegurem que la imatge sigui visible
+        imagePlaceholder.style.display = 'block';
+    }
 }
 
 /**
