@@ -571,29 +571,27 @@ window.eliminarProducte = async (id) => {
 };
 
 export function adminPage() {
-    document.addEventListener('DOMContentLoaded', () => {
-        initAdminHeroAnimation();
-        initAdminTabs();
+    initAdminHeroAnimation();
+    initAdminTabs();
 
-        // Càrregues inicials de dades
-        carregarSelectorsAdmin();
-        carregarSelectorsRols();
+    // Càrregues inicials de dades
+    carregarSelectorsAdmin();
+    carregarSelectorsRols();
 
-        // Càrregues de les taules
-        carregarTaulaAdmins();
-        carregarTaulaRolsGlobals();
-        carregarTaulaProductes();
-        carregarRegistresAuditoria();
+    // Càrregues de les taules
+    carregarTaulaAdmins();
+    carregarTaulaRolsGlobals();
+    carregarTaulaProductes();
+    carregarRegistresAuditoria();
 
-        // Inicialització de formularis
-        initNouAdminForm();
-        initCrearRolGlobalForm();
-        initAssignarRolForm();
-        initAssignarEmailForm();
-        initRegistrarProducteForm();
-        initAssignarProducteForm();
-        
-        // Modals
-        initModals();
-    });
+    // Inicialització de formularis
+    initNouAdminForm();
+    initCrearRolGlobalForm();
+    initAssignarRolForm();
+    initAssignarEmailForm();
+    initRegistrarProducteForm();
+    initAssignarProducteForm();
+    
+    // Modals
+    initModals();
 }

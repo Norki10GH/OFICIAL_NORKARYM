@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm:dev:vite\" \"npm:dev:firebase\"",
+    "dev:vite": "vite",
+    "dev:firebase": "firebase emulators:start --only functions",
     "build": "vite build"
   },
   "dependencies": {
@@ -12,6 +14,8 @@
     "firebase": "^12.4.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
+    "firebase-tools": "^13.13.2",
     "vite": "^7.1.10"
   }
 }
