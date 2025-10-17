@@ -46,7 +46,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    min-width: 300px;
+    width: 300px; /* Amplada fixa per equilibrar */
     justify-content: flex-start;
 }
 /* Estil de la icona quan és el botó */
@@ -70,7 +70,7 @@
 .header-buttons-container {
     display: flex;
     justify-content: flex-end;
-    min-width: 300px;
+    width: 300px; /* Amplada fixa per equilibrar */
 }
 
 
