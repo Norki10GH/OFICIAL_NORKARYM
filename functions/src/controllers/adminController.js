@@ -1,7 +1,17 @@
 // functions/src/controllers/adminController.js
 
-const { getAuth } = require('firebase-admin/auth');
-const { getDbPool } = require('../config/db.js');
+import { getAuth } from 'firebase-admin/auth';
+import { getDbPool } from '../config/db.js';
+import { randomBytes } from 'crypto';
+
+/**
+ * Genera una contraseña segura y aleatoria.
+ * @returns {string} Una contraseña aleatoria.
+ */
+function generarPasswordAleatoria() {
+  // Genera 16 bytes aleatorios y los convierte a una cadena hexadecimal.
+  return randomBytes(16).toString('hex');
+}
 
 /**
  * Controlador per registrar un nou administrador.
@@ -10,21 +20,25 @@ const { getDbPool } = require('../config/db.js');
  * @param {object} res - Objecte de la resposta (response).
  */
 async function registrarNouAdmin(req, res) {
-  const { nom, email, password, notes } = req.body;
+  // ATENCIÓ: Ja no rebem la contrasenya des del formulari.
+  const { nom, email, notes } = req.body;
 
   // Validació bàsica de les dades rebudes
-  if (!nom || !email || !password) {
+  if (!nom || !email) {
     return res.status(400).json({
       success: false,
-      message: "El nom, l'email i la contrasenya són obligatoris."
+      message: "El nom i l'email són obligatoris."
     });
   }
 
   try {
-    // Pas 1: Crear l'usuari a Firebase Authentication
+    // NOU: Generem una contrasenya segura i temporal automàticament.
+    const passwordTemporal = generarPasswordAleatoria();
+
+    // Pas 1: Crear l'usuari a Firebase Authentication amb la contrasenya generada.
     const userRecord = await getAuth().createUser({
       email: email,
-      password: password,
+      password: passwordTemporal,
       displayName: nom
     });
 
@@ -44,7 +58,7 @@ async function registrarNouAdmin(req, res) {
     // Pas 3: Retornar una resposta d'èxit
     res.status(201).json({
       success: true,
-      message: 'Administrador registrat correctament.',
+      message: 'Administrador registrat correctament. L\'usuari haurà de restablir la seva contrasenya per poder iniciar sessió.',
       admin: result.rows[0]
     });
 
@@ -68,4 +82,4 @@ async function registrarNouAdmin(req, res) {
   }
 }
 
-module.exports = { registrarNouAdmin };
+export { registrarNouAdmin };
