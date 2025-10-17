@@ -2,15 +2,15 @@
 
 const { getAuth } = require('firebase-admin/auth');
 const { getDbPool } = require('../config/db.js');
-const { randomBytes } = require('crypto');
+// Ja no necessitem 'crypto' per generar contrasenyes
+// const { randomBytes } = require('crypto');
 
-/**
- * Genera una contraseña segura y aleatoria.
- * @returns {string} Una contraseña aleatoria.
- */
+// Aquesta funció ja no és necessària
+/*
 function generarPasswordAleatoria() {
   return randomBytes(16).toString('hex');
 }
+*/
 
 /**
  * Inserta un registre a la taula d'auditoria.
@@ -34,21 +34,33 @@ async function registrarAuditoria(auditData) {
  * @param {object} res - Objecte de la resposta (response).
  */
 async function registrarNouAdmin(req, res) {
-  const { nom, email, notes } = req.body;
+  // Afegim 'password' a les dades que rebem del body
+  const { nom, email, password, notes } = req.body;
 
-  if (!nom || !email) {
+  // Actualitzem la validació inicial
+  if (!nom || !email || !password) {
     return res.status(400).json({
       success: false,
-      message: "El nom i l'email són obligatoris."
+      message: "El nom, l'email i la contrasenya són obligatoris."
+    });
+  }
+
+  // Afegim una validació de seguretat al servidor
+  if (password.length < 8) {
+    return res.status(400).json({
+        success: false,
+        message: "La contrasenya ha de tenir com a mínim 8 caràcters."
     });
   }
 
   try {
-    const passwordTemporal = generarPasswordAleatoria();
+    // Eliminem la generació de contrasenya temporal
+    // const passwordTemporal = generarPasswordAleatoria();
 
+    // Creem l'usuari a Firebase Auth amb la contrasenya proporcionada
     const userRecord = await getAuth().createUser({
       email: email,
-      password: passwordTemporal,
+      password: password, // <-- Canvi clau
       displayName: nom
     });
 
@@ -65,7 +77,7 @@ async function registrarNouAdmin(req, res) {
     const result = await pool.query(dbQuery, values);
     const nouAdmin = result.rows[0];
 
-    // Registrar l'acció a la taula d'auditoria
+    // La lògica d'auditoria no canvia
     await registrarAuditoria({
       accio_nk: 'CREACIO_ADMINISTRADOR',
       id_objectiu_nk: nouAdmin.id_admin_nk,
@@ -73,9 +85,10 @@ async function registrarNouAdmin(req, res) {
       valor_nou_nk: JSON.stringify(nouAdmin)
     });
 
+    // Actualitzem el missatge d'èxit
     res.status(201).json({
       success: true,
-      message: 'Administrador registrat correctament. L\'usuari haurà de restablir la seva contrasenya.',
+      message: 'Administrador registrat correctament.', // <-- Missatge actualitzat
       admin: nouAdmin
     });
 

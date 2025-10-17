@@ -1,5 +1,6 @@
-// client/src/js/pages/admin.js (Lògica de la pàgina d'administració)
+// client/src/js/pages/admin.js
 
+// ... (Les funcions initMenuToggle, initHeaderScroll, etc. no canvien) ...
 // Funció per controlar el menú responsive (ara activat pel Logotip)
 function initMenuToggle() {
     const toggleButton = document.getElementById('menu-toggle');
@@ -136,7 +137,8 @@ function initManifestSlider() {
     goToPanel(0); 
 }
 
-// --- Lògica per al formulari de registre d'administradors ---
+
+// --- LÒGICA ACTUALITZADA per al formulari de registre d'administradors ---
 function initAdminForm() {
     const form = document.getElementById('form-nou-admin');
     const resultatDiv = document.getElementById('form-resultat');
@@ -156,13 +158,41 @@ function initAdminForm() {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
+        // --- VALIDACIONS DE CONTRASENYA ---
+        if (data.password !== data.confirmPassword) {
+            resultatDiv.textContent = 'Error: Les contrasenyes no coincideixen.';
+            resultatDiv.classList.add('error');
+            resultatDiv.style.display = 'block';
+            submitButton.disabled = false;
+            submitButton.textContent = 'Registrar Administrador';
+            return; // Aturem l'enviament
+        }
+
+        if (data.password.length < 8) {
+            resultatDiv.textContent = 'Error: La contrasenya ha de tenir com a mínim 8 caràcters.';
+            resultatDiv.classList.add('error');
+            resultatDiv.style.display = 'block';
+            submitButton.disabled = false;
+            submitButton.textContent = 'Registrar Administrador';
+            return; // Aturem l'enviament
+        }
+        
+        // No cal enviar la confirmació de la contrasenya al backend
+        const dataToSend = {
+            nom: data.nom,
+            email: data.email,
+            password: data.password,
+            notes: data.notes,
+        };
+        // --- FI DE LES VALIDACIONS ---
+
         try {
             const response = await fetch('/api/registrarAdmin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(dataToSend), // Enviem les dades amb la contrasenya
             });
 
             const result = await response.json();
@@ -186,7 +216,7 @@ function initAdminForm() {
     });
 }
 
-// --- Lògica per mostrar els registres d'auditoria ---
+// ... (La funció initAuditLogViewer no canvia) ...
 function initAuditLogViewer() {
     const showButton = document.getElementById('btn-show-audit');
     const auditSection = document.getElementById('audit-log-section');
@@ -235,6 +265,7 @@ function initAuditLogViewer() {
         }
     });
 }
+
 
 // Funció principal que s'exporta i s'executa a main.js
 export function adminPage() {
