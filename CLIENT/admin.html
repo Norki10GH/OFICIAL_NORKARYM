@@ -114,6 +114,15 @@
                 <section id="section-auditoria" class="audit-section-card">
                     <h2>Registres d'Auditoria del Sistema</h2>
                     <p>Historial de totes les accions importants realitzades al panell.</p>
+                    <div class="form-group form-group-inline">
+                        <label for="audit-limit-select">Mostrar registres:</label>
+                        <select id="audit-limit-select">
+                            <option value="25">Últims 25</option>
+                            <option value="50" selected>Últims 50</option>
+                            <option value="100">Últims 100</option>
+                            <option value="250">Últims 250</option>
+                        </select>
+                    </div>
                     <div class="table-responsive">
                         <table id="audit-log-table">
                             <thead>
