@@ -13,25 +13,16 @@ function initAdminHeroAnimation() {
     }
 }
 
-/**
- * Mostra un missatge de resultat en un formulari específic.
- * @param {string} formId - L'ID del formulari on mostrar el missatge.
- * @param {string} message - El missatge a mostrar.
- * @param {boolean} isSuccess - Si el missatge és d'èxit o d'error.
- */
 function mostrarResultat(formId, message, isSuccess) {
-    const resultatDiv = document.querySelector(`#${formId} + .form-resultat`);
+    const resultatDiv = document.querySelector(`#${formId} + .form-resultat, #${formId} .form-resultat`);
     if (resultatDiv) {
         resultatDiv.textContent = message;
-        resultatDiv.className = 'form-resultat'; // Reseteja classes
+        resultatDiv.className = 'form-resultat';
         resultatDiv.classList.add(isSuccess ? 'success' : 'error');
         resultatDiv.style.display = 'block';
     }
 }
 
-/**
- * Carrega la llista d'administradors en tots els selectors designats.
- */
 async function carregarSelectorsAdmin() {
     const selectors = document.querySelectorAll('select[name="firebase_uid_admin_nk"]');
     if (selectors.length === 0) return;
@@ -45,13 +36,15 @@ async function carregarSelectorsAdmin() {
         }
 
         selectors.forEach(select => {
-            select.innerHTML = '<option value="">-- Selecciona un administrador --</option>'; // Opció per defecte
+            const currentValue = select.value;
+            select.innerHTML = '<option value="">-- Selecciona un administrador --</option>';
             result.data.forEach(admin => {
                 const option = document.createElement('option');
                 option.value = admin.firebase_uid_admin_nk;
                 option.textContent = `${admin.nom_admin_nk} (${admin.email_admin_nk})`;
                 select.appendChild(option);
             });
+            select.value = currentValue;
         });
 
     } catch (error) {
@@ -63,14 +56,29 @@ async function carregarSelectorsAdmin() {
     }
 }
 
-/**
- * Inicialitza un gestor de formularis genèric que envia dades a una API.
- * @param {string} formId - L'ID del formulari.
- * @param {string} apiEndpoint - L'endpoint de l'API al qual enviar les dades.
- * @param {object} [options] - Opcions addicionals.
- * @param {function(FormData, object): object} [options.prepareData] - Funció per preparar les dades abans d'enviar.
- * @param {function(object): void} [options.onSuccess] - Callback que s'executa en cas d'èxit.
- */
+async function carregarSelectorsRols() {
+    const selector = document.getElementById('rol-nivell');
+    if (!selector) return;
+
+    try {
+        const response = await fetch('/api/rols-definició');
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message);
+
+        selector.innerHTML = '<option value="">-- Selecciona un rol --</option>';
+        result.data.forEach(rol => {
+            const option = document.createElement('option');
+            option.value = rol.nom_rol_def_nk;
+            option.textContent = rol.nom_rol_def_nk;
+            selector.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error en carregar rols:", error);
+        selector.innerHTML = `<option value="">Error: ${error.message}</option>`;
+        selector.disabled = true;
+    }
+}
+
 function initApiFormHandler(formId, apiEndpoint, options = {}) {
     const form = document.getElementById(formId);
     if (!form) return;
@@ -88,7 +96,7 @@ function initApiFormHandler(formId, apiEndpoint, options = {}) {
 
         try {
             const response = await fetch(apiEndpoint, {
-                method: 'POST',
+                method: options.method || 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
@@ -108,44 +116,69 @@ function initApiFormHandler(formId, apiEndpoint, options = {}) {
     });
 }
 
-/**
- * Inicialitza la lògica per al formulari d'assignació d'emails.
- */
-function initAssignarEmailForm() {
-    const form = document.getElementById('form-assignar-email');
-    if (!form) return;
+function initNouAdminForm() {
+    initApiFormHandler('form-nou-admin', '/api/registrar', {
+        onSuccess: (result) => {
+            document.getElementById('form-nou-admin').reset();
+            carregarTaulaAdmins();
+            carregarSelectorsAdmin();
+        }
+    });
 
-    form.addEventListener('submit', async (e) => {
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm-password');
+    const confirmPasswordError = document.getElementById('confirm-password-error');
+
+    if (password && confirmPassword && confirmPasswordError) {
+        const validatePasswords = () => {
+            if (password.value !== confirmPassword.value) {
+                confirmPasswordError.style.display = 'block';
+            } else {
+                confirmPasswordError.style.display = 'none';
+            }
+        };
+        password.addEventListener('input', validatePasswords);
+        confirmPassword.addEventListener('input', validatePasswords);
+    }
+}
+
+function initCrearRolGlobalForm() {
+    initApiFormHandler('form-crear-rol-global', '/api/rols-definició', {
+        onSuccess: () => {
+            document.getElementById('form-crear-rol-global').reset();
+            carregarTaulaRolsGlobals();
+            carregarSelectorsRols();
+        }
+    });
+}
+
+function initAssignarRolForm() {
+    initApiFormHandler('form-assignar-rol', '/api/assignarRol', {
+        onSuccess: () => {
+            document.getElementById('form-assignar-rol').reset();
+            carregarTaulaAdmins();
+        }
+    });
+}
+
+function initAssignarEmailForm() {
     initApiFormHandler('form-assignar-email', '/api/assignarEmail', {
         onSuccess: () => {
-            form.reset();
-            if (document.getElementById('audit-log-table')) {
-                carregarRegistresAuditoria();
-            }
+            document.getElementById('form-assignar-email').reset();
+            carregarTaulaAdmins();
         }
     });
 }
 
-/**
- * Inicialitza la lògica per al formulari de registre de productes.
- */
 function initRegistrarProducteForm() {
-    const form = document.getElementById('form-registrar-producte');
-    if (!form) return;
-
     initApiFormHandler('form-registrar-producte', '/api/registrarProducte', {
         onSuccess: () => {
-            form.reset();
-            if (document.getElementById('audit-log-table')) {
-                carregarRegistresAuditoria();
-            }
+            document.getElementById('form-registrar-producte').reset();
+            carregarTaulaProductes();
         }
     });
 }
 
-/**
- * Inicialitza la lògica per al formulari d'assignació de productes a usuaris.
- */
 function initAssignarProducteForm() {
     const form = document.getElementById('form-assignar-producte');
     const projecteSelect = document.getElementById('projecte-select-assignar');
@@ -153,7 +186,6 @@ function initAssignarProducteForm() {
 
     if (!form || !projecteSelect || !versioSelect) return;
 
-    // 1. Carregar els productes al selector inicial
     async function carregarProductes() {
         try {
             const response = await fetch('/api/productes');
@@ -173,7 +205,6 @@ function initAssignarProducteForm() {
         }
     }
 
-    // 2. Carregar versions quan es selecciona un producte
     projecteSelect.addEventListener('change', async () => {
         const id_proj_nk = projecteSelect.value;
         versioSelect.innerHTML = '<option value="">Carregant versions...</option>';
@@ -207,72 +238,161 @@ function initAssignarProducteForm() {
         }
     });
 
-    // 3. Gestionar l'enviament del formulari
     initApiFormHandler('form-assignar-producte', '/api/assignarProducte', {
         onSuccess: () => {
             form.reset();
             versioSelect.innerHTML = '<option value="">Selecciona primer un producte</option>';
             versioSelect.disabled = true;
-            if (document.getElementById('audit-log-table')) {
-                carregarRegistresAuditoria();
-            }
         }
     });
 
-    // Càrrega inicial dels productes
     carregarProductes();
 }
 
-/**
- * Navegació per pestanyes al panell d'administració.
- */
 function initAdminTabs() {
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    const sections = document.querySelectorAll('.dashboard-main > section');
     const imagePlaceholder = document.querySelector('.admin-section-image');
-    const sections = document.querySelectorAll('.form-section-card, .audit-section-card');
 
-    // Funció per mostrar la secció correcta
     const showSection = (targetId) => {
+        let sectionVisible = false;
         sections.forEach(section => {
-            section.style.display = section.id === targetId.substring(1) ? 'block' : 'none';
+            if (section.id === targetId) {
+                section.style.display = 'block';
+                sectionVisible = true;
+            } else {
+                section.style.display = 'none';
+            }
         });
-
-        // Amaguem la imatge si es mostra una secció, altrament la mostrem
         if (imagePlaceholder) {
-            imagePlaceholder.style.display = targetId ? 'none' : 'block';
+            imagePlaceholder.style.display = sectionVisible ? 'none' : 'block';
         }
     };
-
-    // Lògica per als clics
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-
-            // Si es fa clic a un enllaç ja actiu, no fem res (o podríem deseleccionar)
-            if (link.classList.contains('active')) {
-                return;
-            }
+            const targetId = link.getAttribute('href').substring(1);
 
             navLinks.forEach(nav => nav.classList.remove('active'));
             link.classList.add('active');
-
-            const targetId = link.getAttribute('href');
+            
             showSection(targetId);
+            window.location.hash = link.getAttribute('href');
         });
     });
 
-    // Estat inicial: mostra la secció de la pestanya activa per defecte
-    const activeLink = document.querySelector('.sidebar-nav .nav-link.active');
-    const initialTarget = activeLink ? activeLink.getAttribute('href') : null;
-    showSection(initialTarget);
+    const hash = window.location.hash;
+    if (hash) {
+        const link = document.querySelector(`.sidebar-nav .nav-link[href="${hash}"]`);
+        if (link) {
+            link.click();
+        }
+    } else {
+        showSection(null);
+    }
 }
 
-/**
- * Carrega i mostra els registres d'auditoria a la taula.
- * @param {number} limit - El nombre de registres a carregar.
- */
-async function carregarRegistresAuditoria(limit = 50) {
+async function carregarTaulaAdmins() {
+    const tableBody = document.querySelector("#admin-list-table tbody");
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '<tr><td colspan="7">Carregant administradors...</td></tr>';
+    try {
+        const response = await fetch('/api/administradors');
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message);
+
+        if (result.data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7">No hi ha administradors registrats.</td></tr>';
+            return;
+        }
+
+        tableBody.innerHTML = "";
+        result.data.forEach(admin => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${admin.id_admin_nk}</td>
+                <td>${admin.nom_admin_nk}</td>
+                <td>${admin.email_admin_nk}</td>
+                <td>${admin.rols ? admin.rols.join(', ') : 'N/A'}</td>
+                <td>${new Date(admin.data_creacio_admin_nk).toLocaleDateString()}</td>
+                <td>${admin.notes_admin_nk || ''}</td>
+                <td>
+                    <button class="button-small" onclick="obrirModalEditarAdmin(${admin.id_admin_nk})">Editar</button>
+                    <button class="button-small button-danger" onclick="eliminarAdmin(${admin.id_admin_nk})">Eliminar</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        tableBody.innerHTML = `<tr><td colspan="7" class="error-message">Error: ${error.message}</td></tr>`;
+    }
+}
+
+async function carregarTaulaRolsGlobals() {
+    const tableBody = document.querySelector("#rols-globals-table tbody");
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '<tr><td colspan="3">Carregant rols...</td></tr>';
+    try {
+        const response = await fetch('/api/rols-definició');
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message);
+
+        tableBody.innerHTML = "";
+        result.data.forEach(rol => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${rol.nom_rol_def_nk}</td>
+                <td>${rol.descripcio_rol_def_nk || ''}</td>
+                <td>
+                    <button class="button-small" onclick="obrirModalEditarRolGlobal(${rol.id_rol_def_nk})">Editar</button>
+                    <button class="button-small button-danger" onclick="eliminarRolGlobal(${rol.id_rol_def_nk})">Eliminar</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        tableBody.innerHTML = `<tr><td colspan="3" class="error-message">Error: ${error.message}</td></tr>`;
+    }
+}
+
+async function carregarTaulaProductes() {
+    const tableBody = document.querySelector("#product-list-table tbody");
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '<tr><td colspan="7">Carregant productes...</td></tr>';
+    try {
+        const response = await fetch('/api/productes');
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message);
+
+        tableBody.innerHTML = "";
+        result.data.forEach(producte => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${producte.nom_producte_proj_nk}</td>
+                <td>${producte.email_producte_proj_nk || 'N/A'}</td>
+                <td>${producte.nom_creador}</td>
+                <td>${producte.num_versions}</td>
+                <td>${new Date(producte.data_creacio_proj_nk).toLocaleDateString()}</td>
+                <td>${producte.notes_producte_proj_nk || ''}</td>
+                <td>
+                    <button class="button-small" onclick="obrirModalEditarProducte(${producte.id_proj_nk})">Editar</button>
+                    <button class="button-small" onclick="obrirModalVersions(${producte.id_proj_nk})">Versions</button>
+                    <button class="button-small button-danger" onclick="eliminarProducte(${producte.id_proj_nk})">Eliminar</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        tableBody.innerHTML = `<tr><td colspan="7" class="error-message">Error: ${error.message}</td></tr>`;
+    }
+}
+
+
+async function carregarRegistresAuditoria(limit = 25) {
     const tableBody = document.querySelector("#audit-log-table tbody");
     if (!tableBody) return;
 
@@ -281,30 +401,20 @@ async function carregarRegistresAuditoria(limit = 50) {
     try {
         const response = await fetch(`/api/audit-logs?limit=${limit}`);
         const result = await response.json();
-
-        if (!response.ok || !result.success) {
-            throw new Error(result.message || "Error en la resposta del servidor.");
-        }
+        if (!response.ok || !result.success) throw new Error(result.message);
 
         if (result.data.length === 0) {
             tableBody.innerHTML = '<tr><td colspan="6">No s\'han trobat registres d\'auditoria.</td></tr>';
             return;
         }
 
-        tableBody.innerHTML = ""; // Neteja la taula
-
+        tableBody.innerHTML = "";
         result.data.forEach(log => {
             const row = document.createElement("tr");
-
-            // Formata la data per a millor llegibilitat
-            const dataFormatada = new Date(log.data_accio_nk).toLocaleString('ca-ES', {
-                year: 'numeric', month: '2-digit', day: '2-digit',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            });
-
+            const dataFormatada = new Date(log.data_accio_nk).toLocaleString('ca-ES');
             row.innerHTML = `
                 <td>${dataFormatada}</td>
-                <td>${log.id_admin_nk || 'Sistema'}</td>
+                <td>${log.nom_admin || 'Sistema'}</td>
                 <td>${log.accio_nk}</td>
                 <td>${log.taula_objectiu_nk}</td>
                 <td>${log.id_objectiu_nk}</td>
@@ -314,38 +424,176 @@ async function carregarRegistresAuditoria(limit = 50) {
         });
 
     } catch (error) {
-        console.error("Error en carregar els registres d'auditoria:", error);
+        console.error("Error en carregar auditoria:", error);
         tableBody.innerHTML = `<tr><td colspan="6" class="error-message">Error: ${error.message}</td></tr>`;
     }
 }
 
-/**
- * Inicialitza la secció d'auditoria, incloent la càrrega inicial i l'esdeveniment del selector.
- */
-function initAuditoriaSection() {
-    const limitSelect = document.getElementById('audit-limit-select');
-    if (limitSelect) {
-        // Càrrega inicial
-        carregarRegistresAuditoria(limitSelect.value);
 
-        // Esdeveniment per recarregar quan canvia la selecció
-        limitSelect.addEventListener('change', () => carregarRegistresAuditoria(limitSelect.value));
-    }
+function initModals() {
+    // Tancar modals
+    document.querySelectorAll('.modal-close-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.modal-overlay').style.display = 'none';
+        });
+    });
+
+    initApiFormHandler('form-edit-admin', '', {
+        method: 'PUT',
+        onSuccess: () => {
+            document.getElementById('edit-admin-modal').style.display = 'none';
+            carregarTaulaAdmins();
+        },
+        prepareData: (formData, data) => {
+            const id = document.getElementById('edit-admin-id').value;
+            form.action = `/api/administradors/${id}`;
+            return data;
+        }
+    });
+
+    initApiFormHandler('form-edit-rol-global', '', {
+        method: 'PUT',
+        onSuccess: () => {
+            document.getElementById('edit-rol-global-modal').style.display = 'none';
+            carregarTaulaRolsGlobals();
+            carregarSelectorsRols();
+        },
+        prepareData: (formData, data) => {
+            const id = document.getElementById('edit-rol-global-id').value;
+            form.action = `/api/rols-definició/${id}`;
+            return data;
+        }
+    });
+    
+    initApiFormHandler('form-edit-producte', '', {
+        method: 'PUT',
+        onSuccess: () => {
+            document.getElementById('edit-producte-modal').style.display = 'none';
+            carregarTaulaProductes();
+        },
+        prepareData: (formData, data) => {
+            const id = document.getElementById('edit-producte-id').value;
+            form.action = `/api/productes/${id}`;
+            return data;
+        }
+    });
 }
 
+// Funcions globals per als botons de les taules
+window.obrirModalEditarAdmin = async (id) => {
+    const modal = document.getElementById('edit-admin-modal');
+    try {
+        const response = await fetch(`/api/administradors/${id}`);
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+        const admin = result.data;
+        document.getElementById('edit-admin-id').value = admin.id_admin_nk;
+        document.getElementById('edit-nom').value = admin.nom_admin_nk;
+        document.getElementById('edit-email').value = admin.email_admin_nk;
+        document.getElementById('edit-notes').value = admin.notes_admin_nk;
+        modal.style.display = 'flex';
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+};
+
+window.eliminarAdmin = async (id) => {
+    if (!confirm('Estàs segur que vols eliminar aquest administrador?')) return;
+    try {
+        const response = await fetch(`/api/administradors/${id}`, { method: 'DELETE' });
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+        alert('Administrador eliminat correctament.');
+        carregarTaulaAdmins();
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+};
+
+window.obrirModalEditarRolGlobal = async (id) => {
+    const modal = document.getElementById('edit-rol-global-modal');
+    try {
+        const response = await fetch(`/api/rols-definició/${id}`);
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+        const rol = result.data;
+        document.getElementById('edit-rol-global-id').value = rol.id_rol_def_nk;
+        document.getElementById('edit-rol-global-nom').value = rol.nom_rol_def_nk;
+        document.getElementById('edit-rol-global-descripcio').value = rol.descripcio_rol_def_nk;
+        modal.style.display = 'flex';
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+};
+
+window.eliminarRolGlobal = async (id) => {
+    if (!confirm('Estàs segur que vols eliminar aquesta definició de rol?')) return;
+    try {
+        const response = await fetch(`/api/rols-definició/${id}`, { method: 'DELETE' });
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+        alert('Definició de rol eliminada correctament.');
+        carregarTaulaRolsGlobals();
+        carregarSelectorsRols();
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+};
+
+window.obrirModalEditarProducte = async (id) => {
+    const modal = document.getElementById('edit-producte-modal');
+    try {
+        const response = await fetch(`/api/productes/${id}`);
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+        const producte = result.data;
+        document.getElementById('edit-producte-id').value = producte.id_proj_nk;
+        document.getElementById('edit-producte-nom').value = producte.nom_producte_proj_nk;
+        document.getElementById('edit-producte-email').value = producte.email_producte_proj_nk;
+        document.getElementById('edit-producte-notes').value = producte.notes_producte_proj_nk;
+        modal.style.display = 'flex';
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+};
+
+window.eliminarProducte = async (id) => {
+    if (!confirm('Estàs segur que vols eliminar aquest producte i totes les seves versions?')) return;
+    try {
+        const response = await fetch(`/api/productes/${id}`, { method: 'DELETE' });
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+        alert('Producte eliminat correctament.');
+        carregarTaulaProductes();
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+};
+
 export function adminPage() {
-    console.log("S'ha carregat la lògica de la pàgina d'administració.");
+    document.addEventListener('DOMContentLoaded', () => {
+        initAdminHeroAnimation();
+        initAdminTabs();
 
-    // Inicialització de components visuals
-    initAdminHeroAnimation();
-    initAdminTabs();
+        // Càrregues inicials de dades
+        carregarSelectorsAdmin();
+        carregarSelectorsRols();
 
-    // Càrrega de dades inicial
-    carregarSelectorsAdmin();
-    initAuditoriaSection();
+        // Càrregues de les taules
+        carregarTaulaAdmins();
+        carregarTaulaRolsGlobals();
+        carregarTaulaProductes();
+        carregarRegistresAuditoria();
 
-    // Inicialització de formularis
-    initAssignarEmailForm();
-    initRegistrarProducteForm();
-    initAssignarProducteForm();
+        // Inicialització de formularis
+        initNouAdminForm();
+        initCrearRolGlobalForm();
+        initAssignarRolForm();
+        initAssignarEmailForm();
+        initRegistrarProducteForm();
+        initAssignarProducteForm();
+        
+        // Modals
+        initModals();
+    });
 }
