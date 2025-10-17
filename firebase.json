@@ -1,3 +1,5 @@
+// firebase.json
+
 {
   "functions": {
     "source": "functions"
@@ -11,8 +13,12 @@
     ],
     "rewrites": [
       {
+        "source": "/api/registrarAdmin", // <-- NOU REWRITE
+        "function": "registrarAdmin"
+      },
+      {
         "source": "/api/**",
-        "function": "testConexionDB"
+        "function": "testConexionDB" // O la funció que gestioni altres rutes
       },
       {
         "source": "**",

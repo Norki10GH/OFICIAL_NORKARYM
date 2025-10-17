@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#3B82F6">
-    <title>NORKÄRŸM - Recupera la il·lusió pel teu projecte</title>
+    <title>NORKÄRŸM - Administració</title>
     
     <link rel="icon" type="image/png" href="/FAVICON NORKARYM COLOR.png">
     
@@ -14,9 +14,9 @@
     
     <link rel="stylesheet" href="/src/css/base/global.css">
     <link rel="stylesheet" href="/src/css/components/buttons.css">
-    <link rel="stylesheet" href="/src/css/pages/inici.css">
+    <link rel="stylesheet" href="/src/css/pages/admin.css">
 </head>
-<body class="page-inici">
+<body class="page-admin">
 
     <header class="main-header">
         <div class="header-content">
@@ -33,9 +33,7 @@
             
             <div class="header-buttons-container">
                 <div class="header-buttons">
-                    <a href="/src/pages/inscripcio.html" class="button-primary">Inicia Sessió</a>
-                    <a href="/src/pages/inscripcio.html" class="button-primary">Registra't</a>
-                    <a href="/src/pages/admin.html" class="button-secondary">Accés Administradors</a>
+                    <a href="/" class="button-primary">Tornar a l'inici</a>
                 </div>
             </div>
             
@@ -55,13 +53,43 @@
         <section class="hero-section">
             <div class="video-background">
                 <div class="video-overlay"></div>
-                <video src="/assets/hero-video.mp4" autoplay muted loop playsinline></video>
+                <video src="/assets/admins-video.mp4" autoplay muted loop playsinline></video>
             </div>
             <div class="hero-content">
                <h1 id="hero-h1" class="typing-effect"></h1>
                 <p id="hero-paragraph" class="fade-in">A Norkarym creem tecnologia intuïtiva perquè la gestió del teu negoci no et torni a robar mai més el temps.</p>
                 <a href="#kary" id="hero-button" class="button button-primary fade-in">Descobreix KARY</a>
             </div>
+        </section>
+
+        <section class="admins-section content-section">
+            <div class="admin-content-wrapper animate-on-scroll">
+                <div class="admin-image-container">
+                    <img src="/assets/admins-imatge.jpg" alt="Gestió d'administradors a Norkarym">
+                </div>
+                <div class="admin-container">
+        <section class="form-section">
+            <h2>Registrar Nou Administrador</h2>
+            <form id="form-nou-admin">
+                <div class="form-group">
+                    <label for="nom">Nom Complet:</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correu Electrònic:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contrasenya:</label>
+                    <input type="password" id="password" name="password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes (Opcional):</label>
+                    <textarea id="notes" name="notes"></textarea>
+                </div>
+                <button type="submit" class="button-primary">Registrar Administrador</button>
+            </form>
+            <div id="form-resultat" class="form-resultat"></div>
         </section>
 
         <section id="manifest" class="manifest-section">
@@ -94,7 +122,7 @@
             </div>
         </section>
 
-        <section id="kary" class="kary-section content-section animate-on-scroll">
+        <section id="kary" class="kary-section forms-section animate-on-scroll">
             <div class="kary-content">
                 <div class="kary-text">
                     <h2>Presentem KARY: Inverteix temps en el teu projecte, no en la gestió.</h2>
@@ -134,36 +162,7 @@
                 </div>
             </div>
         </section>
-
-        <section class="users-section content-section">
-            <h2 class="animate-on-scroll">Et sona familiar?</h2>
-            <div class="user-block animate-on-scroll">
-                <div class="user-image">
-                    <img src="https://placehold.co/500x350/F9FAFB/1F2937?text=Imatge+Freelance" alt="Creativa freelance treballant">
-                </div>
-                <div class="user-text">
-                    <h3>Per a la creativa que vol passar més hores dissenyant i menys temps perseguint pagaments.</h3>
-                </div>
-            </div>
-            <div class="user-block user-block-reverse animate-on-scroll">
-                <div class="user-image">
-                     <img src="https://placehold.co/500x350/F9FAFB/1F2937?text=Imatge+Comer%C3%A7" alt="Comerciant al seu negoci">
-                </div>
-                <div class="user-text">
-                    <h3>Per al comerciant que necessita controlar el seu estoc i les seves vendes sense perdre's en programes complicats.</h3>
-                </div>
-            </div>
-            <div class="user-block animate-on-scroll">
-                <div class="user-image">
-                    <img src="https://placehold.co/500x350/F9FAFB/1F2937?text=Imatge+Consultor" alt="Consultor en una reunió">
-                </div>
-                <div class="user-text">
-                    <h3>Per al professional que ofereix serveis i necessita una manera àgil de gestionar projectes i pressupostos.</h3>
-                </div>
-            </div>
-        </section>
-
-        <section id="contacte" class="cta-final-section content-section">
+        <section id="contacte" class="cta-final-section forms-section">
             <h2>És hora de tornar a començar.</h2>
             <p>Uneix-te a la comunitat d'emprenedors que ja estan recuperant el control del seu temps. Comença a fer servir KARY gratis.</p>
             <div class="cta-buttons">
