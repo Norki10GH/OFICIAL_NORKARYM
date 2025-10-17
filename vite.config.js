@@ -12,12 +12,12 @@ export default defineConfig({
     outDir: '../dist',
     // Neteja el directori de sortida abans de construir
     emptyOutDir: true,
-    // 👇 AFEGEIX AIXÒ 👇
+    // 👇 CORRECCIÓ AQUÍ 👇
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'client/index.html'),
-        admin: resolve(__dirname, 'client/src/pages/admin.html'),
-        inscripcio: resolve(__dirname, 'client/src/pages/inscripcio.html'),
+        admin: resolve(__dirname, 'client/admin.html'),
+        inscripcio: resolve(__dirname, 'client/inscripcio.html'),
       },
     },
   },
@@ -26,7 +26,10 @@ export default defineConfig({
   server: {
     // Proxy per a les crides a l'API durant el desenvolupament
     proxy: {
-      '/api': 'http://127.0.0.1:5001',
+      '/api': {
+        target: 'http://127.0.0.1:5001',
+        changeOrigin: true,
+      },
     },
   },
 });
