@@ -39,8 +39,11 @@
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="#section-nou-admin" class="nav-link active">Registrar Administrador</a></li>
+                    <li><a href="#section-nou-admin" class="nav-link">Registrar Administrador</a></li>
                     <li><a href="#section-assignar-rols" class="nav-link">Assignar Rols</a></li>
+                    <li><a href="#section-assignar-email" class="nav-link">Assignar Email</a></li>
+                    <li><a href="#section-registrar-producte" class="nav-link">Registrar Producte</a></li>
+                    <li><a href="#section-assignar-producte" class="nav-link">Assignar Producte a Usuari</a></li>
                     <li><a href="#section-auditoria" class="nav-link">Registres d'Auditoria</a></li>
                 </ul>
             </nav>
@@ -52,7 +55,7 @@
         <main class="dashboard-main">
             <div class="main-content">
                 
-                <section id="section-nou-admin" class="form-section-card">
+                <section id="section-nou-admin" class="form-section-card" style="display: none;">
                     <h2>Registrar Nou Administrador</h2>
                     <p>Crea un nou compte d'administrador al sistema.</p>
                     <form id="form-nou-admin">
@@ -79,9 +82,11 @@
                         <button type="submit" class="button-primary">Registrar Administrador</button>
                     </form>
                     <div id="form-resultat-nou-admin" class="form-resultat"></div>
+                    <div class="admin-image-container">
+                    </div>
                 </section>
 
-                <section id="section-assignar-rols" class="form-section-card">
+                <section id="section-assignar-rols" class="form-section-card" style="display: none;">
                     <h2>Assignar Rols a Administradors</h2>
                     <p>Defineix el nivell de permisos d'un administrador existent.</p>
                     <form id="form-assignar-rol">
@@ -111,7 +116,105 @@
                     <div id="form-resultat-assignar-rol" class="form-resultat"></div>
                 </section>
 
-                <section id="section-auditoria" class="audit-section-card">
+                <section id="section-assignar-email" class="form-section-card" style="display: none;">
+                    <h2>Assignar Email a Administrador</h2>
+                    <p>Crea i associa un nou compte de correu a un administrador existent.</p>
+                    <form id="form-assignar-email">
+                        <div class="form-group">
+                            <label for="admin-select-email">Selecciona l'Administrador:</label>
+                            <select id="admin-select-email" name="firebase_uid_admin_nk" required>
+                                <option value="">Carregant administradors...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nom-compte-email">Nom del Compte:</label>
+                            <input type="text" id="nom-compte-email" name="nom_compte_email_nk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-email">Correu Electrònic:</label>
+                            <input type="email" id="email-email" name="email_email_nk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-notes">Notes (Opcional):</label>
+                            <textarea id="email-notes" name="notes_email_nk" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="button-primary">Assignar Email</button>
+                    </form>
+                    <div id="form-resultat-assignar-email" class="form-resultat"></div>
+                </section>
+
+                <section id="section-registrar-producte" class="form-section-card" style="display: none;">
+                    <h2>Registrar Nou Producte</h2>
+                    <p>Crea un nou registre de producte o projecte al sistema.</p>
+                    <form id="form-registrar-producte">
+                        <div class="form-group">
+                            <label for="admin-select-producte">Administrador Creador:</label>
+                            <select id="admin-select-producte" name="firebase_uid_admin_nk" required>
+                                <option value="">Carregant administradors...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nom-producte">Nom del Producte/Projecte:</label>
+                            <input type="text" id="nom-producte" name="nom_producte_proj_nk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-producte">Email del Projecte (Opcional):</label>
+                            <input type="email" id="email-producte" name="email_producte_proj_nk">
+                        </div>
+                        <hr class="form-separator">
+                        <h3 class="form-subtitle">Versió Inicial</h3>
+                        <div class="form-group">
+                            <label for="nom-versio">Nom de la Versió Inicial (ex: v1.0.0):</label>
+                            <input type="text" id="nom-versio" name="nom_versio_nk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="readme-versio">Contingut del README (Opcional):</label>
+                            <textarea id="readme-versio" name="readme_versio_nk" rows="5" placeholder="Pots utilitzar format Markdown..."></textarea>
+                        </div>
+                        <hr class="form-separator">
+                        <div class="form-group">
+                            <label for="notes-producte">Notes (Opcional):</label>
+                            <textarea id="notes-producte" name="notes_producte_proj_nk" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="button-primary">Registrar Producte</button>
+                    </form>
+                    <div id="form-resultat-registrar-producte" class="form-resultat"></div>
+                </section>
+
+                <section id="section-assignar-producte" class="form-section-card" style="display: none;">
+                    <h2>Assignar Producte a Usuari</h2>
+                    <p>Vincula un producte i una versió específica a un email d'usuari.</p>
+                    <form id="form-assignar-producte">
+                        <div class="form-group">
+                            <label for="projecte-select-assignar">Selecciona el Producte/Projecte:</label>
+                            <select id="projecte-select-assignar" name="id_proj_nk" required>
+                                <option value="">Carregant productes...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="versio-select-assignar">Selecciona la Versió:</label>
+                            <select id="versio-select-assignar" name="id_versio_nk" required disabled>
+                                <option value="">Selecciona primer un producte</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-tipus">Email de l'Usuari a assignar:</label>
+                            <input type="email" id="email-tipus" name="email_tipus_k" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="codi-tipus">Codi del Tipus (ex: KARY_BASIC_24):</label>
+                            <input type="text" id="codi-tipus" name="codi_tipus_k" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcio-tipus">Descripció (Opcional):</label>
+                            <textarea id="descripcio-tipus" name="descripcio_tipus_k" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="button-primary">Assignar Producte</button>
+                    </form>
+                    <div id="form-resultat-assignar-producte" class="form-resultat"></div>
+                </section>
+
+                <section id="section-auditoria" class="audit-section-card" style="display: none;">
                     <h2>Registres d'Auditoria del Sistema</h2>
                     <p>Historial de totes les accions importants realitzades al panell.</p>
                     <div class="form-group form-group-inline">
@@ -139,6 +242,7 @@
                         </table>
                     </div>
                 </section>
+                  <img src="/assets/afadmins.png" alt="Administradors Norkarym" class="admin-section-image">
             </div>
         </main>
     </div>
