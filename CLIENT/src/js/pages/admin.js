@@ -22,49 +22,6 @@ const dataStore = {
     roleDefinitions: null,
     products: null
 };
-/**
- * Mostra un missatge de resultat en un formulari específic.
- * @param {string} formId - L'ID del formulari on mostrar el missatge.
- * @param {string} message - El missatge a mostrar.
- * @param {boolean} isSuccess - Si el missatge és d'èxit o d'error.
- */
-function mostrarResultat(formId, message, isSuccess) {
-    const resultatDiv = document.querySelector(`#${formId} + .form-resultat`);
-    if (resultatDiv) {
-        resultatDiv.textContent = message;
-        resultatDiv.className = 'form-resultat'; // Reseteja classes
-        resultatDiv.classList.add(isSuccess ? 'success' : 'error');
-        resultatDiv.style.display = 'block';
-    }
-}
-
-/**
- * Carrega la llista d'administradors en tots els selectors designats.
- * @param {boolean} forceRefresh - Si és true, força la recàrrega des de l'API.
- */
-async function carregarSelectorsAdmin(forceRefresh = false) {
-    const selectors = document.querySelectorAll('select[name="firebase_uid_admin_nk"]');
-    if (selectors.length === 0) return;
-
-    if (dataStore.admins && !forceRefresh) {
-        populateAdminSelectors(dataStore.admins);
-        return;
-    }
-
-    try {
-        const response = await fetch('/api/administradors');
-        const result = await response.json();
-        if (!response.ok || !result.success) {
-            throw new Error(result.message || 'No s\'ha pogut carregar la llista d\'administradors.');
-        }
-        dataStore.admins = result.data; // Guardem a la "store"
-        return dataStore.admins;
-    } catch (error) {
-        console.error("Error en carregar administradors:", error);
-        dataStore.admins = []; // Evita intents de recàrrega continus
-        throw error; // Propaguem l'error
-    }
-}
 
 /**
  * Mostra un missatge de resultat en un formulari específic.
