@@ -14,6 +14,15 @@
         "source": "/api/**",
         "function": "api"
       },
+
+      {
+        "source": "/admin",
+        "destination": "/src/pages/admin.html"
+      },
+      {
+        "source": "/inscripcio",
+        "destination": "/src/pages/inscripcio.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"

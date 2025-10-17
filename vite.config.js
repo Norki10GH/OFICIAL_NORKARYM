@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +12,14 @@ export default defineConfig({
     outDir: '../dist',
     // Neteja el directori de sortida abans de construir
     emptyOutDir: true,
+    // 👇 AFEGEIX AIXÒ 👇
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'client/index.html'),
+        admin: resolve(__dirname, 'client/src/pages/admin.html'),
+        inscripcio: resolve(__dirname, 'client/src/pages/inscripcio.html'),
+      },
+    },
   },
 
   // Configuració del servidor de desenvolupament
