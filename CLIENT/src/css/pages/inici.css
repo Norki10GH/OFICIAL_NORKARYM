@@ -41,25 +41,23 @@
     align-items: center;
 }
 
-/* NOU CONTENIDOR: Logotip de la icona (funciona com a toggle) */
-.header-logo-icon-link {
+/* NOU: Grup Esquerra (Icona + Nom) */
+.header-brand-group {
     display: flex;
     align-items: center;
-    cursor: pointer;
+    gap: 15px;
     width: 300px; /* Amplada fixa per equilibrar */
     justify-content: flex-start;
 }
-/* Estil de la icona quan és el botó */
-.header-logo-icon-link .header-logo {
-    height: 45px; /* Mida de la icona del logo */
-    transition: transform 0.2s ease-out;
+
+/* La icona del logo continua sent el botó del menú */
+.header-brand-group .header-logo {
+    cursor: pointer;
 }
 
-/* Grup Marca (Centre: Nom de l'Empresa) */
+/* L'enllaç del logo de text ja no necessita créixer */
 .header-logo-link {
-    flex-grow: 1;
     display: flex;
-    justify-content: center;
 }
 /* Amaguem la icona del logo al centre */
 .header-logo-hidden {
@@ -70,6 +68,7 @@
 .header-buttons-container {
     display: flex;
     justify-content: flex-end;
+    flex-grow: 1; /* Ocupa l'espai central que hem alliberat */
     width: 300px; /* Amplada fixa per equilibrar */
 }
 

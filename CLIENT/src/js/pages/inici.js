@@ -4,7 +4,7 @@ import { initParticleAnimation } from '../components/particle-animation.js';
 
 // Funció per controlar el menú responsive (ara activat pel Logotip)
 function initMenuToggle() {
-    const toggleButton = document.getElementById('menu-toggle');
+    const toggleButton = document.querySelector('.header-brand-group .header-logo');
     const menuDropdown = document.getElementById('main-navigation-group');
     const navLinks = menuDropdown ? menuDropdown.querySelectorAll('a[href^="#"]') : [];
 
