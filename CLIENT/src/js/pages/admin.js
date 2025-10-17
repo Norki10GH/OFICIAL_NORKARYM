@@ -295,7 +295,7 @@ function initAssignarProducteForm() {
 
 function initAdminTabs() {
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-    const sections = document.querySelectorAll('.dashboard-main > section');
+    const sections = document.querySelectorAll('.dashboard-main .main-content > section');
     const imagePlaceholder = document.querySelector('.admin-section-image');
 
     const showSection = (targetId) => {
