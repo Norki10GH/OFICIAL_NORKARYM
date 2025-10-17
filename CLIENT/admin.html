@@ -68,26 +68,56 @@
                     <img src="/assets/admins-imatge.jpg" alt="Gestió d'administradors a Norkarym">
                 </div>
                 <div class="admin-container">
-            <section class="form-section">
-                <h2>Registrar Nou Administrador</h2>
-                <form id="form-nou-admin">
-                    <div class="form-group">
-                        <label for="nom">Nom Complet:</label>
-                        <input type="text" id="nom" name="nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correu Electrònic:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="notes">Notes (Opcional):</label>
-                        <textarea id="notes" name="notes"></textarea>
-                    </div>
-                    <button type="submit" class="button-primary">Registrar Administrador</button>
-                </form>
-                <div id="form-resultat" class="form-resultat"></div>
-            </section>
-    </section>
+                    <section class="form-section">
+                        <h2>Registrar Nou Administrador</h2>
+                        <form id="form-nou-admin">
+                            <div class="form-group">
+                                <label for="nom">Nom Complet:</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correu Electrònic:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="notes">Notes (Opcional):</label>
+                                <textarea id="notes" name="notes"></textarea>
+                            </div>
+                            <button type="submit" class="button-primary">Registrar Administrador</button>
+                        </form>
+                        <div id="form-resultat" class="form-resultat"></div>
+
+                        <div class="audit-controls">
+                            <button id="btn-show-audit" class="button-secondary">Accés als Registres</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <section id="audit-log-section" class="content-section audit-section is-hidden">
+            <div class="audit-container">
+                <h2>Registres d'Auditoria del Sistema</h2>
+                <div class="table-responsive">
+                    <table id="audit-log-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Administrador ID</th>
+                                <th>Acció</th>
+                                <th>Taula Afectada</th>
+                                <th>ID Afectat</th>
+                                <th>Valor Antic</th>
+                                <th>Valor Nou</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
         <section id="manifest" class="manifest-section">
             <div class="manifest-section-title">
                 <h2>Fet per i per a emprenedors.</h2>

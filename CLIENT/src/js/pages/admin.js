@@ -209,3 +209,69 @@ export function adminPage() {
     initManifestSlider();
     initAdminForm();
 }
+// Funció per inicialitzar el formulari d'administració
+function initAdminForm() {
+    // ... (la teva funció existent es manté igual)
+}
+
+// NOVA FUNCIÓ: Lògica per mostrar els registres d'auditoria
+function initAuditLogViewer() {
+    const showButton = document.getElementById('btn-show-audit');
+    const auditSection = document.getElementById('audit-log-section');
+    const tableBody = document.querySelector('#audit-log-table tbody');
+
+    if (!showButton || !auditSection || !tableBody) return;
+
+    showButton.addEventListener('click', async () => {
+        // Mostra o amaga la secció
+        const isHidden = auditSection.classList.toggle('is-hidden');
+        showButton.textContent = isHidden ? 'Accés als Registres' : 'Amagar Registres';
+
+        // Si la secció es mostra i la taula està buida, carrega les dades
+        if (!isHidden && tableBody.innerHTML === '') {
+            try {
+                const response = await fetch('/api/audit-logs');
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'No es van poder carregar els registres.');
+                }
+
+                if (result.data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hi ha registres per mostrar.</td></tr>';
+                    return;
+                }
+
+                // Genera les files de la taula amb les dades rebudes
+                const rows = result.data.map(log => {
+                    const data = new Date(log.data_accio_nk).toLocaleString('ca-ES');
+                    return `
+                        <tr>
+                            <td>${data}</td>
+                            <td>${log.id_admin_nk || 'N/A'}</td>
+                            <td>${log.accio_nk}</td>
+                            <td>${log.taula_objectiu_nk || ''}</td>
+                            <td>${log.id_objectiu_nk || ''}</td>
+                            <td><pre>${log.valor_antic_nk || ''}</pre></td>
+                            <td><pre>${log.valor_nou_nk || ''}</pre></td>
+                        </tr>
+                    `;
+                }).join('');
+
+                tableBody.innerHTML = rows;
+
+            } catch (error) {
+                tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: red;">${error.message}</td></tr>`;
+            }
+        }
+    });
+}
+
+
+// Exportem la funció principal d'aquesta pàgina
+export function adminPage() {
+    initMenuToggle();
+    initHeaderScroll();
+    initAdminForm();
+    initAuditLogViewer(); // <-- CRIDA A LA NOVA FUNCIÓ
+}

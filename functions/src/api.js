@@ -1,7 +1,8 @@
 // functions/src/api.js
-const express = require('express');
-const cors = require('cors');
-const { registrarNouAdmin } = require('./controllers/adminController.js');
+import express from 'express';
+import cors from 'cors';
+import { registrarNouAdmin } from './controllers/adminController.js';
+import { obtenirRegistresAuditoria } from './controllers/auditController.js'; // <-- IMPORTA LA NOVA FUNCIÓ
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // Rutes de l'API
 app.post('/registrarAdmin', registrarNouAdmin);
+app.get('/audit-logs', obtenirRegistresAuditoria); // <-- AFEGEIX LA NOVA RUTA
 
 // Exportem l'app d'Express
-module.exports = app;
+export default app;

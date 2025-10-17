@@ -649,3 +649,66 @@ body.page-admin {
     color: #991B1B;
     display: block;
 }
+
+.audit-controls {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.audit-section {
+    padding: 60px 20px;
+    background-color: var(--color-bg-main);
+}
+
+.audit-section.is-hidden {
+    display: none;
+}
+
+.audit-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.audit-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+#audit-log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+#audit-log-table thead {
+    background-color: var(--color-bg-alt);
+}
+
+#audit-log-table th,
+#audit-log-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+}
+
+#audit-log-table th {
+    font-weight: 600;
+    font-family: var(--font-primary);
+}
+
+#audit-log-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#audit-log-table tbody tr:hover {
+    background-color: #F9FAFB;
+}
