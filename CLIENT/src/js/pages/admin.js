@@ -74,7 +74,7 @@ function initHeroAnimation() {
     const heroTitle = document.getElementById('hero-h1');
     const heroParagraph = document.getElementById('hero-paragraph');
     const heroButton = document.getElementById('hero-button');
-    const textToType = "Recupera la il·lusió pel teu projecte.";
+    const textToType = "Comencem a introduir les dades.";
     
     if (heroTitle && heroParagraph && heroButton) {
         let i = 0;
@@ -141,13 +141,6 @@ function initManifestSlider() {
     goToPanel(0); 
 }
 
-
-export function adminPage() {
-    initHeroAnimation();
-    initMenuToggle();
-    initHeaderScroll();
-    initManifestSlider(); // <-- CRIDA A LA NOVA FUNCIÓ DEL SLIDER
-}
 // CLIENT/src/js/pages/admin.js
 
 function initAdminForm() {
@@ -209,5 +202,10 @@ function initAdminForm() {
 
 // Exportem la funció principal d'aquesta pàgina
 export function adminPage() {
+    // Inicialitzadors de la interfície general (header, hero, slider)
+    initHeroAnimation();
+    initMenuToggle();
+    initHeaderScroll();
+    initManifestSlider();
     initAdminForm();
 }
