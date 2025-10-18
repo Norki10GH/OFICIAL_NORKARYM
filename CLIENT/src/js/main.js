@@ -1,6 +1,6 @@
 // client/src/js/main.js
 
-import '/src/config/firebase-init.js';
+import '../config/firebase-init.js';
 
 // Verificar que Firebase está inicializado
 import { getApp } from 'firebase/app';
