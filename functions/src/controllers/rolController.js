@@ -34,7 +34,7 @@ async function obtenirAdministradors(req, res) {
     });
 
   } catch (error) {
-    console.error("Error en obtenir els administradors:", error);
+    console.error("Error en obtenir els administradors:", error && error.stack ? error.stack : error);
     res.status(500).json({
       success: false,
       message: "Error intern del servidor en obtenir els administradors."
@@ -94,7 +94,7 @@ async function assignarRol(req, res) {
     });
 
   } catch (error) {
-    console.error("Error en assignar el rol:", error);
+    console.error("Error en assignar el rol:", error && error.stack ? error.stack : error);
     // Gestionem l'error de clau única per a l'email si ja existeix un rol amb aquest email
     if (error.code === '23505') { // Codi d'error de PostgreSQL per a 'unique_violation'
         return res.status(409).json({ success: false, message: "Aquest administrador ja té un rol assignat amb un email que ha d'ésser únic." });
@@ -144,7 +144,7 @@ async function eliminarRol(req, res) {
 
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error("Error en eliminar el rol:", error);
+    console.error("Error en eliminar el rol:", error && error.stack ? error.stack : error);
     res.status(500).json({ success: false, message: error.message || "Error intern del servidor." });
   } finally {
     client.release();

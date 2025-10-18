@@ -14,6 +14,8 @@ export default defineConfig({
     },
   },
   build: {
+    // generate a manifest.json describing built assets (helps diagnostics and deploy checks)
+    manifest: true,
     outDir: '../dist',
     emptyOutDir: true,
     assetsDir: 'assets',

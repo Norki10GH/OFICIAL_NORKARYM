@@ -29,7 +29,14 @@ async function getDbPool() {
         return pool;
     }
 
-    const dbPassword = await getDbPassword();
+    let dbPassword;
+    try {
+        dbPassword = await getDbPassword();
+    } catch (err) {
+        console.error('Failed to retrieve DB password from Secret Manager:', err && err.stack ? err.stack : err);
+        throw new Error('Failed to obtain DB credentials from Secret Manager.');
+    }
+
     const config = {
         user: 'postgres',
         password: dbPassword,
@@ -37,8 +44,17 @@ async function getDbPool() {
         host: '/cloudsql/norkarym:europe-west1:norkarym-app-bd', // Connexió via socket a producció
     };
 
-    pool = new pg.Pool(config);
-    return pool;
+    try {
+        pool = new pg.Pool(config);
+        // Optional: attach generic error handler to surface unexpected client errors
+        pool.on('error', (err) => {
+            console.error('Postgres pool error:', err && err.stack ? err.stack : err);
+        });
+        return pool;
+    } catch (err) {
+        console.error('Failed to create Postgres pool:', err && err.stack ? err.stack : err);
+        throw err;
+    }
 }
 
 module.exports = { getDbPool };
