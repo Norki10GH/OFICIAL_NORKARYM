@@ -1,4 +1,13 @@
 // client/src/js/main.js
+
+// Importar CSS globales y de páginas para que Vite los incluya en el build
+import '../css/base/reset.css';
+import '../css/base/base.css';
+import '../css/components/forms.css';
+import '../css/pages/admin-layout.css';
+import '../css/pages/admin.css';
+import '../css/pages/inici.css';
+
 import { getApp } from 'firebase/app';
 import { initParticleAnimation } from './components/particle-animation.js';
 
