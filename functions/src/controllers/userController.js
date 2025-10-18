@@ -6,16 +6,6 @@ import db from "../config/db.js";
  * Controlador per registrar una nova sol·licitud d'usuari.
  */
 export const registerNewUser = async (req, res) => {
-  // Comprovem que el mètode sigui POST
-  if (req.method !== "POST") {
-    // Enviem una capçalera 'Allow' per indicar els mètodes permesos
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({
-      status: "error",
-      message: "Mètode no permès. Només s'accepten peticions POST.",
-    });
-  }
-
   try {
     const { dades } = req.body;
 
