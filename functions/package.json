@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "firebase-admin": "^12.1.1",
     "firebase-functions": "^6.5.0",
     "oficial_norkarym": "file:..",
