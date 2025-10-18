@@ -8,6 +8,9 @@
     
     <link rel="icon" type="image/png" href="/FAVICON NORKARYM COLOR.png">
     
+    <link rel="preload" href="/assets/hero-video.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="/assets/manifest-origen.jpg" as="image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
@@ -18,8 +21,10 @@
     <header class="main-header">
         <div class="header-content">
             <!-- Grup Esquerra: Icona (obre menú) i Logo de text (enllaç a inici) -->
-            <div class="header-brand-group">
-                <img src="/assets/logo-icona-nova.png" alt="Obrir menú de navegació" class="header-logo">
+            <div class="header-left-group">
+                <button class="menu-toggle-button" aria-label="Obrir menú de navegació" aria-expanded="false" aria-controls="main-navigation-group">
+                    <img src="/assets/logo-icona-nova.png" alt="" class="header-logo" aria-hidden="true">
+                </button>
                 <a href="/" class="header-logo-link">
                     <img src="/assets/norkarym-logo-text.png" alt="NORKÄRŸM" class="header-app-name">
                 </a>
@@ -69,10 +74,10 @@
             
             <div class="manifest-slider-container">
                 <button class="manifest-nav-button prev" id="manifest-prev-btn" aria-label="Panell anterior">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
                 <button class="manifest-nav-button next" id="manifest-next-btn" aria-label="Panell següent">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
                 
                 <div class="manifest-horizontal-scroll">
@@ -125,7 +130,7 @@
                             </div>
                         </li>
                     </ul>
-                    <a href="#" class="button-secondary">Veure totes les funcions de KARY</a>
+                    <a href="/funcionalitats.html" class="button-secondary">Veure totes les funcions de KARY</a>
                 </div>
                 <div class="kary-mockup">
                     <img src="https://placehold.co/500x550/FFFFFF/1F2937?text=Mockup+KARY" alt="Dashboard de KARY">
@@ -165,8 +170,8 @@
             <h2>És hora de tornar a començar.</h2>
             <p>Uneix-te a la comunitat d'emprenedors que ja estan recuperant el control del seu temps. Comença a fer servir KARY gratis.</p>
             <div class="cta-buttons">
-                <a href="/src/pages/inscripcio.html" class="button-primary">Comença Gratis amb KARY</a>
-                <a href="#" class="button-secondary">Parlem del teu Projecte</a>
+                <a href="/inscripcio.html" class="button-primary">Comença Gratis amb KARY</a>
+                <a href="#contacte" class="button-secondary">Parlem del teu Projecte</a>
             </div>
         </section>
     </main>
@@ -174,16 +179,6 @@
     <footer class="main-footer">
         <p>&copy; 2025 NORKÄRŸM. Tots els drets reservats.</p>
     </footer>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            try {
-                navigator.serviceWorker.getRegistrations()
-                    .then(regs => regs.forEach(r => r.unregister()))
-                    .catch(() => {});
-            } catch (e) {}
-        }
-    </script>
     <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>

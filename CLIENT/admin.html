@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    
+
+    <link rel="stylesheet" href="/src/css/base/reset.css">
+    <link rel="stylesheet" href="/src/css/base/base.css">
+    <link rel="stylesheet" href="/src/css/pages/admin-layout.css">
+    <link rel="stylesheet" href="/src/css/pages/admin.css">
 </head>
 <body class="page-admin">
-
-    <header class="main-header">
-        </header>
     <section class="hero-section">
         <div class="video-background">
             <div class="video-overlay"></div>
@@ -28,7 +29,7 @@
         </div>
     </section>
     
-    <div id="dashboard" class="admin-dashboard">
+    <main id="dashboard" class="admin-dashboard">
         <aside class="dashboard-sidebar">
             <div class="sidebar-header">
                 <img src="/assets/norkarym-logo-text.png" alt="NORKÄRŸM" class="sidebar-logo">
@@ -53,7 +54,7 @@
             </div>
         </aside>
 
-        <main class="dashboard-main">
+        <div class="dashboard-main">
             <div class="main-content">
                 <div class="sections-container">
                     <section id="section-veure-admins" class="audit-section-card">
@@ -446,14 +447,11 @@
             <div id="form-resultat-edit-versio" class="form-resultat"></div>
         </div>
     </div>
-
-
-                    </div>
-                </div>
+                
                 <img src="./assets/afadmins.png" alt="Administradors Norkarym" class="admin-section-image">
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <script>
         // Early unregister service workers to avoid clients using stale cached assets
@@ -468,9 +466,6 @@
         }
     </script>
     <script type="module" src="/src/js/main.js"></script>
-</body>
-</html>
-            </div>
-    </script>
+
 </body>
 </html>
