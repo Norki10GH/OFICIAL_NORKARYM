@@ -48,5 +48,6 @@ app.delete('/versions/:id_versio', eliminarVersio);
 
 // --- Rutes d'Auditoria ---
 app.get('/audit-logs', obtenirRegistresAuditoria);
+app.get('/api/administradors', obtenirAdministradors); // Verificar que la ruta incluye /api/
 
 module.exports = app;

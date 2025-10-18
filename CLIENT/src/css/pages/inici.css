@@ -10,11 +10,11 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estil per quan el header està sobre la Hero Section (fons turquesa opac) */
+/* Estil per quan el header està sobre la Hero Section (fons fosc més opac per millor contrast) */
 .main-header.on-hero {
-    background-color: rgba(17, 24, 39, 0.35);
+    background-color: rgba(17, 24, 39, 0.75);
     box-shadow: none;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
 }
 
 /* Quan fem scroll i sortim de la Hero (fons gris més fosc) */
@@ -186,8 +186,16 @@
     font-family: var(--font-primary);
     color: var(--color-text-main);
     display: block;
-    padding: 10px 0;
+    padding: 12px 16px;
     position: relative;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.main-nav a:hover {
+    background-color: rgba(20, 184, 166, 0.1); /* Turquesa amb opacitat */
+    color: var(--color-primary);
+    transform: translateX(5px);
 }
 
 /* ========= Secció 1: Hero Section (Estructura Base Restaurada) ========= */
@@ -246,10 +254,13 @@
 
 .hero-content p {
     font-size: clamp(1rem, 2.5vw, 1.25rem);
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 0.98);
     margin-bottom: 2.5rem;
     font-family: var(--font-secondary);
     max-width: 60ch;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    line-height: 1.6;
+    font-weight: 400;
 }
 
 .hero-content .button-primary {
@@ -304,6 +315,10 @@
 
 .manifest-section-title h2 {
     font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    letter-spacing: -0.02em;
 }
 
 .manifest-slider-container {

@@ -25,10 +25,16 @@ function mostrarResultat(formId, message, isSuccess) {
 
 async function carregarSelectorsAdmin() {
     const selectors = document.querySelectorAll('select[name="firebase_uid_admin_nk"]');
-    if (selectors.length === 0) return;
+    if (selectors.length === 0) {
+        console.warn('No admin selectors found');
+        return;
+    }
 
     try {
         const response = await fetch('/api/administradors');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const result = await response.json();
 
         if (!response.ok || !result.success) {
@@ -48,9 +54,9 @@ async function carregarSelectorsAdmin() {
         });
 
     } catch (error) {
-        console.error("Error en carregar administradors:", error);
+        console.error('Error loading admin selectors:', error);
         selectors.forEach(select => {
-            select.innerHTML = `<option value="">${error.message}</option>`;
+            select.innerHTML = `<option value="">Error: ${error.message}</option>`;
             select.disabled = true;
         });
     }
@@ -81,7 +87,10 @@ async function carregarSelectorsRols() {
 
 function initApiFormHandler(formId, apiEndpoint, options = {}) {
     const form = document.getElementById(formId);
-    if (!form) return;
+    if (!form) {
+        console.warn(`Form with id ${formId} not found`);
+        return;
+    }
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -666,33 +675,22 @@ function initTableActionListeners() {
 }
 
 export function adminPage() {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log("Mòdul admin.js (pages) carregat i inicialitzant...");
+    console.log("Iniciando adminPage...");
+    
+    // Añadir logs para cada inicialización
+    try {
         initAdminHeroAnimation();
-        initAdminTabs();
-
-        // Càrregues inicials de dades
-        carregarSelectorsAdmin();
-        carregarSelectorsRols();
-
-        // Càrregues de les taules
-        carregarTaulaAdmins();
-        carregarTaulaRolsGlobals();
-        carregarTaulaProductes();
-        carregarRegistresAuditoria();
-
-        // Inicialització de formularis
-        initNouAdminForm();
-        initCrearRolGlobalForm();
-        initAssignarRolForm();
-        initAssignarEmailForm();
-        initRegistrarProducteForm();
-        initAssignarProducteForm();
+        console.log("Hero animation initialized");
         
-        // Modals
-        initModals();
-
-        // Listeners per accions de taula
-        initTableActionListeners();
-    });
+        initAdminTabs();
+        console.log("Admin tabs initialized");
+        
+        carregarSelectorsAdmin().then(() => {
+            console.log("Admin selectors loaded");
+        });
+        
+        // ... resto de inicializaciones
+    } catch (error) {
+        console.error("Error in adminPage initialization:", error);
+    }
 }

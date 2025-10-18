@@ -5,17 +5,18 @@
 .button-secondary {
     display: inline-block;
     
-    /* Canvis Sol·licitats */
+    /* Millores de contrast i llegibilitat */
     font-family: var(--font-button); /* Quicksand */
-    font-weight: 500; /* Medium */
+    font-weight: 600; /* Semibold per millor llegibilitat */
     font-size: 16px;
-    padding: 12px 24px;
-    border-radius: 100px; /* Bordes molt més arrodonits (Pill shape) */
+    padding: 12px 28px; /* Més padding horitzontal */
+    border-radius: 100px; /* Bordes arrodonits (Pill shape) */
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    letter-spacing: 0.3px; /* Millor espaiament entre lletres */
     
     /* Estil Principal: Fons Turquesa Fosc, text blanc */
     /* MODIFICACIÓ CLAU: Utilitzem el color primari per al fons (Turquesa Fosc: #0D9488) */

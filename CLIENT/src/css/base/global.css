@@ -1,15 +1,15 @@
 /* CLIENT/src/css/base/global.css (Actualitzat amb Quicksand i Colors Turquesa) */
 :root {
-    /* -- Paleta de Colors -- */
-    --color-primary: #14B8A6; /* Turquesa (Teal 600) - CONTROL DEL COLOR DEL BOTÓ PRIMARI (Base) */
-    --color-primary-light: #2DD4BF; /* Turquesa Clar (per al hover) */
-    --color-primary-dark: #0D9488; /* Turquesa Fosc (Color fons botó i Degradat Final) */
+    /* -- Paleta de Colors Optimitzada per Contrast -- */
+    --color-primary: #0D9488; /* Turquesa Base (WCAG AA) */
+    --color-primary-light: #14B8A6; /* Turquesa Clar (Hover) */
+    --color-primary-dark: #0F766E; /* Turquesa Fosc (Active) */
     --color-bg-main: #FFFFFF;
-    --color-bg-alt: #F9FAFB;
-    --color-text-main: #1F2937;
-    --color-text-sec: #6B7280;
+    --color-bg-alt: #F8FAFC; /* Lleugerament més clar */
+    --color-text-main: #1E293B; /* Blau fosc per millor contrast */
+    --color-text-sec: #475569; /* Gris més fosc per llegibilitat */
     --color-white: #FFFFFF;
-    --color-border: #E5E7EB;
+    --color-border: #E2E8F0; /* Més contrast amb el fons */
 
     /* -- Tipografies -- */
     --font-primary: 'Montserrat', sans-serif;

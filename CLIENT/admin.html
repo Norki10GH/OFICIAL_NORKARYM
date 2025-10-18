@@ -48,6 +48,8 @@
                     <li><a href="#section-registrar-producte" class="nav-link">Registrar Producte</a></li>
                     <li><a href="#section-assignar-producte" class="nav-link">Assignar Producte a Usuari</a></li>
                     <li><a href="#section-auditoria" class="nav-link">Registres d'Auditoria</a></li>
+                    <li class="nav-divider"></li>
+                    <li><button id="logout-button" class="nav-link button-danger">Tancar Sessió</button></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -451,5 +453,21 @@
 
 
     <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import { initAdminAuth, adminLogout } from '/src/js/auth/adminAuth.js';
+
+        // Inicializar autenticación
+        initAdminAuth();
+
+        // Configurar botón de cerrar sesión
+        document.getElementById('logout-button').addEventListener('click', async () => {
+            try {
+                await adminLogout();
+            } catch (error) {
+                console.error('Error al cerrar sesión:', error);
+                alert('Error al cerrar sesión');
+            }
+        });
+    </script>
 </body>
 </html>
