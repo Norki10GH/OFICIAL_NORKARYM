@@ -128,21 +128,65 @@ function initNouAdminForm() {
             carregarSelectorsAdmin();
         }
     });
+    
+    const form = document.getElementById('form-nou-admin');
+    if (!form) return;
 
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirm-password');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
     const confirmPasswordError = document.getElementById('confirm-password-error');
+    const strengthMeter = document.getElementById('password-strength-meter');
+    const strengthText = document.getElementById('password-strength-text');
 
-    if (password && confirmPassword && confirmPasswordError) {
+    // Funció per mostrar/ocultar contrasenya
+    document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const targetInput = document.getElementById(targetId);
+            if (targetInput.type === 'password') {
+                targetInput.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                targetInput.type = 'password';
+                btn.textContent = '👁️';
+            }
+        });
+    });
+
+    if (passwordInput && confirmPasswordInput && confirmPasswordError) {
         const validatePasswords = () => {
-            if (password.value !== confirmPassword.value) {
+            if (passwordInput.value && confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
                 confirmPasswordError.style.display = 'block';
+                confirmPasswordInput.setCustomValidity('Les contrasenyes no coincideixen.');
             } else {
                 confirmPasswordError.style.display = 'none';
+                confirmPasswordInput.setCustomValidity('');
             }
         };
-        password.addEventListener('input', validatePasswords);
-        confirmPassword.addEventListener('input', validatePasswords);
+
+        const checkPasswordStrength = () => {
+            const pass = passwordInput.value;
+            let score = 0;
+            if (pass.length >= 8) score++;
+            if (/[A-Z]/.test(pass)) score++;
+            if (/[a-z]/.test(pass)) score++;
+            if (/[0-9]/.test(pass)) score++;
+            if (/[^A-Za-z0-9]/.test(pass)) score++;
+
+            let width = (score / 5) * 100;
+            let color = 'var(--color-accent-danger)';
+            let text = 'Feble';
+            if (score >= 3) { color = 'orange'; text = 'Mitjana'; }
+            if (score >= 4) { color = 'var(--color-accent-success)'; text = 'Forta'; }
+            
+            strengthMeter.style.width = `${width}%`;
+            strengthMeter.style.backgroundColor = color;
+            strengthText.textContent = pass.length > 0 ? `Força: ${text}` : '';
+            strengthText.style.color = color;
+        };
+
+        passwordInput.addEventListener('input', () => { checkPasswordStrength(); validatePasswords(); });
+        confirmPasswordInput.addEventListener('input', validatePasswords);
     }
 }
 
@@ -256,6 +300,7 @@ function initAssignarProducteForm() {
 function initAdminTabs() {
     const sections = document.querySelectorAll('.dashboard-main section');
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    const sections = document.querySelectorAll('.dashboard-main .main-content > section');
     const imagePlaceholder = document.querySelector('.admin-section-image');
 
     const showSection = (targetId) => {
@@ -323,8 +368,8 @@ async function carregarTaulaAdmins() {
                 <td>${new Date(admin.data_creacio_admin_nk).toLocaleDateString()}</td>
                 <td>${admin.notes_admin_nk || ''}</td>
                 <td>
-                    <button class="button-small" onclick="obrirModalEditarAdmin(${admin.id_admin_nk})">Editar</button>
-                    <button class="button-small button-danger" onclick="eliminarAdmin(${admin.id_admin_nk})">Eliminar</button>
+                    <button class="button-small" data-action="edit-admin" data-id="${admin.id_admin_nk}">Editar</button>
+                    <button class="button-small button-danger" data-action="delete-admin" data-id="${admin.id_admin_nk}">Eliminar</button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -351,8 +396,8 @@ async function carregarTaulaRolsGlobals() {
                 <td>${rol.nom_rol_def_nk}</td>
                 <td>${rol.descripcio_rol_def_nk || ''}</td>
                 <td>
-                    <button class="button-small" onclick="obrirModalEditarRolGlobal(${rol.id_rol_def_nk})">Editar</button>
-                    <button class="button-small button-danger" onclick="eliminarRolGlobal(${rol.id_rol_def_nk})">Eliminar</button>
+                    <button class="button-small" data-action="edit-rol-global" data-id="${rol.id_rol_def_nk}">Editar</button>
+                    <button class="button-small button-danger" data-action="delete-rol-global" data-id="${rol.id_rol_def_nk}">Eliminar</button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -383,9 +428,9 @@ async function carregarTaulaProductes() {
                 <td>${new Date(producte.data_creacio_proj_nk).toLocaleDateString()}</td>
                 <td>${producte.notes_producte_proj_nk || ''}</td>
                 <td>
-                    <button class="button-small" onclick="obrirModalEditarProducte(${producte.id_proj_nk})">Editar</button>
-                    <button class="button-small" onclick="obrirModalVersions(${producte.id_proj_nk})">Versions</button>
-                    <button class="button-small button-danger" onclick="eliminarProducte(${producte.id_proj_nk})">Eliminar</button>
+                    <button class="button-small" data-action="edit-producte" data-id="${producte.id_proj_nk}">Editar</button>
+                    <button class="button-small" data-action="view-versions" data-id="${producte.id_proj_nk}" data-name="${producte.nom_producte_proj_nk}">Versions</button>
+                    <button class="button-small button-danger" data-action="delete-producte" data-id="${producte.id_proj_nk}">Eliminar</button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -433,56 +478,9 @@ async function carregarRegistresAuditoria(limit = 25) {
     }
 }
 
+// --- Funcions per a accions de taules (abans globals) ---
 
-function initModals() {
-    document.querySelectorAll('.modal-close-button').forEach(btn => {
-        btn.addEventListener('click', () => {
-            btn.closest('.modal-overlay').style.display = 'none';
-        });
-    });
-
-    initApiFormHandler('form-edit-admin', '', {
-        method: 'PUT',
-        onSuccess: () => {
-            document.getElementById('edit-admin-modal').style.display = 'none';
-            carregarTaulaAdmins();
-        },
-        prepareData: (formData, data) => {
-            const id = document.getElementById('edit-admin-id').value;
-            data.endpoint = `/api/administradors/${id}`;
-            return data;
-        }
-    });
-
-    initApiFormHandler('form-edit-rol-global', '', {
-        method: 'PUT',
-        onSuccess: () => {
-            document.getElementById('edit-rol-global-modal').style.display = 'none';
-            carregarTaulaRolsGlobals();
-            carregarSelectorsRols();
-        },
-        prepareData: (formData, data) => {
-            const id = document.getElementById('edit-rol-global-id').value;
-            data.endpoint = `/api/rols-definició/${id}`;
-            return data;
-        }
-    });
-    
-    initApiFormHandler('form-edit-producte', '', {
-        method: 'PUT',
-        onSuccess: () => {
-            document.getElementById('edit-producte-modal').style.display = 'none';
-            carregarTaulaProductes();
-        },
-        prepareData: (formData, data) => {
-            const id = document.getElementById('edit-producte-id').value;
-            data.endpoint = `/api/productes/${id}`;
-            return data;
-        }
-    });
-}
-
-window.obrirModalEditarAdmin = async (id) => {
+async function obrirModalEditarAdmin(id) {
     const modal = document.getElementById('edit-admin-modal');
     try {
         const response = await fetch(`/api/administradors/${id}`);
@@ -497,9 +495,9 @@ window.obrirModalEditarAdmin = async (id) => {
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
-};
+}
 
-window.eliminarAdmin = async (id) => {
+async function eliminarAdmin(id) {
     if (!confirm('Estàs segur que vols eliminar aquest administrador?')) return;
     try {
         const response = await fetch(`/api/administradors/${id}`, { method: 'DELETE' });
@@ -510,9 +508,9 @@ window.eliminarAdmin = async (id) => {
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
-};
+}
 
-window.obrirModalEditarRolGlobal = async (id) => {
+async function obrirModalEditarRolGlobal(id) {
     const modal = document.getElementById('edit-rol-global-modal');
     try {
         const response = await fetch(`/api/rols-definició/${id}`);
@@ -526,9 +524,9 @@ window.obrirModalEditarRolGlobal = async (id) => {
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
-};
+}
 
-window.eliminarRolGlobal = async (id) => {
+async function eliminarRolGlobal(id) {
     if (!confirm('Estàs segur que vols eliminar aquesta definició de rol?')) return;
     try {
         const response = await fetch(`/api/rols-definició/${id}`, { method: 'DELETE' });
@@ -540,9 +538,9 @@ window.eliminarRolGlobal = async (id) => {
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
-};
+}
 
-window.obrirModalEditarProducte = async (id) => {
+async function obrirModalEditarProducte(id) {
     const modal = document.getElementById('edit-producte-modal');
     try {
         const response = await fetch(`/api/productes/${id}`);
@@ -557,9 +555,9 @@ window.obrirModalEditarProducte = async (id) => {
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
-};
+}
 
-window.eliminarProducte = async (id) => {
+async function eliminarProducte(id) {
     if (!confirm('Estàs segur que vols eliminar aquest producte i totes les seves versions?')) return;
     try {
         const response = await fetch(`/api/productes/${id}`, { method: 'DELETE' });
@@ -570,22 +568,136 @@ window.eliminarProducte = async (id) => {
     } catch (error) {
         alert(`Error: ${error.message}`);
     }
-};
+}
+
+async function obrirModalVersions(id, name) {
+    const modal = document.getElementById('versions-producte-modal');
+    const title = document.getElementById('versions-modal-title');
+    const tableBody = document.getElementById('versions-list-body');
+    
+    title.textContent = `Versions de "${name}"`;
+    tableBody.innerHTML = '<tr><td colspan="3">Carregant...</td></tr>';
+    modal.style.display = 'flex';
+
+    try {
+        const response = await fetch(`/api/productes/${id}/versions`);
+        const result = await response.json();
+        if (!result.success) throw new Error(result.message);
+
+        tableBody.innerHTML = '';
+        result.data.forEach(versio => {
+            tableBody.innerHTML += `<tr><td>${versio.nom_versio_nk}</td><td>${new Date(versio.data_creacio_versio_nk).toLocaleDateString()}</td><td><button class="button-small" data-action="edit-version" data-id="${versio.id_versio_nk}">Editar</button></td></tr>`;
+        });
+    } catch (error) {
+        tableBody.innerHTML = `<tr><td colspan="3" class="error-message">Error: ${error.message}</td></tr>`;
+    }
+}
+
+function initModals() {
+    // Tancar modals
+    document.querySelectorAll('.modal-close-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.modal-overlay').style.display = 'none';
+        });
+    });
+
+    initApiFormHandler('form-edit-admin', '', {
+        method: 'PUT',
+        onSuccess: (result, form) => {
+            document.getElementById('edit-admin-modal').style.display = 'none';
+            carregarTaulaAdmins();
+        },
+        prepareData: (formData, data) => {
+            const form = document.getElementById('form-edit-admin');
+            const id = document.getElementById('edit-admin-id').value;
+            form.action = `/api/administradors/${id}`;
+            return data;
+        }
+    });
+
+    initApiFormHandler('form-edit-rol-global', '', {
+        method: 'PUT',
+        onSuccess: (result, form) => {
+            document.getElementById('edit-rol-global-modal').style.display = 'none';
+            carregarTaulaRolsGlobals();
+            carregarSelectorsRols();
+        },
+        prepareData: (formData, data) => {
+            const form = document.getElementById('form-edit-rol-global');
+            const id = document.getElementById('edit-rol-global-id').value;
+            form.action = `/api/rols-definició/${id}`;
+            return data;
+        }
+    });
+    
+    initApiFormHandler('form-edit-producte', '', {
+        method: 'PUT',
+        onSuccess: (result, form) => {
+            document.getElementById('edit-producte-modal').style.display = 'none';
+            carregarTaulaProductes();
+        },
+        prepareData: (formData, data) => {
+            const form = document.getElementById('form-edit-producte');
+            const id = document.getElementById('edit-producte-id').value;
+            form.action = `/api/productes/${id}`;
+            return data;
+        }
+    });
+}
+
+function initTableActionListeners() {
+    const mainContent = document.querySelector('.dashboard-main');
+    if (!mainContent) return;
+
+    mainContent.addEventListener('click', (e) => {
+        const button = e.target.closest('button[data-action]');
+        if (!button) return;
+
+        const action = button.dataset.action;
+        const id = button.dataset.id;
+        const name = button.dataset.name;
+
+        switch (action) {
+            case 'edit-admin': obrirModalEditarAdmin(id); break;
+            case 'delete-admin': eliminarAdmin(id); break;
+            case 'edit-rol-global': obrirModalEditarRolGlobal(id); break;
+            case 'delete-rol-global': eliminarRolGlobal(id); break;
+            case 'edit-producte': obrirModalEditarProducte(id); break;
+            case 'delete-producte': eliminarProducte(id); break;
+            case 'view-versions': obrirModalVersions(id, name); break;
+            // case 'edit-version': obrirModalEditarVersio(id); break; // A implementar
+        }
+    });
+}
 
 export function adminPage() {
-    initAdminHeroAnimation();
-    initAdminTabs();
-    carregarSelectorsAdmin();
-    carregarSelectorsRols();
-    carregarTaulaAdmins();
-    carregarTaulaRolsGlobals();
-    carregarTaulaProductes();
-    carregarRegistresAuditoria();
-    initNouAdminForm();
-    initCrearRolGlobalForm();
-    initAssignarRolForm();
-    initAssignarEmailForm();
-    initRegistrarProducteForm();
-    initAssignarProducteForm();
-    initModals();
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("Mòdul admin.js (pages) carregat i inicialitzant...");
+        initAdminHeroAnimation();
+        initAdminTabs();
+
+        // Càrregues inicials de dades
+        carregarSelectorsAdmin();
+        carregarSelectorsRols();
+
+        // Càrregues de les taules
+        carregarTaulaAdmins();
+        carregarTaulaRolsGlobals();
+        carregarTaulaProductes();
+        carregarRegistresAuditoria();
+
+        // Inicialització de formularis
+        initNouAdminForm();
+        initCrearRolGlobalForm();
+        initAssignarRolForm();
+        initAssignarEmailForm();
+        initRegistrarProducteForm();
+        initAssignarProducteForm();
+        
+        // Modals
+        initModals();
+
+        // Listeners per accions de taula
+        initTableActionListeners();
+    });
 }
