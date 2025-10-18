@@ -49,46 +49,6 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initAdminAuth, adminLogin } from '/src/js/auth/adminAuth.js';
-
-        // Inicializar autenticación
-        initAdminAuth();
-
-        // Manejar el formulario de login
-        const form = document.getElementById('admin-login-form');
-        const errorDiv = document.getElementById('login-error');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = form.email.value;
-            const password = form.password.value;
-
-            try {
-                const result = await adminLogin(email, password);
-                if (!result.success) {
-                    errorDiv.textContent = result.message;
-                    errorDiv.style.display = 'block';
-                }
-                // Si es exitoso, initAdminAuth manejará la redirección
-            } catch (error) {
-                errorDiv.textContent = 'Error en el inicio de sesión';
-                errorDiv.style.display = 'block';
-            }
-        });
-
-        // Toggle de contraseña
-        document.querySelector('.password-toggle-btn').addEventListener('click', (e) => {
-            const targetId = e.target.getAttribute('data-target');
-            const input = document.getElementById(targetId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                e.target.textContent = '🙈';
-            } else {
-                input.type = 'password';
-                e.target.textContent = '👁️';
-            }
-        });
-    </script>
+    <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>

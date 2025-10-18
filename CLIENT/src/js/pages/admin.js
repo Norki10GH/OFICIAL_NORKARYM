@@ -1,5 +1,6 @@
 // client/src/js/pages/admin.js
 import { initTypingEffect } from "../components/typing-effect.js";
+import { initAdminAuth, adminLogout } from '../auth/adminAuth.js';
 
 function initAdminHeroAnimation() {
     const heroTitle = document.getElementById('hero-h1');
@@ -355,25 +356,10 @@ function initAdminTabs() {
         });
     });
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            link.classList.add('active');
-
-            showSection(targetId);
-            // No cambiar el hash ni la URL
-        });
-    });
-
-    // Mostrar la primera sección por defecto si existe
-    if (sections.length > 0) {
-        showSection(sections[0].id);
-        navLinks[0].classList.add('active');
-    } else {
-        showSection(null);
+    // Ensure first section is active if none active
+    if (sections.length > 0 && !document.querySelector('.form-section-card.active, .audit-section-card.active')) {
+        sections[0].classList.add('active');
+        if (navLinks[0]) navLinks[0].classList.add('active');
     }
 }
 
@@ -705,23 +691,68 @@ function initTableActionListeners() {
     });
 }
 
-export function adminPage() {
+export async function adminPage() {
     console.log("Iniciando adminPage...");
     
-    // Añadir logs para cada inicialización
     try {
-        initAdminHeroAnimation();
+        // Inicializar componentes en orden
+        await initAdminHeroAnimation();
         console.log("Hero animation initialized");
         
-        initAdminTabs();
+        await initAdminTabs();
         console.log("Admin tabs initialized");
         
-        carregarSelectorsAdmin().then(() => {
-            console.log("Admin selectors loaded");
-        });
-        
-        // ... resto de inicializaciones
+        // Cargar datos necesarios
+        await Promise.all([
+            carregarSelectorsAdmin().then(() => console.log("Admin selectors loaded")),
+            carregarSelectorsRols().then(() => console.log("Roles selectors loaded")),
+            carregarTaulaAdmins().then(() => console.log("Admin table loaded")),
+            carregarTaulaRolsGlobals().then(() => console.log("Roles table loaded"))
+        ]);
+
+        // Inicializar formularios
+        initNouAdminForm();
+        console.log("New admin form initialized");
+
+        // Inicializar listeners de la tabla
+        initTableActionListeners();
+        console.log("Table action listeners initialized");
+
+        // Inicializar autenticación y logout handler
+        try {
+            await initAdminAuth();
+            const logoutBtn = document.getElementById('logout-button');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async () => {
+                    try {
+                        await adminLogout();
+                    } catch (err) {
+                        console.error('Error al cerrar sesión:', err);
+                        alert('Error al cerrar sesión');
+                    }
+                });
+            }
+        } catch (err) {
+            console.warn('No s\'ha pogut inicialitzar la autenticació:', err);
+        }
+
+        // Hacer visible la primera sección por defecto si existe
+        const firstSection = document.querySelector('.form-section-card, .audit-section-card');
+        if (firstSection) {
+            firstSection.classList.add('active');
+            console.log("First section activated");
+        }
+
+        console.log("Admin page initialization completed successfully");
     } catch (error) {
         console.error("Error in adminPage initialization:", error);
+        // Mostrar mensaje de error al usuario
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'Error al cargar la página. Por favor, recarga la página o contacta con soporte.';
+            mainContent.prepend(errorDiv);
+        }
     }
 }

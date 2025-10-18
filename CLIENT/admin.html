@@ -11,11 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="./src/css/base/reset.css">
-    <link rel="stylesheet" href="./src/css/base/base.css">
-    <link rel="stylesheet" href="./src/css/components/forms.css">
-    <link rel="stylesheet" href="./src/css/pages/admin-layout.css">
-    <link rel="stylesheet" href="./src/css/pages/admin.css">
+    <link rel="stylesheet" href="/src/css/base/reset.css">
+    <link rel="stylesheet" href="/src/css/base/base.css">
+    <link rel="stylesheet" href="/src/css/components/forms.css">
+    <link rel="stylesheet" href="/src/css/pages/admin-layout.css">
+    <link rel="stylesheet" href="/src/css/pages/admin.css">
 </head>
 <body class="page-admin">
 
@@ -460,23 +460,7 @@
         </main>
     </div>
 
-    <script type="module" src="./src/js/main.js"></script>
-    <script type="module">
-        import { initAdminAuth, adminLogout } from './src/js/auth/adminAuth.js';
-
-        // Inicializar autenticación
-        initAdminAuth();
-
-        // Configurar botón de cerrar sesión
-        document.getElementById('logout-button').addEventListener('click', async () => {
-            try {
-                await adminLogout();
-            } catch (error) {
-                console.error('Error al cerrar sesión:', error);
-                alert('Error al cerrar sesión');
-            }
-        });
-    </script>
+    <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>
             </div>
