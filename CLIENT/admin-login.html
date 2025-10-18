@@ -49,6 +49,15 @@
         </div>
     </div>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            try {
+                navigator.serviceWorker.getRegistrations()
+                    .then(regs => regs.forEach(r => r.unregister()))
+                    .catch(() => {});
+            } catch (e) {}
+        }
+    </script>
     <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>

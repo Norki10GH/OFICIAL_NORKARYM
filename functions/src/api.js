@@ -48,6 +48,8 @@ app.delete('/versions/:id_versio', eliminarVersio);
 
 // --- Rutes d'Auditoria ---
 app.get('/audit-logs', obtenirRegistresAuditoria);
-app.get('/api/administradors', obtenirAdministradors); // Verificar que la ruta incluye /api/
+// The route '/administradors' is already defined above and the app is mounted
+// on '/api' by the Cloud Function export. Defining '/api/administradors' here
+// would create a double '/api/api/administradors' route — remove the duplicate.
 
 module.exports = app;

@@ -178,6 +178,15 @@
         <p>&copy; 2025 NORKÄRŸM. Tots els drets reservats.</p>
     </footer>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            try {
+                navigator.serviceWorker.getRegistrations()
+                    .then(regs => regs.forEach(r => r.unregister()))
+                    .catch(() => {});
+            } catch (e) {}
+        }
+    </script>
     <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>

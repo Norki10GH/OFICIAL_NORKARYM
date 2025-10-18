@@ -68,7 +68,7 @@ async function carregarSelectorsRols() {
     if (!selector) return;
 
     try {
-        const response = await fetch('/api/rols-definició');
+        const response = await fetch('/api/definicions-rols');
         const result = await response.json();
         if (!response.ok || !result.success) throw new Error(result.message);
 
@@ -127,7 +127,7 @@ function initApiFormHandler(formId, apiEndpoint, options = {}) {
 }
 
 function initNouAdminForm() {
-    initApiFormHandler('form-nou-admin', '/api/registrar', {
+    initApiFormHandler('form-nou-admin', '/api/registrarAdmin', {
         onSuccess: (result) => {
             document.getElementById('form-nou-admin').reset();
             carregarTaulaAdmins();
@@ -197,7 +197,7 @@ function initNouAdminForm() {
 }
 
 function initCrearRolGlobalForm() {
-    initApiFormHandler('form-crear-rol-global', '/api/rols-definició', {
+    initApiFormHandler('form-crear-rol-global', '/api/definicions-rols', {
         onSuccess: () => {
             document.getElementById('form-crear-rol-global').reset();
             carregarTaulaRolsGlobals();
@@ -406,7 +406,7 @@ async function carregarTaulaRolsGlobals() {
 
     tableBody.innerHTML = '<tr><td colspan="3">Carregant rols...</td></tr>';
     try {
-        const response = await fetch('/api/rols-definició');
+    const response = await fetch('/api/definicions-rols');
         const result = await response.json();
         if (!response.ok || !result.success) throw new Error(result.message);
 
@@ -534,7 +534,7 @@ async function eliminarAdmin(id) {
 async function obrirModalEditarRolGlobal(id) {
     const modal = document.getElementById('edit-rol-global-modal');
     try {
-        const response = await fetch(`/api/rols-definició/${id}`);
+    const response = await fetch(`/api/definicions-rols/${id}`);
         const result = await response.json();
         if (!result.success) throw new Error(result.message);
         const rol = result.data;
@@ -550,7 +550,7 @@ async function obrirModalEditarRolGlobal(id) {
 async function eliminarRolGlobal(id) {
     if (!confirm('Estàs segur que vols eliminar aquesta definició de rol?')) return;
     try {
-        const response = await fetch(`/api/rols-definició/${id}`, { method: 'DELETE' });
+    const response = await fetch(`/api/definicions-rols/${id}`, { method: 'DELETE' });
         const result = await response.json();
         if (!result.success) throw new Error(result.message);
         alert('Definició de rol eliminada correctament.');
@@ -646,7 +646,7 @@ function initModals() {
         prepareData: (formData, data) => {
             const form = document.getElementById('form-edit-rol-global');
             const id = document.getElementById('edit-rol-global-id').value;
-            form.action = `/api/rols-definició/${id}`;
+            form.action = `/api/definicions-rols/${id}`;
             return data;
         }
     });
