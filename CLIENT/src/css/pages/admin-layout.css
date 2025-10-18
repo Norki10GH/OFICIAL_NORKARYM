@@ -7,9 +7,9 @@ body.page-admin {
 /* --- Secció Hero (Vídeo) --- */
 .hero-section {
     position: relative;
-    height: 50vh; /* Reducido de 100vh a 50vh */
+    height: 85vh; /* CANVI: Més alçada per a un millor enquadrament */
     min-height: 300px;
-    max-height: 500px;
+    max-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +20,8 @@ body.page-admin {
 /* ... (la resta d'estils de la hero section es mantenen igual) ... */
 .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(17, 24, 39, 0.4); }
-.video-background video { width: 100%; height: 100%; object-fit: cover; }
+.video-background video { width: 100%; height: 100%; object-fit: cover; /* CANVI: Assegura que el vídeo ompli tot l'ample */ }
+
 .hero-content { z-index: 10; }
 .hero-content h1 { font-size: 3.5rem; }
 .hero-content p { font-size: 1.25rem; margin-bottom: 2rem; }
