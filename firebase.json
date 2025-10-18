@@ -1,6 +1,7 @@
 {
   "functions": {
-    "source": "functions"
+    "source": "functions",
+    "runtime": "nodejs20"
   },
   "hosting": {
     "public": "dist",
@@ -15,7 +16,7 @@
         "function": "api"
       },
       {
-        "source": "**",
+        "source": "!/api/**",
         "destination": "/index.html"
       }
     ],
