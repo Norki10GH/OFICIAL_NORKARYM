@@ -6,8 +6,39 @@ import { API_BASE_URL } from './config/apiConfig.js';
 export function adminPage() {
     console.log("Mòdul admin.js carregat.");
     initAdminRegistrationForm();
-    // Aquí es podrien afegir altres inicialitzacions per a la pàgina d'admin
+    initAdminNavigation(); // Afegeix aquesta línia
 }
+
+/**
+ * Configura la navegació de la barra lateral per mostrar/ocultar seccions.
+ */
+function initAdminNavigation() {
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    const sections = document.querySelectorAll('.dashboard-main section');
+    const welcomeImage = document.querySelector('.admin-section-image');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            
+            // Amaga totes les seccions i la imatge de benvinguda
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            if (welcomeImage) {
+                welcomeImage.style.display = 'none';
+            }
+
+            // Mostra la secció corresponent
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+        });
+    });
+}
+
 
 /**
  * Configura la validació i usabilitat del formulari de registre de nous administradors.
