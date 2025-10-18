@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (page === 'page-inici') {
     import('./pages/inici.js').then(module => {
-      module.iniciPage();
+      module.initHomePage();
+    }).catch(err => {
+      console.error('Error loading homepage module:', err);
     });
   } else if (page === 'page-inscripcio') {
     import('./pages/inscripcio.js').then(module => {
