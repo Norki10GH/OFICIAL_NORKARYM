@@ -11,8 +11,50 @@
     background-color: var(--color-bg-main);
     border: 1px solid var(--color-border);
     border-radius: 12px;
-    padding: 2rem; /* Més espai interior */
+    padding: 2rem;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+}
+
+.form-section-card .section-content,
+.audit-section-card .section-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-section-card.active .section-content,
+.audit-section-card.active .section-content {
+    display: block;
+    opacity: 1;
+}
+
+.form-section-card h2,
+.audit-section-card h2 {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+}
+
+.form-section-card h2::after,
+.audit-section-card h2::after {
+    content: '▼';
+    font-size: 0.8em;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.form-section-card.active h2::after,
+.audit-section-card.active h2::after {
+    transform: rotate(180deg);
+}
+
+.form-section-card h2:hover,
+.audit-section-card h2:hover {
+    color: var(--color-primary);
 }
 
 /* --- Millores als botons principals i secundaris --- */

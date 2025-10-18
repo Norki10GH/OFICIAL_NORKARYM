@@ -1,0 +1,90 @@
+/* Nueva estructura del panel de administración */
+.admin-dashboard {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1800px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* Barra lateral */
+.dashboard-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    background-color: var(--color-bg-main);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: sticky;
+    top: 2rem;
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+    border: 1px solid var(--color-border);
+}
+
+/* Área principal de contenido */
+.dashboard-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Formularios y secciones */
+.form-section-card,
+.audit-section-card {
+    background-color: var(--color-bg-main);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--color-border);
+}
+
+/* Títulos de sección */
+.form-section-card h2,
+.audit-section-card h2 {
+    color: var(--color-text-main);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+/* Imagen de admin al final */
+.admin-section-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    display: block;
+}
+
+/* Navegación lateral */
+.sidebar-nav .nav-link {
+    display: block;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    color: var(--color-text-main);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-link.active {
+    background-color: rgba(13, 148, 136, 0.1);
+    color: var(--color-primary);
+    transform: translateX(5px);
+}
+
+/* Diseño responsive */
+@media (max-width: 1024px) {
+    .admin-dashboard {
+        flex-direction: column;
+    }
+    
+    .dashboard-sidebar {
+        width: 100%;
+        position: static;
+        height: auto;
+    }
+}

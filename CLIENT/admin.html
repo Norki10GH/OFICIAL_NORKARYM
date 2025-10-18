@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="./src/css/base/reset.css">
     <link rel="stylesheet" href="./src/css/base/base.css">
+    <link rel="stylesheet" href="./src/css/components/forms.css">
     <link rel="stylesheet" href="./src/css/pages/admin-layout.css">
     <link rel="stylesheet" href="./src/css/pages/admin.css">
 </head>
@@ -59,31 +60,32 @@
 
         <main class="dashboard-main">
             <div class="main-content">
-                <img src="/assets/afadmins.png" alt="Administradors Norkarym" class="admin-section-image">
-                
-                <section id="section-veure-admins" class="audit-section-card" style="display: none;">
+                <div class="sections-container">
+                    <section id="section-veure-admins" class="audit-section-card">
                     <h2>Tots els Administradors</h2>
-                    <p>Llista de tots els administradors registrats al sistema.</p>
-                    <div class="table-responsive">
-                        <table id="admin-list-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nom</th>
-                                    <th>Email</th>
-                                    <th>Rols</th>
-                                    <th>Data de Creació</th>
-                                    <th>Notes</th>
-                                    <th>Accions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="section-content">
+                        <p>Llista de tots els administradors registrats al sistema.</p>
+                        <div class="table-responsive">
+                            <table id="admin-list-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Rols</th>
+                                        <th>Data de Creació</th>
+                                        <th>Notes</th>
+                                        <th>Accions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 
-                <section id="section-nou-admin" class="form-section-card" style="display: none;">
+                <section id="section-nou-admin" class="form-section-card">
                     <h2>Registrar Nou Administrador</h2>
                     <p>Crea un nou compte d'administrador al sistema.</p>
                     <form id="form-nou-admin">
@@ -123,7 +125,7 @@
                     </div>
                 </section>
 
-                <section id="section-gestionar-rols-globals" class="form-section-card" style="display: none;">
+                <section id="section-gestionar-rols-globals" class="form-section-card">
                     <h2>Gestionar Definicions de Rols Globals</h2>
                     <p>Crea, edita o elimina els rols que es poden assignar als usuaris del sistema.</p>
                     
@@ -158,7 +160,7 @@
                     </div>
                 </section>
 
-                <section id="section-assignar-rols" class="form-section-card" style="display: none;">
+                <section id="section-assignar-rols" class="form-section-card">
                     <h2>Assignar Rols a Administradors</h2>
                     <p>Defineix el nivell de permisos d'un administrador existent.</p>
                     <form id="form-assignar-rol">
@@ -183,7 +185,7 @@
                     <div id="form-resultat-assignar-rol" class="form-resultat"></div>
                 </section>
 
-                <section id="section-gestionar-productes" class="audit-section-card" style="display: none;">
+                <section id="section-gestionar-productes" class="audit-section-card">
                     <h2>Gestionar Productes Registrats</h2>
                     <p>Visualitza, edita o elimina els productes i projectes del sistema.</p>
                     <div class="table-responsive">
@@ -205,7 +207,7 @@
                     </div>
                 </section>
 
-                <section id="section-assignar-email" class="form-section-card" style="display: none;">
+                <section id="section-assignar-email" class="form-section-card">
                     <h2>Assignar Email a Administrador</h2>
                     <p>Crea i associa un nou compte de correu a un administrador existent.</p>
                     <form id="form-assignar-email">
@@ -232,7 +234,7 @@
                     <div id="form-resultat-assignar-email" class="form-resultat"></div>
                 </section>
 
-                <section id="section-registrar-producte" class="form-section-card" style="display: none;">
+                <section id="section-registrar-producte" class="form-section-card">
                     <h2>Registrar Nou Producte</h2>
                     <p>Crea un nou registre de producte o projecte al sistema.</p>
                     <form id="form-registrar-producte">
@@ -270,7 +272,7 @@
                     <div id="form-resultat-registrar-producte" class="form-resultat"></div>
                 </section>
 
-                <section id="section-assignar-producte" class="form-section-card" style="display: none;">
+                <section id="section-assignar-producte" class="form-section-card">
                     <h2>Assignar Producte a Usuari</h2>
                     <p>Vincula un producte i una versió específica a un email d'usuari.</p>
                     <form id="form-assignar-producte">
@@ -303,7 +305,7 @@
                     <div id="form-resultat-assignar-producte" class="form-resultat"></div>
                 </section>
 
-                <section id="section-auditoria" class="audit-section-card" style="display: none;">
+                <section id="section-auditoria" class="audit-section-card">
                     <h2>Registres d'Auditoria del Sistema</h2>
                     <p>Historial de totes les accions importants realitzades al panell.</p>
                     <div class="table-responsive">
@@ -452,6 +454,12 @@
     </div>
 
 
+                </div>
+                <img src="./assets/afadmins.png" alt="Administradors Norkarym" class="admin-section-image">
+            </div>
+        </main>
+    </div>
+
     <script type="module" src="./src/js/main.js"></script>
     <script type="module">
         import { initAdminAuth, adminLogout } from './src/js/auth/adminAuth.js';
@@ -468,6 +476,7 @@
                 alert('Error al cerrar sesión');
             }
         });
+            </div>
     </script>
 </body>
 </html>

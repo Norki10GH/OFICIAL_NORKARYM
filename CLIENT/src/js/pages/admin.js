@@ -305,22 +305,55 @@ function initAssignarProducteForm() {
 function initAdminTabs() {
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
     const sections = document.querySelectorAll('.dashboard-main .main-content > section');
-    const imagePlaceholder = document.querySelector('.admin-section-image');
-
-    const showSection = (targetId) => {
-        let sectionVisible = false;
-        sections.forEach(section => {
-            if (section.id === targetId) {
-                section.style.display = 'block';
-                sectionVisible = true;
-            } else {
-                section.style.display = 'none';
-            }
-        });
-        if (imagePlaceholder) {
-            imagePlaceholder.style.display = sectionVisible ? 'none' : 'block';
+    
+    // Inicializar secciones colapsables
+    sections.forEach(section => {
+        const title = section.querySelector('h2');
+        if (title) {
+            title.addEventListener('click', () => {
+                // Si la sección ya está activa, no hacer nada
+                if (section.classList.contains('active')) {
+                    return;
+                }
+                
+                // Cerrar todas las secciones
+                sections.forEach(s => {
+                    if (s !== section) {
+                        s.classList.remove('active');
+                    }
+                });
+                
+                // Abrir la sección actual
+                section.classList.add('active');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         }
-    };
+    });
+
+    // Manejar navegación desde el menú
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                // Cerrar todas las secciones excepto la objetivo
+                sections.forEach(section => {
+                    if (section !== targetSection) {
+                        section.classList.remove('active');
+                    }
+                });
+                
+                // Abrir la sección objetivo
+                targetSection.classList.add('active');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
