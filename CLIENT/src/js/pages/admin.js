@@ -329,18 +329,16 @@ function initAdminTabs() {
 
             navLinks.forEach(nav => nav.classList.remove('active'));
             link.classList.add('active');
-            
+
             showSection(targetId);
-            window.location.hash = link.getAttribute('href');
+            // No cambiar el hash ni la URL
         });
     });
 
-    const hash = window.location.hash;
-    if (hash) {
-        const link = document.querySelector(`.sidebar-nav .nav-link[href="${hash}"]`);
-        if (link) {
-            link.click();
-        }
+    // Mostrar la primera sección por defecto si existe
+    if (sections.length > 0) {
+        showSection(sections[0].id);
+        navLinks[0].classList.add('active');
     } else {
         showSection(null);
     }
